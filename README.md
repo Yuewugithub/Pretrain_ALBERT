@@ -1,5 +1,7 @@
 # Pretrain_ALBERT
-根据GITHUB上面预训练BERT模型改的,地址是https://github.com/wzzzd/pretrain_bert_with_maskLM，新增了几个文件用来训练ALBERT模型，同时起到一个抛砖引玉的作用
+根据GITHUB上面预训练BERT模型改的,地址是https://github.com/wzzzd/pretrain_bert_with_maskLM。
+新增了几个文件用来训练ALBERT模型，同时起到一个抛砖引玉的作用
 使用者可以根据新增的文件自定义自己想要预训练的模型和方法。
 具体使用方法在原始的GITHUB项目有些，阅读文档中的README即可。
 希望大家多多支持原作者。
+本研究的主要目的为了在网安语料上对ALBERT做一个继续预训练，看一下前后的效果。
